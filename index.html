@@ -4,50 +4,30 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Charmie Spiritus — Thấu hiểu tinh thần trong từng ly rót</title>
-<meta name="description" content="Nhật ký tri thức độc lập về cocktail, rượu mạnh, vang & văn hóa thưởng thức — ấm áp, duyên dáng và dễ hiểu.">
+<meta name="description" content="Nhật ký tri thức độc lập về cocktail, rượu mạnh, vang & văn hóa thưởng thức — ấm áp, duyên dáng, huyền bí và dễ hiểu.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
-     CHARMIE SPIRITUS — Trang chủ (phiên bản tiếng Việt)
-     Hệ thống thiết kế: "Elegant Home Bar Academy" (Route B)
-     Áp dụng đúng bộ nhận diện đã tải lên.
+     CHARMIE SPIRITUS — Trang chủ (tiếng Việt)
+     "Elegant Home Bar Academy" — bản nâng cấp huyền bí + minh họa SVG
      ============================================================ */
   :root{
-    --indigo:#0E0A1C;      /* nền chính        */
-    --velvet:#1C1438;      /* bề mặt           */
-    --card:#1A1335;        /* thẻ nổi          */
-    --card-2:#160F2E;      /* thẻ phụ          */
-    --deep:#0A0716;        /* tối nhất         */
-    --cream:#ECE6F4;       /* chữ / sáng       */
-    --amethyst:#8A5CC7;    /* màu chủ đạo      */
-    --gold:#D6A24A;        /* ánh vàng nến     */
-    --plum:#4A3270;        /* nhấn sâu         */
-    --oxblood:#7A2A48;     /* ngọc ấm          */
-    --lilac:#C9B6E8;       /* sắc dịu          */
-    --lilac-2:#C9A0EC;     /* nghiêng phát sáng*/
-    --teal:#5E8C8A;        /* thảo mộc hiếm    */
-    --muted:#B3A4CE;
-    --muted-2:#9B8CB8;
-    --muted-3:#C4B6DC;
-    --line:rgba(138,92,199,0.26);
-    --line-soft:rgba(138,92,199,0.18);
-
-    --display:'Cormorant Garamond',Georgia,serif;
-    --body:'Spectral',Georgia,serif;
-    --ui:'Hanken Grotesk',system-ui,sans-serif;
-
-    --wrap:1180px;
-    --pad:40px;
+    --indigo:#0E0A1C; --velvet:#1C1438; --card:#1A1335; --card-2:#160F2E; --deep:#0A0716;
+    --cream:#ECE6F4; --amethyst:#8A5CC7; --gold:#D6A24A; --plum:#4A3270; --oxblood:#7A2A48;
+    --lilac:#C9B6E8; --lilac-2:#C9A0EC; --teal:#5E8C8A;
+    --muted:#B3A4CE; --muted-2:#9B8CB8; --muted-3:#C4B6DC;
+    --line:rgba(138,92,199,0.26); --line-soft:rgba(138,92,199,0.18);
+    --display:'Cormorant Garamond',Georgia,serif; --body:'Spectral',Georgia,serif; --ui:'Hanken Grotesk',system-ui,sans-serif;
+    --wrap:1180px; --pad:40px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{margin:0;background:var(--indigo);color:var(--cream);font-family:var(--body);
        -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;line-height:1.6;}
   ::selection{background:var(--amethyst);color:var(--indigo);}
-  a{color:inherit;text-decoration:none;}
-  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;} img{max-width:100%;display:block;}
   h1,h2,h3{margin:0;font-weight:600;}
 
   .wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);position:relative;z-index:1;}
@@ -56,127 +36,126 @@
   .kicker .num{font-family:var(--ui);font-size:13px;letter-spacing:0.2em;color:var(--gold);}
   .kicker .lbl{font-family:var(--ui);font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:var(--muted-2);}
   .h2{font-family:var(--display);font-size:clamp(34px,5vw,48px);line-height:1.08;letter-spacing:-0.01em;}
-  .glow{font-style:italic;font-weight:500;color:var(--lilac-2);text-shadow:0 0 50px rgba(201,160,236,0.5);}
+  .glow{font-style:italic;font-weight:500;color:var(--lilac-2);text-shadow:0 0 50px rgba(201,160,236,0.55);}
   .lede{max-width:720px;font-size:18px;line-height:1.7;color:var(--muted);}
   .section{padding-top:clamp(70px,10vw,104px);}
 
-  .pill{display:inline-block;border:1px solid rgba(138,92,199,0.42);border-radius:100px;
-        padding:8px 16px;font-family:var(--ui);font-size:12px;letter-spacing:0.04em;color:#D6C7EC;}
-  .tag{font-family:var(--ui);font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;
-       padding:5px 11px;border-radius:100px;display:inline-block;}
+  .pill{display:inline-block;border:1px solid rgba(138,92,199,0.42);border-radius:100px;padding:8px 16px;font-family:var(--ui);font-size:12px;letter-spacing:0.04em;color:#D6C7EC;}
 
-  .btn{font-family:var(--ui);font-size:12.5px;letter-spacing:0.06em;font-weight:600;
-       padding:13px 24px;border-radius:100px;display:inline-flex;align-items:center;gap:9px;
-       transition:transform .2s ease, box-shadow .2s ease, background .2s ease;cursor:pointer;}
+  .btn{font-family:var(--ui);font-size:12.5px;letter-spacing:0.06em;font-weight:600;padding:13px 24px;border-radius:100px;display:inline-flex;align-items:center;gap:9px;transition:transform .2s, box-shadow .2s, background .2s;cursor:pointer;}
   .btn-gold{background:var(--gold);color:var(--indigo);box-shadow:0 0 30px -6px rgba(214,162,74,0.55);}
-  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 34px -6px rgba(214,162,74,0.7);}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 34px -6px rgba(214,162,74,0.75);}
   .btn-ghost{border:1px solid rgba(138,92,199,0.5);color:var(--cream);}
-  .btn-ghost:hover{border-color:var(--gold);color:var(--cream);transform:translateY(-2px);}
+  .btn-ghost:hover{border-color:var(--gold);transform:translateY(-2px);}
 
   .divider{margin:clamp(56px,8vw,84px) auto;display:flex;align-items:center;gap:16px;color:rgba(138,92,199,0.5);}
   .divider .rule{flex:1;height:1px;background:currentColor;}
-  .divider .dot{width:7px;height:7px;transform:rotate(45deg);background:var(--gold);}
+  .divider .dot{width:7px;height:7px;transform:rotate(45deg);background:var(--gold);box-shadow:0 0 12px rgba(214,162,74,0.7);}
 
   .card{background:var(--card);border:1px solid rgba(138,92,199,0.22);border-radius:8px;}
 
-  .atmos{position:absolute;top:0;left:0;right:0;height:1400px;pointer-events:none;z-index:0;
-    background-image:radial-gradient(rgba(201,182,232,0.5) 0.6px, transparent 0.6px),
-                     radial-gradient(rgba(214,162,74,0.35) 0.6px, transparent 0.6px);
-    background-size:54px 54px, 87px 87px;background-position:0 0, 30px 40px;opacity:0.5;}
-  .glow-a{position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:1000px;height:780px;z-index:0;
-    background:radial-gradient(ellipse at center, rgba(138,92,199,0.26), transparent 64%);pointer-events:none;}
-  .glow-b{position:absolute;top:120px;left:50%;transform:translateX(-50%);width:560px;height:420px;z-index:0;
-    background:radial-gradient(ellipse at center, rgba(214,162,74,0.14), transparent 66%);pointer-events:none;}
+  /* ---------- ATMOSPHERE ---------- */
+  .atmos{position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(rgba(201,182,232,0.45) 0.6px, transparent 0.6px),
+                     radial-gradient(rgba(214,162,74,0.32) 0.6px, transparent 0.6px);
+    background-size:60px 60px, 92px 92px;background-position:0 0, 30px 40px;opacity:0.45;}
+  .glow-a{position:absolute;top:-180px;left:50%;width:1050px;height:820px;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at center, rgba(138,92,199,0.30), transparent 64%);animation:drift 13s ease-in-out infinite;}
+  .glow-b{position:absolute;top:100px;left:50%;transform:translateX(-50%);width:600px;height:440px;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at center, rgba(214,162,74,0.16), transparent 66%);animation:drift 17s ease-in-out infinite reverse;}
+  /* drifting motes over the whole hero */
+  .motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .mote{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:0;
+    box-shadow:0 0 8px 1px rgba(214,162,74,0.8);animation:rise linear infinite;}
+  @keyframes drift{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-16px);}}
+  @keyframes rise{0%{opacity:0;transform:translateY(20px) scale(0.6);}15%{opacity:.9;}85%{opacity:.5;}100%{opacity:0;transform:translateY(-120px) scale(1);}}
+  @keyframes twinkle{0%,100%{opacity:.15;}50%{opacity:.95;}}
+  @keyframes flame{0%,100%{opacity:.85;}50%{opacity:1;}}
+  @keyframes floatWisp{0%{opacity:0;transform:translateY(6px);}45%{opacity:.6;}100%{opacity:0;transform:translateY(-16px);}}
+  @media (prefers-reduced-motion:reduce){.mote,.glow-a,.glow-b,[class*="anim"]{animation:none!important;}}
 
-  .photo{background:radial-gradient(ellipse at 55% 38%, #3A2860, #110B24);border:1px solid var(--line);
-         border-radius:5px;position:relative;overflow:hidden;}
-  .photo .cap{position:absolute;bottom:12px;left:12px;right:12px;font-family:var(--ui);font-size:11px;
-    color:#D6C7EC;background:rgba(10,7,20,0.74);padding:6px 10px;border-radius:2px;}
+  /* ---------- SVG SCENES ---------- */
+  .sprite{position:absolute;width:0;height:0;overflow:hidden;}
+  .scene{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  .spark{animation:twinkle 4s ease-in-out infinite;}
+  .flame-anim{transform-box:fill-box;transform-origin:center bottom;animation:flame 2.4s ease-in-out infinite;}
+  .wisp-anim{transform-box:fill-box;animation:floatWisp 6s ease-in-out infinite;}
 
-  .nav{position:sticky;top:0;z-index:50;background:rgba(14,10,28,0.82);backdrop-filter:blur(12px);
-       border-bottom:1px solid var(--line);}
+  /* ---------- NAV ---------- */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(14,10,28,0.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
   .nav-in{max-width:var(--wrap);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:24px;}
   .brand{display:flex;align-items:baseline;gap:9px;font-family:var(--display);font-size:22px;}
-  .brand b{font-weight:600;color:var(--cream);}
-  .brand i{font-style:italic;font-weight:500;color:var(--lilac-2);}
+  .brand b{font-weight:600;color:var(--cream);} .brand i{font-style:italic;font-weight:500;color:var(--lilac-2);}
   .nav-links{display:flex;gap:24px;font-family:var(--ui);font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-2);}
   .nav-links a:hover{color:var(--cream);}
-  .nav-cta{font-family:var(--ui);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;
-           color:var(--gold);border:1px solid rgba(214,162,74,0.5);border-radius:100px;padding:8px 16px;}
-  .nav-burger{display:none;flex-direction:column;gap:4px;cursor:pointer;}
-  .nav-burger span{width:22px;height:1.5px;background:var(--cream);}
+  .nav-cta{font-family:var(--ui);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--gold);border:1px solid rgba(214,162,74,0.5);border-radius:100px;padding:8px 16px;}
+  .nav-burger{display:none;flex-direction:column;gap:4px;cursor:pointer;} .nav-burger span{width:22px;height:1.5px;background:var(--cream);}
 
+  /* ---------- HERO ---------- */
   .hero{padding-top:clamp(56px,8vw,86px);padding-bottom:clamp(48px,7vw,74px);}
-  .hero-grid{display:grid;grid-template-columns:1.08fr 0.92fr;gap:52px;align-items:center;}
-  .hero h1{font-family:var(--display);font-weight:600;line-height:1.0;letter-spacing:-0.015em;
-    font-size:clamp(42px,5.6vw,74px);text-shadow:0 0 80px rgba(138,92,199,0.45);}
+  .hero-grid{display:grid;grid-template-columns:1.06fr 0.94fr;gap:52px;align-items:center;}
+  .hero h1{font-family:var(--display);font-weight:600;line-height:1.0;letter-spacing:-0.015em;font-size:clamp(42px,5.6vw,74px);text-shadow:0 0 80px rgba(138,92,199,0.5);}
   .hero .sub{margin-top:26px;max-width:520px;font-size:19px;line-height:1.62;color:var(--muted-3);}
   .hero-cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px;}
   .hero-tags{margin-top:30px;display:flex;flex-wrap:wrap;gap:8px;}
   .hero-visual{position:relative;}
-  .hero-visual .photo{aspect-ratio:4/5;}
-  .hero-float{position:absolute;left:-34px;bottom:34px;width:224px;background:var(--card);
-    border:1px solid var(--line);border-radius:8px;padding:16px 18px;box-shadow:0 24px 60px -30px rgba(0,0,0,0.9);}
+  .frame{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;border:1px solid rgba(214,162,74,0.28);
+    background:radial-gradient(ellipse at 52% 34%, #2C1E52 0%, #160F2E 46%, #0A0716 100%);
+    box-shadow:0 50px 120px -50px rgba(0,0,0,0.9), inset 0 0 90px rgba(138,92,199,0.18);}
+  .frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(8,6,15,0.6) 100%);}
+  .hero-float{position:absolute;left:-34px;bottom:34px;width:230px;background:rgba(26,19,53,0.92);backdrop-filter:blur(6px);border:1px solid rgba(214,162,74,0.35);border-radius:10px;padding:16px 18px;box-shadow:0 24px 60px -30px rgba(0,0,0,0.9);z-index:3;}
 
-  .essence{background:linear-gradient(180deg,#160F2E,#1C1438);border-top:1px solid var(--line);
-           border-bottom:1px solid var(--line);}
+  /* ---------- ESSENCE ---------- */
+  .essence{background:linear-gradient(180deg,#160F2E,#1C1438);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
   .essence-in{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:44px;padding:64px var(--pad);max-width:var(--wrap);margin:0 auto;}
   .essence .big{font-family:var(--display);font-size:26px;font-style:italic;line-height:1.38;color:var(--cream);}
-  .note{margin-top:16px;display:inline-flex;align-items:center;gap:9px;font-family:var(--ui);font-size:11px;
-    letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(214,162,74,0.34);
-    background:rgba(214,162,74,0.08);border-radius:100px;padding:7px 14px;}
+  .note{margin-top:16px;display:inline-flex;align-items:center;gap:9px;font-family:var(--ui);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(214,162,74,0.34);background:rgba(214,162,74,0.08);border-radius:100px;padding:7px 14px;}
 
-  .grid{display:grid;gap:18px;}
-  .g2{grid-template-columns:repeat(2,1fr);}
-  .g3{grid-template-columns:repeat(3,1fr);}
-  .g4{grid-template-columns:repeat(4,1fr);}
+  .grid{display:grid;gap:18px;} .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
 
-  .cat{padding:26px 24px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s, transform .2s;}
-  .cat:hover{border-color:rgba(214,162,74,0.45);transform:translateY(-3px);}
-  .cat .ico{width:46px;height:46px;}
+  .cat{padding:26px 24px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s, transform .2s, box-shadow .2s;position:relative;overflow:hidden;}
+  .cat:hover{border-color:rgba(214,162,74,0.45);transform:translateY(-3px);box-shadow:0 24px 50px -30px rgba(214,162,74,0.4);}
+  .cat .ico{width:46px;height:46px;filter:drop-shadow(0 0 8px rgba(214,162,74,0.35));}
   .cat h3{font-family:var(--display);font-size:24px;line-height:1.1;color:var(--cream);}
   .cat p{font-size:14px;line-height:1.6;color:var(--muted-2);margin:0;}
   .cat .go{margin-top:auto;font-family:var(--ui);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);}
   .swatch{width:26px;height:3px;border-radius:2px;}
 
-  .art{overflow:hidden;transition:transform .2s, border-color .2s;}
-  .art:hover{transform:translateY(-3px);border-color:rgba(214,162,74,0.4);}
-  .art .thumb{aspect-ratio:16/10;background:radial-gradient(ellipse at 50% 40%, #2E2052, #110B24);}
+  .art{overflow:hidden;transition:transform .2s, border-color .2s, box-shadow .2s;}
+  .art:hover{transform:translateY(-3px);border-color:rgba(214,162,74,0.4);box-shadow:0 26px 54px -32px rgba(0,0,0,0.9);}
+  .art .thumb{aspect-ratio:16/10;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 38%, #2E2052, #100B22);}
   .art .body{padding:16px 18px 20px;}
   .art h3{font-family:var(--display);font-size:22px;line-height:1.14;margin-top:6px;color:var(--cream);}
   .art .meta{font-family:var(--ui);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted-2);margin-top:10px;}
 
-  .feat{display:grid;grid-template-columns:1.15fr 1fr;gap:0;overflow:hidden;border-radius:8px;
-        background:radial-gradient(ellipse at 20% 10%, #2A1F4D, #0E0A1C);border:1px solid var(--line);}
+  .feat{display:grid;grid-template-columns:1.15fr 1fr;gap:0;overflow:hidden;border-radius:8px;background:radial-gradient(ellipse at 20% 10%, #2A1F4D, #0E0A1C);border:1px solid var(--line);}
   .feat .txt{padding:clamp(30px,4vw,52px);display:flex;flex-direction:column;justify-content:center;}
   .feat h3{font-family:var(--display);font-size:clamp(30px,3.6vw,42px);line-height:1.06;color:var(--cream);margin:12px 0 8px;}
-  .feat .photo{border-radius:0;border:none;border-left:1px solid var(--line);min-height:280px;}
+  .feat .stage{position:relative;border-left:1px solid var(--line);min-height:300px;overflow:hidden;background:radial-gradient(ellipse at 55% 42%, #34235C, #120C26);}
 
-  .spirit{aspect-ratio:1/1.15;border-radius:6px;border:1px solid var(--line);background:radial-gradient(circle at 50% 35%,#241A45,#120C26);
-    display:flex;flex-direction:column;justify-content:space-between;padding:18px 16px;transition:transform .2s, border-color .2s;}
-  .spirit:hover{transform:translateY(-3px);border-color:rgba(214,162,74,0.45);}
-  .spirit .ico{width:38px;height:38px;}
-  .spirit .nm{font-family:var(--display);font-size:22px;color:var(--cream);}
-  .spirit .ds{font-family:var(--ui);font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-2);}
+  .spirit{aspect-ratio:1/1.2;border-radius:8px;border:1px solid var(--line);overflow:hidden;position:relative;
+    background:radial-gradient(ellipse at 50% 30%, #241A45, #100B22);display:flex;flex-direction:column;justify-content:flex-end;
+    padding:16px;transition:transform .2s, border-color .2s, box-shadow .2s;}
+  .spirit:hover{transform:translateY(-4px);border-color:rgba(214,162,74,0.5);box-shadow:0 26px 54px -30px rgba(214,162,74,0.35);}
+  .spirit .bot{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:64%;height:66%;}
+  .spirit .nm{font-family:var(--display);font-size:22px;color:var(--cream);position:relative;}
+  .spirit .ds{font-family:var(--ui);font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-2);position:relative;}
 
-  .topic{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border:1px solid var(--line-soft);
-    border-radius:6px;background:rgba(26,19,53,0.5);transition:border-color .2s;}
+  .topic{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border:1px solid var(--line-soft);border-radius:6px;background:rgba(26,19,53,0.5);transition:border-color .2s;}
   .topic:hover{border-color:rgba(214,162,74,0.4);}
   .topic .n{font-family:var(--display);font-style:italic;font-size:22px;color:var(--gold);line-height:1;min-width:26px;}
   .topic h4{font-family:var(--display);font-size:20px;color:var(--cream);margin:0 0 3px;font-weight:600;}
   .topic p{font-size:13.5px;line-height:1.55;color:var(--muted-2);margin:0;}
 
-  .bar-list li{font-family:var(--body);font-size:15.5px;line-height:1.55;color:var(--muted-3);
-    padding:12px 0;border-bottom:1px dotted rgba(138,92,199,0.3);display:flex;gap:12px;align-items:baseline;}
+  .bar-list li{font-family:var(--body);font-size:15.5px;line-height:1.55;color:var(--muted-3);padding:12px 0;border-bottom:1px dotted rgba(138,92,199,0.3);display:flex;gap:12px;align-items:baseline;}
   .bar-list li:last-child{border-bottom:none;}
   .bar-list .dot{width:6px;height:6px;transform:rotate(45deg);background:var(--gold);flex:none;position:relative;top:6px;}
-  .goodtoknow{background:rgba(214,162,74,0.12);border:1px solid rgba(214,162,74,0.34);border-radius:6px;
-    padding:16px 18px;display:flex;gap:12px;align-items:flex-start;}
+  .goodtoknow{background:rgba(214,162,74,0.12);border:1px solid rgba(214,162,74,0.34);border-radius:6px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;}
   .goodtoknow .i{font-family:var(--display);font-style:italic;font-size:22px;color:var(--gold);line-height:1;}
 
-  .journal{background:radial-gradient(ellipse at 50% 0%, #2A1F4D, #0E0A1C);border:1px solid var(--line);border-radius:8px;
-    padding:clamp(34px,5vw,60px);}
-  .entry{padding:22px 0;border-bottom:1px solid rgba(138,92,199,0.2);display:grid;grid-template-columns:130px 1fr auto;gap:24px;align-items:baseline;}
+  .journal{position:relative;background:radial-gradient(ellipse at 50% 0%, #2A1F4D, #0E0A1C);border:1px solid var(--line);border-radius:8px;padding:clamp(34px,5vw,60px);overflow:hidden;}
+  .journal .candle{position:absolute;top:24px;right:28px;width:70px;height:120px;opacity:0.9;}
+  .entry{padding:22px 0;border-bottom:1px solid rgba(138,92,199,0.2);display:grid;grid-template-columns:130px 1fr auto;gap:24px;align-items:baseline;position:relative;}
   .entry:last-child{border-bottom:none;}
   .entry .date{font-family:var(--ui);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);}
   .entry h4{font-family:var(--display);font-size:26px;color:var(--cream);font-weight:600;margin:0 0 4px;}
@@ -184,75 +163,283 @@
   .entry .arrow{font-family:var(--display);font-size:24px;color:var(--muted-2);}
 
   .future{overflow:hidden;}
-  .future .top{aspect-ratio:4/3;background:radial-gradient(ellipse at 50% 40%, #2E2052, #110B24);
-    display:flex;align-items:center;justify-content:center;}
+  .future .top{aspect-ratio:4/3;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 40%, #2E2052, #110B24);display:flex;align-items:center;justify-content:center;}
   .future .body{padding:22px 24px;}
   .future h3{font-family:var(--display);font-size:24px;color:var(--cream);margin:6px 0;}
   .future p{font-size:13.5px;line-height:1.6;color:var(--muted-2);margin:0;}
 
-  .news{background:radial-gradient(ellipse at 50% 20%, #2A1F4D, #0E0A1C);border:1px solid var(--line);
-    border-radius:10px;padding:clamp(40px,6vw,72px) var(--pad);text-align:center;
-    background-image:radial-gradient(rgba(201,182,232,0.12) 1px, transparent 1px);background-size:20px 20px;}
-  .news form{margin:28px auto 0;max-width:480px;display:flex;gap:10px;}
-  .news input{flex:1;background:rgba(10,7,20,0.6);border:1px solid rgba(138,92,199,0.4);border-radius:100px;
-    padding:13px 20px;color:var(--cream);font-family:var(--body);font-size:15px;}
-  .news input::placeholder{color:var(--muted-2);}
-  .news input:focus{outline:none;border-color:var(--gold);}
+  .news{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 20%, #2A1F4D, #0E0A1C);border:1px solid var(--line);border-radius:10px;padding:clamp(40px,6vw,72px) var(--pad);text-align:center;background-image:radial-gradient(rgba(201,182,232,0.12) 1px, transparent 1px);background-size:20px 20px;}
+  .news form{margin:28px auto 0;max-width:480px;display:flex;gap:10px;position:relative;z-index:1;}
+  .news input{flex:1;background:rgba(10,7,20,0.6);border:1px solid rgba(138,92,199,0.4);border-radius:100px;padding:13px 20px;color:var(--cream);font-family:var(--body);font-size:15px;}
+  .news input::placeholder{color:var(--muted-2);} .news input:focus{outline:none;border-color:var(--gold);}
 
-  .footer{margin-top:clamp(70px,10vw,96px);border-top:1px solid var(--line);
-    background:linear-gradient(180deg,#0E0A1C,#08060F);}
+  .footer{margin-top:clamp(70px,10vw,96px);border-top:1px solid var(--line);background:linear-gradient(180deg,#0E0A1C,#08060F);}
   .footer-in{max-width:var(--wrap);margin:0 auto;padding:60px var(--pad) 40px;}
   .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;}
   .footer h5{font-family:var(--ui);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin:0 0 16px;}
   .footer nav a{display:block;font-family:var(--body);font-size:15px;color:var(--muted);padding:5px 0;}
   .footer nav a:hover{color:var(--cream);}
   .footer .soc{display:flex;gap:10px;margin-top:4px;}
-  .footer .soc a{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:flex;
-    align-items:center;justify-content:center;color:var(--muted-2);}
+  .footer .soc a{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted-2);}
   .footer .soc a:hover{border-color:var(--gold);color:var(--gold);}
-  .footer-bottom{margin-top:44px;padding-top:24px;border-top:1px solid var(--line-soft);
-    display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
-    font-family:var(--ui);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6088;}
+  .footer-bottom{margin-top:44px;padding-top:24px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-family:var(--ui);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6088;}
 
   @media (max-width:900px){
     :root{--pad:22px;}
-    .nav-links{display:none;} .nav-cta{display:none;} .nav-burger{display:flex;}
-    .hero-grid{grid-template-columns:1fr;gap:34px;}
-    .hero-visual{order:-1;}
-    .hero-float{left:auto;right:16px;bottom:16px;width:188px;}
+    .nav-links,.nav-cta{display:none;} .nav-burger{display:flex;}
+    .hero-grid{grid-template-columns:1fr;gap:34px;} .hero-visual{order:-1;}
+    .hero-float{left:auto;right:16px;bottom:16px;width:190px;}
     .essence-in{grid-template-columns:1fr;gap:30px;padding:44px var(--pad);}
-    .g4{grid-template-columns:repeat(2,1fr);}
-    .g3{grid-template-columns:repeat(2,1fr);}
-    .feat{grid-template-columns:1fr;}
-    .feat .photo{border-left:none;border-top:1px solid var(--line);min-height:220px;}
-    .entry{grid-template-columns:1fr;gap:8px;}
-    .entry .arrow{display:none;}
-    .footer-top{grid-template-columns:1fr 1fr;gap:28px;}
-    .footer-bottom{flex-direction:column;align-items:flex-start;}
+    .g4,.g3{grid-template-columns:repeat(2,1fr);}
+    .feat{grid-template-columns:1fr;} .feat .stage{border-left:none;border-top:1px solid var(--line);min-height:240px;}
+    .entry{grid-template-columns:1fr;gap:8px;} .entry .arrow{display:none;}
+    .footer-top{grid-template-columns:1fr 1fr;gap:28px;} .footer-bottom{flex-direction:column;align-items:flex-start;}
   }
   @media (max-width:560px){
     .g4,.g3,.g2{grid-template-columns:1fr;}
     .spirit-grid{grid-template-columns:repeat(2,1fr)!important;}
-    .news form{flex-direction:column;}
-    .footer-top{grid-template-columns:1fr;}
-    .hero-float{display:none;}
+    .news form{flex-direction:column;} .footer-top{grid-template-columns:1fr;} .hero-float{display:none;}
   }
 </style>
 </head>
 <body>
 
-<div class="atmos"></div><div class="glow-a"></div><div class="glow-b"></div>
+<!-- ============ SVG SPRITE (định nghĩa 1 lần) ============ -->
+<svg class="sprite" aria-hidden="true">
+  <defs>
+    <filter id="fSoft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.4"/></filter>
+    <filter id="fGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5"/></filter>
+    <filter id="fBig"  x="-120%" y="-120%" width="340%" height="340%"><feGaussianBlur stdDeviation="12"/></filter>
+    <radialGradient id="gRoom" cx="50%" cy="38%" r="62%"><stop offset="0%" stop-color="#3A2860"/><stop offset="55%" stop-color="#1B1236"/><stop offset="100%" stop-color="#0A0716"/></radialGradient>
+    <radialGradient id="gFlame" cx="50%" cy="60%" r="60%"><stop offset="0%" stop-color="#FFF4D2"/><stop offset="35%" stop-color="#FBD98A"/><stop offset="70%" stop-color="#D6A24A"/><stop offset="100%" stop-color="#D6A24A" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gHalo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#D6A24A" stop-opacity="0.55"/><stop offset="100%" stop-color="#D6A24A" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gMoon" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#F3EEFB"/><stop offset="60%" stop-color="#C9B6E8"/><stop offset="100%" stop-color="#C9B6E8" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gAmber" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F0C06A"/><stop offset="45%" stop-color="#D6853A"/><stop offset="100%" stop-color="#7A2A48"/></linearGradient>
+    <linearGradient id="gAmberSurf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FBE0A8"/><stop offset="100%" stop-color="#E0A45A"/></linearGradient>
+    <linearGradient id="gWine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#B23A5C"/><stop offset="100%" stop-color="#48122E"/></linearGradient>
+    <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#EDE4FA" stop-opacity="0.55"/><stop offset="45%" stop-color="#C9B6E8" stop-opacity="0.08"/><stop offset="100%" stop-color="#EDE4FA" stop-opacity="0.32"/></linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F6DFA2"/><stop offset="100%" stop-color="#C98A34"/></linearGradient>
+    <linearGradient id="gCold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#DDF0EF" stop-opacity="0.85"/><stop offset="100%" stop-color="#5E8C8A" stop-opacity="0.5"/></linearGradient>
+    <linearGradient id="gBottle" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ECE6F4" stop-opacity="0.10"/><stop offset="18%" stop-color="#ECE6F4" stop-opacity="0.42"/><stop offset="50%" stop-color="#ECE6F4" stop-opacity="0.06"/><stop offset="100%" stop-color="#ECE6F4" stop-opacity="0.24"/></linearGradient>
+  </defs>
 
-<!-- ============ THANH ĐIỀU HƯỚNG ============ -->
+  <!-- ===== HERO: coupe thắp nến ===== -->
+  <symbol id="scHero" viewBox="0 0 480 600" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="240" cy="250" rx="270" ry="300" fill="url(#gRoom)"/>
+    <circle cx="386" cy="120" r="52" fill="url(#gMoon)" opacity="0.55"/>
+    <circle cx="386" cy="120" r="30" fill="none" stroke="#E7DFF7" stroke-width="0.6" opacity="0.35"/>
+    <!-- mặt bàn -->
+    <ellipse cx="240" cy="470" rx="300" ry="60" fill="#0A0716" opacity="0.6"/>
+    <line x1="20" y1="452" x2="460" y2="452" stroke="#D6A24A" stroke-width="0.6" opacity="0.25"/>
+    <!-- nến sau ly -->
+    <ellipse cx="366" cy="300" rx="70" ry="70" fill="url(#gHalo)" filter="url(#fBig)" class="spark"/>
+    <rect x="352" y="322" width="26" height="96" rx="5" fill="#3A2A16"/>
+    <rect x="352" y="322" width="9" height="96" rx="4" fill="#5A4326"/>
+    <g class="flame-anim">
+      <ellipse cx="365" cy="300" rx="24" ry="34" fill="url(#gHalo)" filter="url(#fGlow)"/>
+      <path d="M365 276 C377 292 375 312 365 318 C355 312 353 292 365 276 Z" fill="url(#gFlame)"/>
+      <path d="M365 288 C371 296 370 308 365 312 C360 308 359 296 365 288 Z" fill="#FFF7DE"/>
+    </g>
+    <line x1="365" y1="322" x2="365" y2="316" stroke="#1A0F04" stroke-width="1.4"/>
+    <!-- rượu trong ly (clip theo lòng ly) -->
+    <clipPath id="clipBowl"><path d="M150 258 C150 312 196 330 216 330 C236 330 300 312 300 258 Z"/></clipPath>
+    <g clip-path="url(#clipBowl)">
+      <rect x="140" y="270" width="180" height="80" fill="url(#gAmber)"/>
+      <ellipse cx="216" cy="270" rx="70" ry="12" fill="url(#gAmberSurf)"/>
+    </g>
+    <!-- thân ly coupe -->
+    <path d="M150 258 C150 312 196 330 216 330 C236 330 300 312 300 258" fill="none" stroke="url(#gGlass)" stroke-width="3.2"/>
+    <ellipse cx="225" cy="258" rx="84" ry="15" fill="none" stroke="url(#gGlass)" stroke-width="3.2"/>
+    <path d="M300 250 C304 230 300 216 300 216" fill="none" stroke="#F6DFA2" stroke-width="1.6" opacity="0.5" filter="url(#fSoft)"/>
+    <path d="M150 262 C154 300 190 322 214 326" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.28"/>
+    <!-- viền vàng lấp lánh trên miệng ly -->
+    <path d="M225 243 A84 15 0 0 1 300 256" fill="none" stroke="url(#gGold)" stroke-width="2.4" filter="url(#fSoft)"/>
+    <!-- chân & đế ly -->
+    <line x1="216" y1="330" x2="216" y2="430" stroke="url(#gGlass)" stroke-width="5"/>
+    <ellipse cx="216" cy="436" rx="54" ry="12" fill="none" stroke="url(#gGlass)" stroke-width="3"/>
+    <ellipse cx="216" cy="436" rx="54" ry="12" fill="#C9B6E8" opacity="0.05"/>
+    <!-- vỏ cam xoắn -->
+    <path d="M244 226 C266 214 266 236 250 240 C238 243 240 228 252 228 C260 228 260 236 254 238" fill="none" stroke="url(#gGold)" stroke-width="2.4" stroke-linecap="round"/>
+    <!-- khói hương -->
+    <path class="wisp-anim" style="animation-delay:0s"  d="M206 244 C198 224 214 214 206 194 C200 180 210 168 206 156" fill="none" stroke="#C9B6E8" stroke-width="1.4" opacity="0.22" stroke-linecap="round"/>
+    <path class="wisp-anim" style="animation-delay:1.6s" d="M228 244 C236 226 222 214 230 196 C236 184 228 172 232 160" fill="none" stroke="#D6A24A" stroke-width="1.2" opacity="0.20" stroke-linecap="round"/>
+    <!-- hạt sáng -->
+    <g fill="#FBE9BE">
+      <circle class="spark" style="animation-delay:.2s" cx="140" cy="180" r="1.7"/>
+      <circle class="spark" style="animation-delay:1.1s" cx="330" cy="200" r="1.5"/>
+      <circle class="spark" style="animation-delay:2.0s" cx="290" cy="150" r="1.4"/>
+      <circle class="spark" style="animation-delay:.7s" cx="120" cy="300" r="1.5"/>
+      <circle class="spark" style="animation-delay:1.6s" cx="360" cy="380" r="1.6"/>
+      <circle class="spark" style="animation-delay:2.4s" cx="180" cy="120" r="1.3"/>
+    </g>
+  </symbol>
+
+  <!-- ===== rót từ trên xuống ===== -->
+  <symbol id="scPour" viewBox="0 0 360 230" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="120" rx="200" ry="150" fill="url(#gRoom)"/>
+    <ellipse cx="150" cy="150" rx="150" ry="40" fill="#0A0716" opacity="0.5"/>
+    <ellipse cx="150" cy="150" rx="86" ry="26" fill="none" stroke="url(#gGlass)" stroke-width="2.6"/>
+    <ellipse cx="150" cy="150" rx="70" ry="20" fill="url(#gAmber)" opacity="0.9"/>
+    <ellipse cx="150" cy="147" rx="70" ry="18" fill="none" stroke="url(#gGold)" stroke-width="1.4" opacity="0.7"/>
+    <path d="M150 150 C150 168 128 176 128 200 C128 216 172 216 172 200 C172 176 150 168 150 150" fill="url(#gGlass)" opacity="0.5"/>
+    <!-- tia rót -->
+    <path d="M236 24 C210 60 178 92 152 132" fill="none" stroke="url(#gAmberSurf)" stroke-width="4" stroke-linecap="round" opacity="0.85"/>
+    <path d="M244 20 C248 14 256 12 262 16 L250 34 Z" fill="url(#gGlass)"/>
+    <g fill="#FBE9BE">
+      <circle class="spark" cx="120" cy="70" r="1.6"/><circle class="spark" style="animation-delay:1s" cx="250" cy="120" r="1.5"/>
+      <circle class="spark" style="animation-delay:2s" cx="90" cy="120" r="1.4"/>
+    </g>
+  </symbol>
+
+  <!-- ===== bình lắc ===== -->
+  <symbol id="scShaker" viewBox="0 0 360 230" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="120" rx="200" ry="150" fill="url(#gRoom)"/>
+    <ellipse cx="180" cy="196" rx="120" ry="24" fill="#0A0716" opacity="0.5"/>
+    <path d="M150 96 L210 96 L204 190 C204 198 196 202 180 202 C164 202 156 198 156 190 Z" fill="url(#gGlass)" stroke="url(#gGlass)" stroke-width="2"/>
+    <path d="M156 60 L204 60 L210 96 L150 96 Z" fill="#C9B6E8" opacity="0.14" stroke="url(#gGlass)" stroke-width="2"/>
+    <rect x="162" y="44" width="36" height="18" rx="4" fill="url(#gGold)"/>
+    <line x1="168" y1="110" x2="164" y2="184" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/>
+    <path d="M150 96 L210 96" stroke="url(#gGold)" stroke-width="1.6" opacity="0.7"/>
+    <g fill="#FBE9BE"><circle class="spark" cx="120" cy="90" r="1.6"/><circle class="spark" style="animation-delay:1.2s" cx="248" cy="120" r="1.5"/><circle class="spark" style="animation-delay:.6s" cx="240" cy="70" r="1.3"/></g>
+  </symbol>
+
+  <!-- ===== chai rượu (cảnh) ===== -->
+  <symbol id="scBottleScene" viewBox="0 0 360 230" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="120" rx="200" ry="150" fill="url(#gRoom)"/>
+    <ellipse cx="180" cy="200" rx="130" ry="22" fill="#0A0716" opacity="0.5"/>
+    <g transform="translate(120 40)">
+      <rect x="14" y="0" width="12" height="26" fill="url(#gGold)"/>
+      <path d="M12 26 C12 26 4 36 4 52 L4 176 C4 186 10 190 20 190 C30 190 36 186 36 176 L36 52 C36 36 28 26 28 26 Z" fill="url(#gAmber)" opacity="0.55" stroke="url(#gGlass)" stroke-width="2"/>
+      <rect x="8" y="96" width="24" height="40" rx="2" fill="#0E0A1C" stroke="url(#gGold)" stroke-width="1"/>
+      <line x1="12" y1="106" x2="28" y2="106" stroke="#D6A24A" stroke-width="1" opacity="0.6"/><line x1="12" y1="114" x2="28" y2="114" stroke="#D6A24A" stroke-width="0.8" opacity="0.4"/>
+      <line x1="12" y1="52" x2="12" y2="170" stroke="#FFFFFF" stroke-width="1.4" opacity="0.28"/>
+    </g>
+    <g transform="translate(198 66) scale(0.82)">
+      <rect x="14" y="0" width="10" height="22" fill="url(#gGold)"/>
+      <path d="M12 22 C12 22 4 32 4 46 L4 158 C4 168 10 172 19 172 C28 172 34 168 34 158 L34 46 C34 32 26 22 26 22 Z" fill="#8A5CC7" opacity="0.4" stroke="url(#gGlass)" stroke-width="2"/>
+      <rect x="8" y="86" width="22" height="36" rx="2" fill="#0E0A1C" stroke="url(#gGold)" stroke-width="1"/>
+    </g>
+    <g fill="#FBE9BE"><circle class="spark" cx="90" cy="80" r="1.6"/><circle class="spark" style="animation-delay:1.3s" cx="280" cy="110" r="1.5"/></g>
+  </symbol>
+
+  <!-- ===== đá ===== -->
+  <symbol id="scIce" viewBox="0 0 360 230" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="120" rx="200" ry="150" fill="url(#gRoom)"/>
+    <ellipse cx="180" cy="192" rx="120" ry="22" fill="#0A0716" opacity="0.5"/>
+    <path d="M118 150 L118 96 L180 70 L242 96 L242 150 L180 178 Z" fill="url(#gCold)" opacity="0.5" stroke="url(#gGlass)" stroke-width="2"/>
+    <path d="M118 96 L180 122 L242 96" fill="none" stroke="#DDF0EF" stroke-width="1.4" opacity="0.55"/>
+    <path d="M180 122 L180 178" stroke="#DDF0EF" stroke-width="1.4" opacity="0.45"/>
+    <path d="M140 108 L164 118 L150 140 Z" fill="#FFFFFF" opacity="0.16"/>
+    <g fill="#DFF3F2"><circle class="spark" cx="150" cy="90" r="1.6"/><circle class="spark" style="animation-delay:1s" cx="230" cy="130" r="1.4"/><circle class="spark" style="animation-delay:.5s" cx="196" cy="60" r="1.3"/></g>
+  </symbol>
+
+  <!-- ===== lát cam ===== -->
+  <symbol id="scCitrus" viewBox="0 0 360 230" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="120" rx="200" ry="150" fill="url(#gRoom)"/>
+    <circle cx="180" cy="118" r="66" fill="url(#gAmber)" opacity="0.5" stroke="url(#gGold)" stroke-width="2"/>
+    <circle cx="180" cy="118" r="52" fill="none" stroke="url(#gGold)" stroke-width="1" opacity="0.7"/>
+    <g stroke="url(#gGold)" stroke-width="1" opacity="0.55">
+      <line x1="180" y1="66" x2="180" y2="170"/><line x1="128" y1="118" x2="232" y2="118"/>
+      <line x1="143" y1="81" x2="217" y2="155"/><line x1="217" y1="81" x2="143" y2="155"/>
+    </g>
+    <circle cx="180" cy="118" r="8" fill="url(#gAmberSurf)"/>
+    <g fill="#FBE9BE"><circle class="spark" cx="96" cy="90" r="1.6"/><circle class="spark" style="animation-delay:1.2s" cx="270" cy="130" r="1.5"/></g>
+  </symbol>
+
+  <!-- ===== ly vang ===== -->
+  <symbol id="scWine" viewBox="0 0 360 230" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="120" rx="200" ry="150" fill="url(#gRoom)"/>
+    <ellipse cx="180" cy="198" rx="80" ry="16" fill="#0A0716" opacity="0.5"/>
+    <path d="M138 40 C138 96 158 116 180 116 C202 116 222 96 222 40 Z" fill="none" stroke="url(#gGlass)" stroke-width="2.4"/>
+    <path d="M150 66 C154 92 166 106 180 106 C194 106 206 92 210 66 Z" fill="url(#gWine)" opacity="0.85"/>
+    <ellipse cx="180" cy="40" rx="42" ry="8" fill="none" stroke="url(#gGlass)" stroke-width="2.2"/>
+    <line x1="180" y1="116" x2="180" y2="176" stroke="url(#gGlass)" stroke-width="4"/>
+    <ellipse cx="180" cy="182" rx="40" ry="9" fill="none" stroke="url(#gGlass)" stroke-width="2.4"/>
+    <path d="M150 52 C154 78 166 92 180 96" fill="none" stroke="#FFFFFF" stroke-width="1.2" opacity="0.3"/>
+    <g fill="#F0C8D6"><circle class="spark" cx="110" cy="70" r="1.5"/><circle class="spark" style="animation-delay:1.4s" cx="256" cy="110" r="1.4"/></g>
+  </symbol>
+
+  <!-- ===== kệ ly ===== -->
+  <symbol id="scShelf" viewBox="0 0 360 230" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="120" rx="210" ry="150" fill="url(#gRoom)"/>
+    <line x1="40" y1="176" x2="320" y2="176" stroke="url(#gGold)" stroke-width="1.4" opacity="0.55"/>
+    <!-- coupe -->
+    <g transform="translate(84 92)"><path d="M0 8 C0 30 18 40 26 40 C34 40 52 30 52 8 Z" fill="url(#gGlass)" opacity="0.5" stroke="url(#gGlass)" stroke-width="1.8"/><line x1="26" y1="40" x2="26" y2="80" stroke="url(#gGlass)" stroke-width="3"/><line x1="10" y1="82" x2="42" y2="82" stroke="url(#gGlass)" stroke-width="2.4"/></g>
+    <!-- rocks -->
+    <g transform="translate(158 108)"><path d="M0 0 L44 0 L40 64 L4 64 Z" fill="url(#gGlass)" opacity="0.42" stroke="url(#gGlass)" stroke-width="1.8"/><rect x="10" y="40" width="24" height="18" fill="url(#gCold)" opacity="0.4"/></g>
+    <!-- highball -->
+    <g transform="translate(232 84)"><path d="M0 0 L34 0 L31 90 L3 90 Z" fill="url(#gGlass)" opacity="0.42" stroke="url(#gGlass)" stroke-width="1.8"/><rect x="4" y="50" width="26" height="38" fill="url(#gAmber)" opacity="0.4"/></g>
+    <g fill="#FBE9BE"><circle class="spark" cx="70" cy="60" r="1.5"/><circle class="spark" style="animation-delay:1.1s" cx="300" cy="90" r="1.4"/></g>
+  </symbol>
+
+  <!-- ===== chai đơn (thư viện rượu) — dùng currentColor cho rượu ===== -->
+  <symbol id="scBottle" viewBox="0 0 120 210" preserveAspectRatio="xMidYMid meet">
+    <ellipse cx="60" cy="196" rx="40" ry="9" fill="#0A0716" opacity="0.5"/>
+    <rect x="52" y="6" width="16" height="10" rx="2" fill="url(#gGold)"/>
+    <rect x="50" y="14" width="20" height="10" rx="2" fill="#3A2A16"/>
+    <path d="M52 24 C52 24 40 38 40 60 L40 176 C40 188 47 192 60 192 C73 192 80 188 80 176 L80 60 C80 38 68 24 68 24 Z"
+          fill="currentColor" opacity="0.4"/>
+    <path d="M52 24 C52 24 40 38 40 60 L40 176 C40 188 47 192 60 192 C73 192 80 188 80 176 L80 60 C80 38 68 24 68 24 Z"
+          fill="url(#gBottle)"/>
+    <path d="M52 24 C52 24 40 38 40 60 L40 176 C40 188 47 192 60 192 C73 192 80 188 80 176 L80 60 C80 38 68 24 68 24 Z"
+          fill="none" stroke="url(#gGlass)" stroke-width="1.8"/>
+    <rect x="44" y="112" width="32" height="52" rx="3" fill="#0C0819" stroke="url(#gGold)" stroke-width="1.1"/>
+    <circle cx="60" cy="128" r="8" fill="none" stroke="url(#gGold)" stroke-width="0.9" opacity="0.8"/>
+    <path d="M55 128 L65 128 M60 123 L60 133" stroke="url(#gGold)" stroke-width="0.8" opacity="0.7"/>
+    <line x1="50" y1="150" x2="70" y2="150" stroke="url(#gGold)" stroke-width="0.8" opacity="0.5"/>
+    <line x1="53" y1="156" x2="67" y2="156" stroke="url(#gGold)" stroke-width="0.7" opacity="0.4"/>
+    <line x1="48" y1="52" x2="48" y2="176" stroke="#FFFFFF" stroke-width="1.6" opacity="0.28"/>
+  </symbol>
+
+  <!-- ===== nến nhỏ (nhật ký) ===== -->
+  <symbol id="scCandle" viewBox="0 0 80 130" preserveAspectRatio="xMidYMid meet">
+    <ellipse cx="40" cy="52" rx="34" ry="34" fill="url(#gHalo)" filter="url(#fBig)" class="spark"/>
+    <rect x="26" y="60" width="28" height="60" rx="5" fill="#2A1E10"/><rect x="26" y="60" width="9" height="60" rx="4" fill="#4A3626"/>
+    <ellipse cx="40" cy="60" rx="14" ry="4" fill="#1A0F04"/>
+    <g class="flame-anim"><path d="M40 30 C51 44 49 60 40 66 C31 60 29 44 40 30 Z" fill="url(#gFlame)"/><path d="M40 42 C45 49 44 58 40 62 C36 58 35 49 40 42 Z" fill="#FFF7DE"/></g>
+    <line x1="40" y1="60" x2="40" y2="54" stroke="#1A0F04" stroke-width="1.4"/>
+  </symbol>
+
+  <!-- ===== sách/PDF phát sáng (tương lai) ===== -->
+  <symbol id="scGuide" viewBox="0 0 360 260" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="130" rx="200" ry="160" fill="url(#gRoom)"/>
+    <ellipse cx="180" cy="150" rx="90" ry="90" fill="url(#gHalo)" filter="url(#fBig)"/>
+    <g transform="rotate(-6 180 130)">
+      <rect x="120" y="60" width="120" height="150" rx="6" fill="#8A5CC7" stroke="url(#gGold)" stroke-width="1.6"/>
+      <rect x="120" y="60" width="120" height="150" rx="6" fill="url(#gBottle)"/>
+      <circle cx="180" cy="120" r="26" fill="none" stroke="#0E0A1C" stroke-width="1.4"/>
+      <text x="180" y="132" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-size="30" fill="#16101F">CS</text>
+      <line x1="150" y1="168" x2="210" y2="168" stroke="#0E0A1C" stroke-width="1" opacity="0.5"/>
+    </g>
+    <g fill="#FBE9BE"><circle class="spark" cx="96" cy="80" r="1.6"/><circle class="spark" style="animation-delay:1.2s" cx="272" cy="120" r="1.5"/></g>
+  </symbol>
+  <symbol id="scCards" viewBox="0 0 360 260" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="130" rx="200" ry="160" fill="url(#gRoom)"/>
+    <ellipse cx="180" cy="140" rx="80" ry="80" fill="url(#gHalo)" filter="url(#fBig)"/>
+    <rect x="112" y="80" width="90" height="120" rx="6" fill="#0E0A1C" stroke="url(#gGold)" stroke-width="1.4" transform="rotate(-8 157 140)"/>
+    <rect x="150" y="70" width="90" height="120" rx="6" fill="#8A5CC7" stroke="url(#gGold)" stroke-width="1.4" transform="rotate(6 195 130)"/>
+    <g transform="rotate(6 195 130)"><circle cx="195" cy="112" r="18" fill="none" stroke="#16101F" stroke-width="1.2"/><text x="195" y="120" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-size="20" fill="#16101F">CS</text></g>
+    <g fill="#FBE9BE"><circle class="spark" cx="100" cy="90" r="1.5"/><circle class="spark" style="animation-delay:1s" cx="276" cy="110" r="1.5"/></g>
+  </symbol>
+  <symbol id="scWorkshop" viewBox="0 0 360 260" preserveAspectRatio="xMidYMid slice">
+    <ellipse cx="180" cy="130" rx="200" ry="160" fill="url(#gRoom)"/>
+    <ellipse cx="180" cy="120" rx="46" ry="46" fill="url(#gHalo)" filter="url(#fBig)" class="spark"/>
+    <g class="flame-anim"><path d="M180 84 C193 100 191 120 180 128 C169 120 167 100 180 84 Z" fill="url(#gFlame)"/></g>
+    <rect x="166" y="128" width="28" height="52" rx="5" fill="#2A1E10"/>
+    <path d="M96 200 C130 176 230 176 264 200" fill="none" stroke="url(#gGold)" stroke-width="1.2" opacity="0.5"/>
+    <g fill="#FBE9BE"><circle class="spark" cx="110" cy="150" r="1.5"/><circle class="spark" style="animation-delay:1.3s" cx="252" cy="150" r="1.5"/><circle class="spark" style="animation-delay:.6s" cx="180" cy="200" r="1.4"/></g>
+  </symbol>
+</svg>
+
+<div class="atmos"></div>
+<div class="glow-a"></div><div class="glow-b"></div>
+
+<!-- ============ NAV ============ -->
 <header class="nav">
   <div class="nav-in">
     <a class="brand" href="#top"><b>Charmie</b><i>Spiritus</i></a>
     <nav class="nav-links">
-      <a href="#learn">Học</a>
-      <a href="#spirits">Rượu mạnh</a>
-      <a href="#cocktails">Cocktail</a>
-      <a href="#homebar">Quầy bar tại nhà</a>
-      <a href="#journal">Nhật ký</a>
+      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#homebar">Quầy bar tại nhà</a><a href="#journal">Nhật ký</a>
     </nav>
     <a class="nav-cta" href="#learn">Bắt đầu học</a>
     <div class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></div>
@@ -263,6 +450,7 @@
 
 <!-- ============ 1 · HERO ============ -->
 <section class="wrap hero">
+  <div class="motes" id="motes"></div>
   <div class="hero-grid">
     <div>
       <div class="eyebrow" style="margin-bottom:18px;">Nhật ký tri thức độc lập về đồ uống</div>
@@ -273,13 +461,11 @@
         <a class="btn btn-ghost" href="#spirits">Khám phá Thư viện Rượu</a>
       </div>
       <div class="hero-tags">
-        <span class="pill">Ưu tiên kiến thức</span>
-        <span class="pill">Thân thiện với người mới</span>
-        <span class="pill">Chưa bán hàng</span>
+        <span class="pill">Ưu tiên kiến thức</span><span class="pill">Thân thiện với người mới</span><span class="pill">Chưa bán hàng</span>
       </div>
     </div>
     <div class="hero-visual">
-      <div class="photo" style="aspect-ratio:4/5;"><span class="cap">ảnh hero · ly khuấy được thắp sáng bởi một ngọn nến</span></div>
+      <div class="frame"><svg class="scene"><use href="#scHero"/></svg></div>
       <div class="hero-float">
         <div class="eyebrow" style="font-size:9.5px;">Bài học hôm nay</div>
         <div style="font-family:var(--display);font-size:21px;line-height:1.14;margin-top:6px;color:var(--cream);">Điều gì làm nên một ly cocktail cân bằng?</div>
@@ -289,7 +475,7 @@
   </div>
 </section>
 
-<!-- ============ 2 · GIỚI THIỆU THƯƠNG HIỆU ============ -->
+<!-- ============ 2 · GIỚI THIỆU ============ -->
 <section class="essence" style="margin-top:clamp(50px,7vw,80px);">
   <div class="essence-in">
     <div>
@@ -308,76 +494,21 @@
   </div>
 </section>
 
-<!-- ============ 3 · CÁC CHỦ ĐỀ HỌC ============ -->
+<!-- ============ 3 · CHỦ ĐỀ HỌC ============ -->
 <section class="wrap section" id="learn">
   <div class="kicker"><span class="num">01</span><span class="lbl">Bắt đầu từ đâu</span></div>
   <h2 class="h2">Chọn một lối đi, hiểu được <span class="glow">lý do</span></h2>
   <p class="lede" style="margin-top:16px;margin-bottom:40px;">Chín góc nhỏ của cuốn nhật ký. Mỗi góc mang một màu riêng, để bạn luôn biết mình đang ở đâu.</p>
-
   <div class="grid g3">
-    <a class="card cat" href="#cocktails">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M11 12 L35 12 L23 24 Z"/><line x1="23" y1="24" x2="23" y2="35"/><line x1="16" y1="35" x2="30" y2="35"/></svg>
-      <div class="swatch" style="background:var(--gold);"></div>
-      <h3>Cocktail 101</h3>
-      <p>Những điều căn bản nhất — cocktail là gì, và cách đọc mọi công thức một cách tự tin.</p>
-      <span class="go">Bắt đầu tại đây →</span>
-    </a>
-    <a class="card cat" href="#spirits">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M20 11 L26 11 L26 18 L28 22 L28 35 L18 35 L18 22 L20 18 Z"/></svg>
-      <div class="swatch" style="background:var(--amethyst);"></div>
-      <h3>Thư viện Rượu mạnh</h3>
-      <p>Gin, vodka, rum, whisky và hơn thế — mỗi loại là gì và ứng xử ra sao trong ly.</p>
-      <span class="go">Duyệt thư viện →</span>
-    </a>
-    <a class="card cat" href="#learn">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M16 11 L30 11 A7 9 0 0 1 16 11 Z"/><line x1="23" y1="22" x2="23" y2="34"/><line x1="17" y1="34" x2="29" y2="34"/></svg>
-      <div class="swatch" style="background:var(--oxblood);"></div>
-      <h3>Ghi chú về Vang</h3>
-      <p>Đọc nhãn chai, giống nho, vùng trồng và cách ghép món — vang không còn đáng sợ.</p>
-      <span class="go">Đọc ghi chú →</span>
-    </a>
-    <a class="card cat" href="#homebar">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M17 16 L29 16 L31 35 L15 35 Z"/><rect x="18" y="11" width="10" height="5"/></svg>
-      <div class="swatch" style="background:var(--gold);"></div>
-      <h3>Dụng cụ Pha chế</h3>
-      <p>Bình lắc, jigger, phễu lọc, thìa bar — mỗi dụng cụ dùng để làm gì và khi nào cần.</p>
-      <span class="go">Làm quen dụng cụ →</span>
-    </a>
-    <a class="card cat" href="#learn">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M11 14 A12 7 0 0 0 35 14 Z"/><line x1="23" y1="21" x2="23" y2="35"/><line x1="16" y1="35" x2="30" y2="35"/></svg>
-      <div class="swatch" style="background:var(--teal);"></div>
-      <h3>Ly tách &amp; Đá</h3>
-      <p>Coupe, rocks, highball — và vì sao đá là một nguyên liệu thật sự, không phải thứ phụ.</p>
-      <span class="go">Hiểu từng dáng ly →</span>
-    </a>
-    <a class="card cat" href="#homebar">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M14 13 L32 13 L30 35 L16 35 Z"/><line x1="14" y1="24" x2="32" y2="24" opacity="0.4"/></svg>
-      <div class="swatch" style="background:var(--amethyst);"></div>
-      <h3>Nền tảng Quầy bar tại nhà</h3>
-      <p>Dựng một quầy bar nhỏ mà đẹp, không tốn kém và không cần suy nghĩ quá nhiều.</p>
-      <span class="go">Bắt tay vào làm →</span>
-    </a>
-    <a class="card cat" href="#cocktails">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><circle cx="23" cy="23" r="11"/><line x1="23" y1="12" x2="23" y2="34" opacity="0.5"/><line x1="12" y1="23" x2="34" y2="23" opacity="0.5"/></svg>
-      <div class="swatch" style="background:var(--gold);"></div>
-      <h3>Hương vị &amp; Cân bằng</h3>
-      <p>Ngọt, chua, đắng, mạnh, thơm — logic bốn phần đằng sau mọi ly ngon.</p>
-      <span class="go">Nếm thử lý thuyết →</span>
-    </a>
-    <a class="card cat" href="#learn">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M14 32 C14 18 32 14 32 14 C32 28 14 32 14 32 Z"/><line x1="14" y1="32" x2="28" y2="18" opacity="0.5"/></svg>
-      <div class="swatch" style="background:var(--plum);"></div>
-      <h3>Văn hóa Thưởng thức</h3>
-      <p>Đồ uống đến từ đâu, những nghi thức quanh chúng, và cách mời khách thật tinh tế.</p>
-      <span class="go">Khám phá văn hóa →</span>
-    </a>
-    <a class="card cat" href="#journal">
-      <svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><rect x="13" y="11" width="20" height="24" rx="1"/><line x1="18" y1="18" x2="28" y2="18" opacity="0.6"/><line x1="18" y1="23" x2="28" y2="23" opacity="0.6"/><line x1="18" y1="28" x2="24" y2="28" opacity="0.6"/></svg>
-      <div class="swatch" style="background:var(--oxblood);"></div>
-      <h3>Nhật ký Đồ uống</h3>
-      <p>Ghi chú nếm thử, thử nghiệm và cả những lần sai — học tập một cách thành thật.</p>
-      <span class="go">Đọc nhật ký →</span>
-    </a>
+    <a class="card cat" href="#cocktails"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M11 12 L35 12 L23 24 Z"/><line x1="23" y1="24" x2="23" y2="35"/><line x1="16" y1="35" x2="30" y2="35"/></svg><div class="swatch" style="background:var(--gold);"></div><h3>Cocktail 101</h3><p>Những điều căn bản nhất — cocktail là gì, và cách đọc mọi công thức một cách tự tin.</p><span class="go">Bắt đầu tại đây →</span></a>
+    <a class="card cat" href="#spirits"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M20 11 L26 11 L26 18 L28 22 L28 35 L18 35 L18 22 L20 18 Z"/></svg><div class="swatch" style="background:var(--amethyst);"></div><h3>Thư viện Rượu mạnh</h3><p>Gin, vodka, rum, whisky và hơn thế — mỗi loại là gì và ứng xử ra sao trong ly.</p><span class="go">Duyệt thư viện →</span></a>
+    <a class="card cat" href="#learn"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M16 11 L30 11 A7 9 0 0 1 16 11 Z"/><line x1="23" y1="22" x2="23" y2="34"/><line x1="17" y1="34" x2="29" y2="34"/></svg><div class="swatch" style="background:var(--oxblood);"></div><h3>Ghi chú về Vang</h3><p>Đọc nhãn chai, giống nho, vùng trồng và cách ghép món — vang không còn đáng sợ.</p><span class="go">Đọc ghi chú →</span></a>
+    <a class="card cat" href="#homebar"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M17 16 L29 16 L31 35 L15 35 Z"/><rect x="18" y="11" width="10" height="5"/></svg><div class="swatch" style="background:var(--gold);"></div><h3>Dụng cụ Pha chế</h3><p>Bình lắc, jigger, phễu lọc, thìa bar — mỗi dụng cụ dùng để làm gì và khi nào cần.</p><span class="go">Làm quen dụng cụ →</span></a>
+    <a class="card cat" href="#learn"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M11 14 A12 7 0 0 0 35 14 Z"/><line x1="23" y1="21" x2="23" y2="35"/><line x1="16" y1="35" x2="30" y2="35"/></svg><div class="swatch" style="background:var(--teal);"></div><h3>Ly tách &amp; Đá</h3><p>Coupe, rocks, highball — và vì sao đá là một nguyên liệu thật sự, không phải thứ phụ.</p><span class="go">Hiểu từng dáng ly →</span></a>
+    <a class="card cat" href="#homebar"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M14 13 L32 13 L30 35 L16 35 Z"/><line x1="14" y1="24" x2="32" y2="24" opacity="0.4"/></svg><div class="swatch" style="background:var(--amethyst);"></div><h3>Nền tảng Quầy bar tại nhà</h3><p>Dựng một quầy bar nhỏ mà đẹp, không tốn kém và không cần suy nghĩ quá nhiều.</p><span class="go">Bắt tay vào làm →</span></a>
+    <a class="card cat" href="#cocktails"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><circle cx="23" cy="23" r="11"/><line x1="23" y1="12" x2="23" y2="34" opacity="0.5"/><line x1="12" y1="23" x2="34" y2="23" opacity="0.5"/></svg><div class="swatch" style="background:var(--gold);"></div><h3>Hương vị &amp; Cân bằng</h3><p>Ngọt, chua, đắng, mạnh, thơm — logic bốn phần đằng sau mọi ly ngon.</p><span class="go">Nếm thử lý thuyết →</span></a>
+    <a class="card cat" href="#learn"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M14 32 C14 18 32 14 32 14 C32 28 14 32 14 32 Z"/><line x1="14" y1="32" x2="28" y2="18" opacity="0.5"/></svg><div class="swatch" style="background:var(--plum);"></div><h3>Văn hóa Thưởng thức</h3><p>Đồ uống đến từ đâu, những nghi thức quanh chúng, và cách mời khách thật tinh tế.</p><span class="go">Khám phá văn hóa →</span></a>
+    <a class="card cat" href="#journal"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><rect x="13" y="11" width="20" height="24" rx="1"/><line x1="18" y1="18" x2="28" y2="18" opacity="0.6"/><line x1="18" y1="23" x2="28" y2="23" opacity="0.6"/><line x1="18" y1="28" x2="24" y2="28" opacity="0.6"/></svg><div class="swatch" style="background:var(--oxblood);"></div><h3>Nhật ký Đồ uống</h3><p>Ghi chú nếm thử, thử nghiệm và cả những lần sai — học tập một cách thành thật.</p><span class="go">Đọc nhật ký →</span></a>
   </div>
 </section>
 
@@ -396,68 +527,41 @@
       <p style="font-family:var(--body);font-size:16px;line-height:1.7;color:var(--muted);max-width:440px;">Một khi bạn cảm nhận được một ly theo bốn phần — ngọt, chua, đắng, mạnh — cả thế giới cocktail sẽ mở ra. Đây là ý tưởng nền tảng mà mọi thứ khác được xây dựng nên.</p>
       <div style="margin-top:22px;"><a class="btn btn-ghost" href="#">Đọc bài hướng dẫn</a></div>
     </div>
-    <div class="photo"><span class="cap">rót từ trên xuống · bóng tím &amp; ánh nến</span></div>
+    <div class="stage"><svg class="scene"><use href="#scPour"/></svg></div>
   </div>
 
   <div class="grid g4">
-    <a class="card art" href="#">
-      <div class="thumb"></div>
-      <div class="body"><div class="eyebrow" style="color:var(--amethyst);">Rượu mạnh</div><h3>Gin và Vodka: khác nhau thật sự ở đâu?</h3><div class="meta">5 phút đọc</div></div>
-    </a>
-    <a class="card art" href="#">
-      <div class="thumb"></div>
-      <div class="body"><div class="eyebrow">Dụng cụ</div><h3>Hướng dẫn dụng cụ pha chế cho người mới</h3><div class="meta">7 phút đọc</div></div>
-    </a>
-    <a class="card art" href="#">
-      <div class="thumb"></div>
-      <div class="body"><div class="eyebrow" style="color:var(--teal);">Quầy bar</div><h3>Cách dựng một quầy bar tại nhà đơn giản</h3><div class="meta">8 phút đọc</div></div>
-    </a>
-    <a class="card art" href="#">
-      <div class="thumb"></div>
-      <div class="body"><div class="eyebrow">Nguyên liệu</div><h3>Bitters thật ra là gì?</h3><div class="meta">4 phút đọc</div></div>
-    </a>
+    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scBottleScene"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--amethyst);">Rượu mạnh</div><h3>Gin và Vodka: khác nhau thật sự ở đâu?</h3><div class="meta">5 phút đọc</div></div></a>
+    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scShaker"/></svg></div><div class="body"><div class="eyebrow">Dụng cụ</div><h3>Hướng dẫn dụng cụ pha chế cho người mới</h3><div class="meta">7 phút đọc</div></div></a>
+    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scShelf"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--teal);">Quầy bar</div><h3>Cách dựng một quầy bar tại nhà đơn giản</h3><div class="meta">8 phút đọc</div></div></a>
+    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scCitrus"/></svg></div><div class="body"><div class="eyebrow">Nguyên liệu</div><h3>Bitters thật ra là gì?</h3><div class="meta">4 phút đọc</div></div></a>
   </div>
   <div class="grid g4" style="margin-top:18px;">
-    <a class="card art" href="#">
-      <div class="thumb"></div>
-      <div class="body"><div class="eyebrow" style="color:var(--teal);">Kỹ thuật</div><h3>Đá thay đổi một ly cocktail thế nào</h3><div class="meta">5 phút đọc</div></div>
-    </a>
-    <a class="card art" href="#">
-      <div class="thumb"></div>
-      <div class="body"><div class="eyebrow">Nền tảng</div><h3>Lắc và khuấy: khác nhau ra sao?</h3><div class="meta">4 phút đọc</div></div>
-    </a>
-    <a class="card art" href="#">
-      <div class="thumb"></div>
-      <div class="body"><div class="eyebrow" style="color:var(--amethyst);">Nền tảng</div><h3>Cách đọc một công thức cocktail</h3><div class="meta">6 phút đọc</div></div>
-    </a>
-    <a class="card art" href="#">
-      <div class="thumb"></div>
-      <div class="body"><div class="eyebrow" style="color:var(--oxblood);">Vang</div><h3>Đọc nhãn vang mà không còn e ngại</h3><div class="meta">6 phút đọc</div></div>
-    </a>
+    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scIce"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--teal);">Kỹ thuật</div><h3>Đá thay đổi một ly cocktail thế nào</h3><div class="meta">5 phút đọc</div></div></a>
+    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scShaker"/></svg></div><div class="body"><div class="eyebrow">Nền tảng</div><h3>Lắc và khuấy: khác nhau ra sao?</h3><div class="meta">4 phút đọc</div></div></a>
+    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scPour"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--amethyst);">Nền tảng</div><h3>Cách đọc một công thức cocktail</h3><div class="meta">6 phút đọc</div></div></a>
+    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scWine"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--oxblood);">Vang</div><h3>Đọc nhãn vang mà không còn e ngại</h3><div class="meta">6 phút đọc</div></div></a>
   </div>
 </section>
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
-<!-- ============ 5 · THƯ VIỆN RƯỢU MẠNH ============ -->
+<!-- ============ 5 · THƯ VIỆN RƯỢU ============ -->
 <section class="wrap section" id="spirits" style="padding-top:0;">
   <div class="kicker"><span class="num">03</span><span class="lbl">Thư viện Rượu mạnh</span></div>
   <h2 class="h2">Mỗi dòng rượu, được giải thích</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:38px;">Một kệ kiến thức được sắp xếp gọn gàng — mỗi loại rượu là gì, làm ra sao và uống thế nào. Để tra cứu, không phải để bán.</p>
-
   <div class="grid g4 spirit-grid">
-    <a class="spirit" href="#"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M20 11 L26 11 L26 18 L28 22 L28 35 L18 35 L18 22 L20 18 Z"/></svg><div><div class="nm">Gin</div><div class="ds">Cây bách xù · thảo mộc</div></div></a>
-    <a class="spirit" href="#"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M19 11 L27 11 L27 35 L19 35 Z"/><line x1="19" y1="17" x2="27" y2="17" opacity="0.5"/></svg><div><div class="nm">Vodka</div><div class="ds">Trong trẻo · trung tính</div></div></a>
-    <a class="spirit" href="#"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M18 12 L28 12 L30 35 L16 35 Z"/></svg><div><div class="nm">Rum</div><div class="ds">Mía đường · ấm nồng</div></div></a>
-    <a class="spirit" href="#"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M17 13 L29 13 L29 35 L17 35 Z"/><path d="M20 13 L20 9 L26 9 L26 13" /></svg><div><div class="nm">Tequila</div><div class="ds">Cây thùa · vị thực vật</div></div></a>
-    <a class="spirit" href="#"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M14 13 L32 13 L30 35 L16 35 Z"/><line x1="15" y1="26" x2="31" y2="26" opacity="0.4"/></svg><div><div class="nm">Whisky</div><div class="ds">Ngũ cốc · ủ · sồi</div></div></a>
-    <a class="spirit" href="#"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M16 11 L30 11 A7 9 0 0 1 16 11 Z"/><line x1="23" y1="22" x2="23" y2="34"/><line x1="17" y1="34" x2="29" y2="34"/></svg><div><div class="nm">Brandy</div><div class="ds">Trái cây · tăng độ</div></div></a>
-    <a class="spirit" href="#"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M20 11 L26 11 L26 20 L28 24 L28 35 L18 35 L18 24 L20 20 Z"/><line x1="18" y1="27" x2="28" y2="27" opacity="0.5"/></svg><div><div class="nm">Rượu mùi</div><div class="ds">Ngọt · tạo hương</div></div></a>
-    <a class="spirit" href="#"><svg class="ico" viewBox="0 0 46 46" fill="none" stroke="#D6A24A" stroke-width="1.5"><path d="M16 11 L30 11 A7 9 0 0 1 16 11 Z"/><line x1="23" y1="22" x2="23" y2="34"/><line x1="17" y1="34" x2="29" y2="34"/><path d="M14 32 C14 25 20 24 20 24" opacity="0.5"/></svg><div><div class="nm">Vermouth</div><div class="ds">Vang thảo mộc</div></div></a>
+    <a class="spirit" href="#" style="color:#B98CE6;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Gin</div><div class="ds">Cây bách xù · thảo mộc</div></a>
+    <a class="spirit" href="#" style="color:#CBB6E8;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Vodka</div><div class="ds">Trong trẻo · trung tính</div></a>
+    <a class="spirit" href="#" style="color:#D6853A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Rum</div><div class="ds">Mía đường · ấm nồng</div></a>
+    <a class="spirit" href="#" style="color:#8FB88A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Tequila</div><div class="ds">Cây thùa · vị thực vật</div></a>
+    <a class="spirit" href="#" style="color:#C98A44;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Whisky</div><div class="ds">Ngũ cốc · ủ · sồi</div></a>
+    <a class="spirit" href="#" style="color:#B65A46;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Brandy</div><div class="ds">Trái cây · tăng độ</div></a>
+    <a class="spirit" href="#" style="color:#C77A9A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Rượu mùi</div><div class="ds">Ngọt · tạo hương</div></a>
+    <a class="spirit" href="#" style="color:#8A5CC7;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Vermouth</div><div class="ds">Vang thảo mộc</div></a>
   </div>
-  <div style="margin-top:22px;text-align:center;">
-    <a class="btn btn-ghost" href="#spirits">Khám phá toàn bộ Thư viện Rượu</a>
-  </div>
+  <div style="margin-top:22px;text-align:center;"><a class="btn btn-ghost" href="#spirits">Khám phá toàn bộ Thư viện Rượu</a></div>
 </section>
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
@@ -467,7 +571,6 @@
   <div class="kicker"><span class="num">04</span><span class="lbl">Kiến thức Cocktail</span></div>
   <h2 class="h2">Nghề pha chế, từ gốc rễ</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:38px;">Những bài học cốt lõi mà người pha chế tại nhà nào cũng quay lại — hiểu chúng là bạn có thể tự ứng biến phần còn lại.</p>
-
   <div class="grid g2">
     <div class="topic"><span class="n">01</span><div><h4>Các họ cocktail</h4><p>Sour, spirit-forward, highball, flip — vài công thức khung đứng sau hàng trăm ly.</p></div></div>
     <div class="topic"><span class="n">02</span><div><h4>Sự cân bằng</h4><p>Ngọt, chua, đắng, mạnh &amp; thơm — cách cảm nhận một ly theo từng phần và điều chỉnh.</p></div></div>
@@ -482,12 +585,11 @@
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
-<!-- ============ 7 · NỀN TẢNG QUẦY BAR TẠI NHÀ ============ -->
+<!-- ============ 7 · QUẦY BAR TẠI NHÀ ============ -->
 <section class="wrap section" id="homebar" style="padding-top:0;">
   <div class="kicker"><span class="num">05</span><span class="lbl">Nền tảng Quầy bar tại nhà</span></div>
   <h2 class="h2">Bắt đầu nhỏ, tiếp khách <span class="glow">thật đẹp</span></h2>
   <p class="lede" style="margin-top:16px;margin-bottom:38px;">Tất cả những gì người mới cần để pha đồ uống ngon tại nhà — và không thừa thứ gì.</p>
-
   <div class="grid" style="grid-template-columns:1fr 1fr 0.9fr;">
     <div class="card" style="padding:28px 30px;">
       <div class="eyebrow" style="margin-bottom:16px;">Kệ khởi đầu</div>
@@ -518,80 +620,51 @@
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
-<!-- ============ 8 · NHẬT KÝ ĐỒ UỐNG ============ -->
+<!-- ============ 8 · NHẬT KÝ ============ -->
 <section class="wrap section" id="journal" style="padding-top:0;">
   <div class="kicker"><span class="num">06</span><span class="lbl">Nhật ký Đồ uống</span></div>
   <h2 class="h2">Học thành lời, ngay bên lề trang</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:34px;">Một cuốn sổ cá nhân nơi người sáng lập ghi lại những buổi nếm thử, thử nghiệm, dụng cụ và cả sai lầm thành thật — mặt con người của nghề pha chế.</p>
-
   <div class="journal">
-    <div class="entry">
-      <div class="date">Ghi chép · Số 14</div>
-      <div><h4>Đêm tôi làm loãng quá tay một ly Negroni</h4><p>Đá tan đã thật sự làm gì đến sự cân bằng — và điều chỉnh nhỏ đã cứu lượt thứ hai.</p></div>
-      <div class="arrow">→</div>
-    </div>
-    <div class="entry">
-      <div class="date">Ghi chép · Số 13</div>
-      <div><h4>Nếm thử ba loại vermouth cạnh nhau</h4><p>Dry, sweet và bianco, rót ẩn danh. Ghi chú về điều làm tôi bất ngờ và loại tôi sẽ mua lại.</p></div>
-      <div class="arrow">→</div>
-    </div>
-    <div class="entry">
-      <div class="date">Ghi chép · Số 12</div>
-      <div><h4>Dựng quầy bar tại nhà với chi phí bằng vài ly cà phê</h4><p>Năm thứ tôi mua đầu tiên, và một thứ tôi ước mình đã bỏ qua.</p></div>
-      <div class="arrow">→</div>
-    </div>
-    <div class="entry">
-      <div class="date">Ghi chép · Số 11</div>
-      <div><h4>Vì sao cam chanh của tôi cứ nhạt vị</h4><p>Một bài học về độ tươi, nhiệt độ và thời điểm — những lỗi tôi mắc để bạn không phải mắc lại.</p></div>
-      <div class="arrow">→</div>
-    </div>
+    <svg class="candle"><use href="#scCandle"/></svg>
+    <div class="entry"><div class="date">Ghi chép · Số 14</div><div><h4>Đêm tôi làm loãng quá tay một ly Negroni</h4><p>Đá tan đã thật sự làm gì đến sự cân bằng — và điều chỉnh nhỏ đã cứu lượt thứ hai.</p></div><div class="arrow">→</div></div>
+    <div class="entry"><div class="date">Ghi chép · Số 13</div><div><h4>Nếm thử ba loại vermouth cạnh nhau</h4><p>Dry, sweet và bianco, rót ẩn danh. Ghi chú về điều làm tôi bất ngờ và loại tôi sẽ mua lại.</p></div><div class="arrow">→</div></div>
+    <div class="entry"><div class="date">Ghi chép · Số 12</div><div><h4>Dựng quầy bar tại nhà với chi phí bằng vài ly cà phê</h4><p>Năm thứ tôi mua đầu tiên, và một thứ tôi ước mình đã bỏ qua.</p></div><div class="arrow">→</div></div>
+    <div class="entry"><div class="date">Ghi chép · Số 11</div><div><h4>Vì sao cam chanh của tôi cứ nhạt vị</h4><p>Một bài học về độ tươi, nhiệt độ và thời điểm — những lỗi tôi mắc để bạn không phải mắc lại.</p></div><div class="arrow">→</div></div>
   </div>
 </section>
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
-<!-- ============ 9 · MỞ RỘNG TƯƠNG LAI ============ -->
+<!-- ============ 9 · TƯƠNG LAI ============ -->
 <section class="wrap section" style="padding-top:0;">
   <div class="kicker"><span class="num">07</span><span class="lbl">Một ngày nào đó phía trước</span></div>
   <h2 class="h2">Được xây để lớn thành một cửa hàng lặng lẽ</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:38px;">Kiến thức vẫn miễn phí và hào phóng. Một ngày nào đó, vài công cụ học đẹp đẽ có thể xuất hiện cùng nó — thật khẽ khàng, không ồn ào.</p>
-
   <div class="grid g3">
-    <div class="card future">
-      <div class="top"><div style="width:110px;height:140px;background:var(--amethyst);border:1px solid rgba(214,162,74,0.4);border-radius:4px;box-shadow:0 20px 44px -20px rgba(0,0,0,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;"><div style="font-family:var(--ui);font-size:7px;letter-spacing:0.2em;text-transform:uppercase;color:#EADCFB;">The Guide</div><div style="font-family:var(--display);font-style:italic;font-size:22px;color:#16101F;">CS</div></div></div>
-      <div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Cẩm nang &amp; PDF số</h3><p>Sổ tay cocktail, kiến thức vang và hướng dẫn ghép vị — sẵn sàng để in, trong cùng hệ thống phát sáng.</p></div>
-    </div>
-    <div class="card future">
-      <div class="top"><div style="width:64px;height:88px;background:var(--indigo);border:1px solid rgba(214,162,74,0.4);border-radius:4px;transform:rotate(-6deg);"></div><div style="width:64px;height:88px;background:var(--amethyst);border:1px solid rgba(214,162,74,0.4);border-radius:4px;transform:rotate(4deg);margin-left:-14px;"></div></div>
-      <div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Thẻ công thức &amp; nếm thử</h3><p>Bộ thẻ sưu tầm — công thức, nguyên liệu và ghi chú nếm rượu mà bạn có thể giữ lại.</p></div>
-    </div>
-    <div class="card future">
-      <div class="top"><div style="font-family:var(--display);font-style:italic;font-size:30px;color:var(--lilac-2);">Workshop</div></div>
-      <div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Workshop &amp; bộ kit</h3><p>Những buổi học quầy bar ấm cúng và bộ kit cho người mới — cuốn nhật ký hiện thân, dưới ánh nến.</p></div>
-    </div>
+    <div class="card future"><div class="top"><svg class="scene"><use href="#scGuide"/></svg></div><div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Cẩm nang &amp; PDF số</h3><p>Sổ tay cocktail, kiến thức vang và hướng dẫn ghép vị — sẵn sàng để in, trong cùng hệ thống phát sáng.</p></div></div>
+    <div class="card future"><div class="top"><svg class="scene"><use href="#scCards"/></svg></div><div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Thẻ công thức &amp; nếm thử</h3><p>Bộ thẻ sưu tầm — công thức, nguyên liệu và ghi chú nếm rượu mà bạn có thể giữ lại.</p></div></div>
+    <div class="card future"><div class="top"><svg class="scene"><use href="#scWorkshop"/></svg></div><div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Workshop &amp; bộ kit</h3><p>Những buổi học quầy bar ấm cúng và bộ kit cho người mới — cuốn nhật ký hiện thân, dưới ánh nến.</p></div></div>
   </div>
   <p style="max-width:760px;font-size:15px;line-height:1.7;color:var(--muted-2);margin:26px 0 0;"><span class="eyebrow">Nguyên tắc&nbsp;&nbsp;</span>Không bán rượu, không chào mời gắt gao. Thứ được bán chỉ đơn giản là đi sâu hơn — kiến thức vẫn luôn miễn phí.</p>
 </section>
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
-<!-- ============ 10 · BẢN TIN / THEO DÕI ============ -->
+<!-- ============ 10 · BẢN TIN ============ -->
 <section class="wrap section" style="padding-top:0;">
   <div class="news">
     <div class="eyebrow" style="margin-bottom:16px;">Tham gia Spiritus Notes</div>
     <h2 class="h2" style="max-width:640px;margin:0 auto;">Theo dõi hành trình học</h2>
     <p style="max-width:520px;margin:16px auto 0;font-size:17px;line-height:1.65;color:var(--muted);">Những ghi chú đồ uống thân thiện với người mới, bài hướng dẫn mới và các trang nhật ký — một lá thư khẽ khàng, thỉnh thoảng gửi đến. Không spam, không bán hàng.</p>
-    <form onsubmit="return false;">
-      <input type="email" placeholder="email@cuaban.com" aria-label="Địa chỉ email">
-      <button class="btn btn-gold" type="submit">Đăng ký</button>
-    </form>
+    <form onsubmit="return false;"><input type="email" placeholder="email@cuaban.com" aria-label="Địa chỉ email"><button class="btn btn-gold" type="submit">Đăng ký</button></form>
     <div style="margin-top:18px;font-family:var(--ui);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-2);">Hoặc theo dõi nhật ký trên nền tảng bạn yêu thích</div>
   </div>
 </section>
 
 </main>
 
-<!-- ============ 11 · CHÂN TRANG ============ -->
+<!-- ============ 11 · FOOTER ============ -->
 <footer class="footer">
   <div class="footer-in">
     <div class="footer-top">
@@ -600,34 +673,11 @@
         <div style="font-family:var(--display);font-style:italic;font-size:19px;color:var(--gold);margin-top:12px;text-shadow:0 0 30px rgba(214,162,74,0.3);">Thấu hiểu tinh thần trong từng ly rót.</div>
         <p style="font-size:14.5px;line-height:1.7;color:var(--muted-2);max-width:320px;margin:14px 0 0;">Nhật ký tri thức độc lập về cocktail, rượu mạnh, vang &amp; văn hóa thưởng thức. Ưu tiên kiến thức — một cuốn nhật ký, không phải cửa hàng.</p>
       </div>
-      <div>
-        <h5>Học</h5>
-        <nav>
-          <a href="#cocktails">Cocktail 101</a>
-          <a href="#spirits">Thư viện Rượu mạnh</a>
-          <a href="#learn">Ghi chú về Vang</a>
-          <a href="#cocktails">Hương vị &amp; Cân bằng</a>
-          <a href="#learn">Văn hóa Thưởng thức</a>
-        </nav>
-      </div>
-      <div>
-        <h5>Quầy bar tại nhà</h5>
-        <nav>
-          <a href="#homebar">Dụng cụ Pha chế</a>
-          <a href="#homebar">Ly tách &amp; Đá</a>
-          <a href="#homebar">Nền tảng Quầy bar</a>
-          <a href="#journal">Nhật ký Đồ uống</a>
-          <a href="#">Giới thiệu</a>
-        </nav>
-      </div>
+      <div><h5>Học</h5><nav><a href="#cocktails">Cocktail 101</a><a href="#spirits">Thư viện Rượu mạnh</a><a href="#learn">Ghi chú về Vang</a><a href="#cocktails">Hương vị &amp; Cân bằng</a><a href="#learn">Văn hóa Thưởng thức</a></nav></div>
+      <div><h5>Quầy bar tại nhà</h5><nav><a href="#homebar">Dụng cụ Pha chế</a><a href="#homebar">Ly tách &amp; Đá</a><a href="#homebar">Nền tảng Quầy bar</a><a href="#journal">Nhật ký Đồ uống</a><a href="#">Giới thiệu</a></nav></div>
       <div>
         <h5>Theo dõi</h5>
-        <nav>
-          <a href="#">Spiritus Notes</a>
-          <a href="#">Instagram</a>
-          <a href="#">Pinterest</a>
-          <a href="#">Liên hệ</a>
-        </nav>
+        <nav><a href="#">Spiritus Notes</a><a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">Liên hệ</a></nav>
         <div class="soc">
           <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
           <a href="#" aria-label="Pinterest"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7c-2 0-3.5 1.4-3.5 3.3 0 .9.4 1.7 1 2m2.5-5.3c1.9 0 3 1.3 3 3 0 2-1 3.4-2.6 3.4-.8 0-1.4-.6-1.2-1.5l.6-2.4M11 13.5 9.5 19"/></svg></a>
@@ -635,14 +685,25 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© MMXXVI Charmie Spiritus · Thương hiệu con của Charmie</span>
-      <span>Ưu tiên kiến thức · Giáo dục · Thành lập MMXXVI</span>
-    </div>
+    <div class="footer-bottom"><span>© MMXXVI Charmie Spiritus · Thương hiệu con của Charmie</span><span>Ưu tiên kiến thức · Giáo dục · Thành lập MMXXVI</span></div>
   </div>
 </footer>
 
 <script>
+  // rắc hạt sáng lơ lửng trong khu vực hero
+  (function(){
+    var host=document.getElementById('motes'); if(!host) return;
+    for(var i=0;i<16;i++){
+      var m=document.createElement('span'); m.className='mote';
+      m.style.left=(Math.random()*100)+'%';
+      m.style.bottom=(Math.random()*60)+'%';
+      m.style.animationDuration=(6+Math.random()*7)+'s';
+      m.style.animationDelay=(Math.random()*8)+'s';
+      m.style.opacity=String(0.3+Math.random()*0.5);
+      var s=(1+Math.random()*2.2).toFixed(1); m.style.width=s+'px'; m.style.height=s+'px';
+      host.appendChild(m);
+    }
+  })();
   document.querySelector('.nav-burger')?.addEventListener('click',function(){
     document.querySelector('.nav-links')?.scrollIntoView({behavior:'smooth'});
     alert('Ở bản chính thức, đây sẽ mở menu toàn màn hình: Học · Rượu mạnh · Cocktail · Quầy bar tại nhà · Nhật ký · Bắt đầu học');

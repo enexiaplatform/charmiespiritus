@@ -1182,3 +1182,97 @@ const RECIPES = [
     ]
   }
 ];
+
+const PAIRING_DATA = {
+  seafood: {
+    id: "seafood",
+    name: "Hải Sản & Đồ Sống",
+    emoji: "🐟",
+    desc: "Các món ăn tươi sống hoặc chế biến nhẹ như hàu sống, gỏi cá, sushi, tôm luộc, cua hấp.",
+    science: "Hải sản có độ ngọt tự nhiên thanh nhẹ và vị umami đậm đà, nhưng dễ bị lấn át bởi rượu quá mạnh và có mùi tanh nhẹ của đại dương. Rượu có nồng độ acid cao (như chanh vàng, chanh xanh trong cocktail hoặc vị chua thanh của vang trắng) đóng vai trò như một chất tẩy vị, cắt đứt phân tử mùi tanh và đánh thức vị ngọt ngào tinh khiết của thịt hải sản.",
+    rule: "Chua thanh át vị tanh, cồn nhẹ tôn vị ngọt cát biển.",
+    drinks: [
+      { id: "dry_martini", name: "Dry Martini", type: "recipe" },
+      { id: "gimlet", name: "Gimlet", type: "recipe" },
+      { id: "french_75", name: "French 75", type: "recipe" },
+      { id: "spirit-gin", name: "Rượu Gin", type: "article" }
+    ],
+    foods: "Hàu đá lạnh, Sashimi cá hồi, Cá chẽm nướng muối chanh, Tôm hùm hấp bơ tỏi.",
+    color: "rgba(26, 122, 115, 0.15)",
+    strokeColor: "var(--teal)",
+    icon: "seafood"
+  },
+  meat: {
+    id: "meat",
+    name: "Thịt Đỏ & Đồ Nướng",
+    emoji: "🥩",
+    desc: "Bít tết bò, sườn cừu nướng, thịt heo quay giòn, ngỗng nướng hoặc thịt hun khói.",
+    science: "Thịt đỏ chứa hàm lượng protein và chất béo bão hòa cực kỳ cao. Khi bạn nhấp một ngụm rượu đậm đà (như Old Fashioned với Bourbon cay nồng vị sồi, hoặc vang Cabernet Sauvignon giàu tannin), các tannin này sẽ liên kết cơ học với các protein trong nước bọt và chất béo của thịt, làm sạch vòm họng, đồng thời làm thớ thịt trở nên mềm mại và mọng nước hơn rõ rệt.",
+    rule: "Tannin liên kết đạm, cồn đậm hòa tan chất béo mỡ màng.",
+    drinks: [
+      { id: "old_fashioned", name: "Old Fashioned", type: "recipe" },
+      { id: "boulevardier", name: "Boulevardier", type: "recipe" },
+      { id: "sazerac", name: "Sazerac", type: "recipe" },
+      { id: "spirit-whiskey", name: "Bourbon & Rye Whiskey", type: "article" }
+    ],
+    foods: "Ribeye Steak sốt tiêu đen, Sườn cừu nướng hương thảo, Thịt heo ba chỉ xông khói.",
+    color: "rgba(186, 58, 92, 0.15)",
+    strokeColor: "var(--oxblood)",
+    icon: "meat"
+  },
+  cheese: {
+    id: "cheese",
+    name: "Phô Mai & Đồ Béo",
+    emoji: "🧀",
+    desc: "Phô mai Brie béo ngậy, phô mai xanh (Blue Cheese) nồng đậm, phô mai Cheddar lâu năm hoặc patê gan ngỗng.",
+    science: "Phô mai phủ một lớp màng béo dày đặc lên các gai vị giác. Để thưởng thức trọn vẹn miếng tiếp theo, bạn cần một chất lỏng có độ đắng thảo mộc sắc sảo (như Campari trong Negroni) hoặc độ chua sủi tăm mạnh mẽ (như Champagne trong French 75) để xuyên qua lớp chất béo màng bọc, tái lập trạng thái cân bằng và đánh thức các giác quan.",
+    rule: "Đắng thảo mộc xé béo, bọt sủi tăm làm sạch vòm họng.",
+    drinks: [
+      { id: "negroni", name: "Negroni", type: "recipe" },
+      { id: "french_75", name: "French 75", type: "recipe" },
+      { id: "paper_plane", name: "Paper Plane", type: "recipe" },
+      { id: "spirit-vermouth", name: "Sweet Vermouth", type: "article" }
+    ],
+    foods: "Phô mai Brie chảy, Charcuterie board (thịt nguội & phô mai Cheddar), Blue cheese kèm mật ong.",
+    color: "rgba(214, 162, 74, 0.15)",
+    strokeColor: "var(--gold)",
+    icon: "cheese"
+  },
+  spicy: {
+    id: "spicy",
+    name: "Món Cay & Đồ Á",
+    emoji: "🌶️",
+    desc: "Món ăn Thái cay nồng, đồ nướng BBQ Tứ Xuyên, cà ri Ấn Độ hoặc các món ăn đậm đà gia vị Việt Nam.",
+    science: "Capsaicin (chất tạo cay trong ớt) gây ra cảm giác bỏng rát vật lý trên lưỡi. Cồn nồng độ quá cao sẽ làm trầm trọng thêm cảm giác bỏng này. Ngược lại, một ly cocktail chua ngọt sảng khoái với rum trắng và nước chanh (như Daiquiri, Mojito) hoặc một loại vang trắng ngọt dịu (Riesling) sẽ ôm ấp và làm dịu ngay cơn nóng hỏa, vị ngọt dịu dập tắt ngọn lửa trong khi chanh tươi làm sạch gia vị bám quanh lưỡi.",
+    rule: "Vị ngọt dập lửa cay, độ chua xoa dịu vị giác bỏng rát.",
+    drinks: [
+      { id: "daiquiri", name: "Daiquiri", type: "recipe" },
+      { id: "mojito", name: "Mojito", type: "recipe" },
+      { id: "moscow_mule", name: "Moscow Mule", type: "recipe" },
+      { id: "spirit-rum", name: "Light Rum", type: "article" }
+    ],
+    foods: "Gỏi đu đủ Thái Lan (Som Tum), Cánh gà chiên nước mắm cay, Cà ri xanh Thái.",
+    color: "rgba(94, 140, 138, 0.15)",
+    strokeColor: "var(--teal)",
+    icon: "spicy"
+  },
+  dessert: {
+    id: "dessert",
+    name: "Món Ngọt & Socola",
+    emoji: "🍫",
+    desc: "Bánh Tiramisu, Socola đen đắng, bánh tart trái cây, bánh kem hoặc bánh ngọt caramel.",
+    science: "Quy tắc cốt lõi khi phối hợp món ngọt: Đồ uống luôn phải ngọt bằng hoặc ngọt hơn món ăn, nếu không đồ uống sẽ có vị cực kỳ chua, đắng gắt và nhạt nhẽo. Cà phê đậm đặc và rượu mạnh ủ gỗ lâu năm (như Brandy/Cognac hoặc Espresso Martini) mang các nốt đắng bùi tự nhiên, tạo nên một sự tương phản đối ẩm vô cùng thanh lịch và tròn trịa với đồ ngọt.",
+    rule: "Rượu ngọt sánh đôi bánh ngọt, đắng bùi sồi khói cân bằng vị đường.",
+    drinks: [
+      { id: "espresso_martini", name: "Espresso Martini", type: "recipe" },
+      { id: "sidecar", name: "Sidecar", type: "recipe" },
+      { id: "spirit-brandy", name: "Brandy / Cognac", type: "article" },
+      { id: "spirit-liqueur", name: "Coffee Liqueur", type: "article" }
+    ],
+    foods: "Tiramisu truyền thống, Socola đen 70%, Bánh Tart táo nướng ấm áp.",
+    color: "rgba(138, 92, 199, 0.15)",
+    strokeColor: "var(--amethyst)",
+    icon: "dessert"
+  }
+};
+

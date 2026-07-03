@@ -247,7 +247,7 @@
   <div class="nav-in">
     <a class="brand" href="#top"><b>Charmie</b><i>Spiritus</i></a>
     <nav class="nav-links">
-      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#homebar">Quầy bar</a><a href="#flavor-explorer">Hương vị</a><a href="#glassware-lab">Ly &amp; Đá</a><a href="#journal">Nhật ký</a>
+      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#homebar">Quầy bar</a><a href="#flavor-explorer">Hương vị</a><a href="#glassware-lab">Ly &amp; Đá</a><a href="#pairing-studio">Ghép vị</a><a href="#journal">Nhật ký</a>
     </nav>
     <a class="nav-cta" href="#learn">Bắt đầu học</a>
     <div class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></div>
@@ -775,6 +775,80 @@
         <div class="glass-info-card" id="glassInfoCard" style="background: rgba(138, 92, 199, 0.04); border: 1px solid rgba(138, 92, 199, 0.15); border-radius: 8px; padding: 20px;">
           <!-- Loaded dynamically based on glass selection -->
         </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+
+<!-- ============ 10 · NGHỆ THUẬT GHÉP VỊ (FOOD PAIRING STUDIO) ============ -->
+<section class="wrap section" id="pairing-studio" style="padding-top:0;">
+  <div class="kicker"><span class="num">10</span><span class="lbl">Nghệ thuật Ghép Vị</span></div>
+  <h2 class="h2">Xưởng Ghép Vị <span class="glow">Đồ Ăn &amp; Thức Uống</span></h2>
+  <p class="lede" style="margin-top:16px;margin-bottom:38px;">Sự kết hợp hoàn hảo giữa ẩm thực và thức uống là cuộc đối thoại tinh tế của hương vị. Khám phá các quy tắc khoa học đằng sau sự cộng hưởng vị giác.</p>
+
+  <div class="pairing-card" style="background: linear-gradient(135deg, var(--card), var(--card-2)); border: 1px solid var(--line); border-radius: 12px; padding: clamp(24px, 4vw, 40px);">
+    <div class="pairing-layout">
+      <!-- Bảng chọn bên trái -->
+      <div class="pairing-controls-panel">
+        <h4 style="font-family: var(--ui); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">1. Chọn Nhóm Hương Vị Ẩm Thực</h4>
+        <div class="pairing-options" style="display: flex; flex-direction: column; gap: 10px;">
+          
+          <div class="pairing-opt active" data-pairing="seafood" style="cursor: pointer; background: rgba(14, 10, 28, 0.25); border: 1px solid var(--line-soft); border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s;">
+            <span style="font-size: 24px; filter: drop-shadow(0 0 5px rgba(26,122,115,0.4));">🐟</span>
+            <div>
+              <div style="font-weight: 600; font-size: 14.5px; color: var(--cream);">Hải Sản &amp; Đồ Sống</div>
+              <div style="font-size: 11.5px; color: var(--muted-2);">Hàu tươi, sashimi, tôm hùm, sushi nhã vị...</div>
+            </div>
+          </div>
+
+          <div class="pairing-opt" data-pairing="meat" style="cursor: pointer; background: rgba(14, 10, 28, 0.25); border: 1px solid var(--line-soft); border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s;">
+            <span style="font-size: 24px; filter: drop-shadow(0 0 5px rgba(186,58,92,0.4));">🥩</span>
+            <div>
+              <div style="font-weight: 600; font-size: 14.5px; color: var(--cream);">Thịt Đỏ &amp; Đồ Nướng</div>
+              <div style="font-size: 11.5px; color: var(--muted-2);">Bít tết bò, sườn cừu nướng, thịt quay sồi...</div>
+            </div>
+          </div>
+
+          <div class="pairing-opt" data-pairing="cheese" style="cursor: pointer; background: rgba(14, 10, 28, 0.25); border: 1px solid var(--line-soft); border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s;">
+            <span style="font-size: 24px; filter: drop-shadow(0 0 5px rgba(214,162,74,0.4));">🧀</span>
+            <div>
+              <div style="font-weight: 600; font-size: 14.5px; color: var(--cream);">Phô Mai &amp; Đồ Béo</div>
+              <div style="font-size: 11.5px; color: var(--muted-2);">Phô mai Brie béo ngậy, phô mai Cheddar lâu năm...</div>
+            </div>
+          </div>
+
+          <div class="pairing-opt" data-pairing="spicy" style="cursor: pointer; background: rgba(14, 10, 28, 0.25); border: 1px solid var(--line-soft); border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s;">
+            <span style="font-size: 24px; filter: drop-shadow(0 0 5px rgba(94,140,138,0.4));">🌶️</span>
+            <div>
+              <div style="font-weight: 600; font-size: 14.5px; color: var(--cream);">Món Cay &amp; Đồ Á</div>
+              <div style="font-size: 11.5px; color: var(--muted-2);">Món Thái cay nồng, lẩu Tứ Xuyên, đồ vị Việt...</div>
+            </div>
+          </div>
+
+          <div class="pairing-opt" data-pairing="dessert" style="cursor: pointer; background: rgba(14, 10, 28, 0.25); border: 1px solid var(--line-soft); border-radius: 6px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; transition: all 0.25s;">
+            <span style="font-size: 24px; filter: drop-shadow(0 0 5px rgba(138,92,199,0.4));">🍫</span>
+            <div>
+              <div style="font-weight: 600; font-size: 14.5px; color: var(--cream);">Món Ngọt &amp; Socola</div>
+              <div style="font-size: 11.5px; color: var(--muted-2);">Tiramisu, socola đen đắng, bánh tart táo...</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bảng hiển thị kết quả và SVG ở bên phải -->
+      <div class="pairing-display-panel" style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="pairing-svg-container" style="background: rgba(14, 10, 28, 0.45); border: 1px solid var(--line-soft); border-radius: 8px; height: 185px; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: inset 0 0 30px rgba(138, 92, 199, 0.05); overflow: hidden;">
+          <svg id="pairingVisualizerSvg" width="380" height="150" viewBox="0 0 380 150" style="display: block;">
+            <!-- Rendered dynamically -->
+          </svg>
+          <div style="position: absolute; bottom: 8px; right: 12px; font-family: var(--ui); font-size: 9px; color: var(--muted-3);">MÔ PHỎNG SỰ CỘNG HƯỞNG HƯƠNG VỊ</div>
+        </div>
+        
+        <!-- Bảng thông tin chi tiết -->
+        <div class="pairing-info-card" id="pairingInfoCard" style="background: rgba(138, 92, 199, 0.04); border: 1px solid rgba(138, 92, 199, 0.15); border-radius: 8px; padding: 22px;">
+          <!-- Loaded dynamically -->
+        </div>
       </div>
     </div>
   </div>
@@ -782,9 +856,9 @@
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
-<!-- ============ 10 · NHẬT KÝ ============ -->
+<!-- ============ 11 · NHẬT KÝ ============ -->
 <section class="wrap section" id="journal" style="padding-top:0;">
-  <div class="kicker"><span class="num">10</span><span class="lbl">Nhật ký Đồ uống</span></div>
+  <div class="kicker"><span class="num">11</span><span class="lbl">Nhật ký Đồ uống</span></div>
   <h2 class="h2">Học thành lời, ngay bên lề trang</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:34px;">Một cuốn sổ cá nhân nơi người sáng lập ghi lại những buổi nếm thử, thử nghiệm, dụng cụ và cả sai lầm thành thật — mặt con người của nghề pha chế.</p>
   <div class="journal">
@@ -814,9 +888,9 @@
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
-<!-- ============ 11 · TƯƠNG LAI ============ -->
+<!-- ============ 12 · TƯƠNG LAI ============ -->
 <section class="wrap section" style="padding-top:0;">
-  <div class="kicker"><span class="num">11</span><span class="lbl">Một ngày nào đó phía trước</span></div>
+  <div class="kicker"><span class="num">12</span><span class="lbl">Một ngày nào đó phía trước</span></div>
   <h2 class="h2">Được xây để lớn thành một cửa hàng lặng lẽ</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:38px;">Kiến thức vẫn miễn phí và hào phóng. Một ngày nào đó, vài công cụ học đẹp đẽ có thể xuất hiện cùng nó — thật khẽ khàng, không ồn ào.</p>
   <div class="grid g3">
@@ -851,7 +925,7 @@
         <div style="font-family:var(--display);font-style:italic;font-size:19px;color:var(--gold);margin-top:12px;text-shadow:0 0 30px rgba(214,162,74,0.3);">Thấu hiểu tinh thần trong từng ly rót.</div>
         <p style="font-size:14.5px;line-height:1.7;color:var(--muted-2);max-width:320px;margin:14px 0 0;">Nhật ký tri thức độc lập về cocktail, rượu mạnh, vang &amp; văn hóa thưởng thức. Ưu tiên kiến thức — một cuốn nhật ký, không phải cửa hàng.</p>
       </div>
-      <div><h5>Học</h5><nav><a href="#cocktails">Cocktail 101</a><a href="#spirits">Thư viện Rượu mạnh</a><a href="#learn">Ghi chú về Vang</a><a href="#cocktails">Hương vị &amp; Cân bằng</a><a href="#learn">Văn hóa Thưởng thức</a></nav></div>
+      <div><h5>Học</h5><nav><a href="#cocktails">Cocktail 101</a><a href="#spirits">Thư viện Rượu mạnh</a><a href="#learn">Ghi chú về Vang</a><a href="#cocktails">Hương vị &amp; Cân bằng</a><a href="#pairing-studio">Ghép vị</a><a href="#learn">Văn hóa Thưởng thức</a></nav></div>
       <div><h5>Quầy bar tại nhà</h5><nav><a href="#homebar">Dụng cụ Pha chế</a><a href="#homebar">Ly tách &amp; Đá</a><a href="#homebar">Nền tảng Quầy bar</a><a href="#journal">Nhật ký Đồ uống</a><a href="#">Giới thiệu</a></nav></div>
       <div>
         <h5>Theo dõi</h5>

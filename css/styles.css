@@ -2352,3 +2352,68 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* ============================================================
+   FOOD PAIRING STUDIO STYLES
+   ============================================================ */
+.pairing-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1.0fr;
+  gap: clamp(28px, 5vw, 56px);
+  align-items: flex-start;
+}
+.pairing-opt {
+  transition: all 0.25s ease;
+  border: 1px solid var(--line-soft) !important;
+}
+.pairing-opt:hover {
+  background: rgba(138, 92, 199, 0.08) !important;
+  border-color: rgba(138, 92, 199, 0.3) !important;
+}
+.pairing-opt.active {
+  background: rgba(138, 92, 199, 0.16) !important;
+  border-color: var(--amethyst) !important;
+  box-shadow: 0 0 15px rgba(138, 92, 199, 0.15);
+}
+.pairing-svg-container {
+  position: relative;
+  overflow: hidden;
+}
+.pairing-info-card {
+  transition: all 0.3s ease;
+  animation: flavorFadeIn 0.4s ease forwards;
+}
+.pairing-info-title {
+  font-family: var(--display);
+  font-size: clamp(20px, 3vw, 24px);
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.pairing-info-desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted-2);
+  margin-bottom: 16px;
+}
+.pairing-info-science {
+  background: rgba(14, 10, 28, 0.3);
+  border-left: 3px solid var(--gold);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--muted-3);
+  margin-bottom: 20px;
+  border-radius: 0 4px 4px 0;
+  line-height: 1.6;
+}
+.pairing-info-foods {
+  font-size: 13px;
+  color: var(--muted-2);
+  margin-bottom: 16px;
+}
+@media (max-width: 900px) {
+  .pairing-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+

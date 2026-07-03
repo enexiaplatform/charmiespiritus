@@ -2560,6 +2560,189 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
+  // ============ 11 · FOOD PAIRING STUDIO ============
+  (() => {
+    const visualizerSvg = document.getElementById('pairingVisualizerSvg');
+    const infoCard = document.getElementById('pairingInfoCard');
+    const pairingOpts = document.querySelectorAll('.pairing-opt');
+
+    if (!visualizerSvg || !infoCard || pairingOpts.length === 0) return;
+
+    // Food icons mapping (original paths centered at x=180, translated by -100 to center at x=80)
+    const foodIcons = {
+      seafood: `<path d="M 160,75 C 170,63 190,63 200,75 C 190,87 170,87 160,75 Z M 200,75 L 208,67 L 205,75 L 208,83 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="170" cy="73" r="1.5" fill="currentColor" />`,
+      meat: `<path d="M 162,70 C 162,60 180,55 192,63 C 200,69 202,81 194,87 C 184,93 162,90 162,70 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+             <path d="M 175,70 C 180,73 185,73 190,70 M 178,77 C 182,80 186,79 190,76" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />`,
+      cheese: `<polygon points="160,85 198,85 185,57 160,65" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+               <circle cx="170" cy="75" r="2.5" fill="none" stroke="currentColor" stroke-width="1.2" />
+               <circle cx="182" cy="77" r="2" fill="none" stroke="currentColor" stroke-width="1.2" />
+               <circle cx="178" cy="67" r="1.5" fill="none" stroke="currentColor" stroke-width="1.2" />`,
+      spicy: `<path d="M 164,83 C 168,87 178,87 188,75 C 196,65 198,55 198,53 C 196,53 186,55 176,63 C 166,71 160,79 164,83 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M 198,53 C 202,47 205,47 205,47" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />`,
+      dessert: `<path d="M 165,81 L 195,81 L 190,93 L 170,93 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                <path d="M 162,81 C 162,67 180,59 180,59 C 180,59 198,67 198,81 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="180" cy="55" r="3" fill="none" stroke="currentColor" stroke-width="1.5" />`
+    };
+
+    // Drink icons mapping (original paths centered at x=192, translated by +108 to center at x=300)
+    const drinkIcons = {
+      seafood: `<path d="M 172,55 L 212,55 L 192,80 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                <line x1="192" y1="80" x2="192" y2="103" stroke="currentColor" stroke-width="1.8" />
+                <line x1="177" y1="103" x2="207" y2="103" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                <circle cx="188" cy="67" r="3" fill="currentColor" opacity="0.8" />`,
+      meat: `<path d="M 177,57 L 181,101 C 181,103 203,103 203,101 L 207,57 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+             <polygon points="186,79 198,83 194,93 184,89" fill="none" stroke="currentColor" stroke-width="1" />`,
+      cheese: `<path d="M 177,60 C 177,81 207,81 207,60 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+               <line x1="192" y1="80" x2="192" y2="103" stroke="currentColor" stroke-width="1.8" />
+               <line x1="182" y1="103" x2="202" y2="103" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />`,
+      spicy: `<path d="M 180,50 L 184,103 C 184,104 200,104 200,103 L 204,50 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              <line x1="187" y1="47" x2="194" y2="95" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />`,
+      dessert: `<path d="M 176,60 C 176,87 208,87 208,60 Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+                <line x1="192" y1="85" x2="192" y2="103" stroke="currentColor" stroke-width="1.8" />
+                <line x1="180" y1="103" x2="204" y2="103" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />`
+    };
+
+    function renderPairing(category) {
+      const data = PAIRING_DATA[category];
+      if (!data) return;
+
+      // Update Info Card content
+      let drinksHtml = data.drinks.map(d => {
+        if (d.type === 'recipe') {
+          return `<span class="tag clickable-recipe" data-recipe-id="${d.id}" style="border: 1px solid ${data.strokeColor}; background: rgba(14, 10, 28, 0.4); color: var(--cream); font-family: var(--ui); font-size: 11px; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 0.2s;">🍹 ${d.name}</span>`;
+        } else {
+          return `<span class="tag clickable-article" data-article-id="${d.id}" style="border: 1px solid ${data.strokeColor}; background: rgba(14, 10, 28, 0.4); color: var(--cream); font-family: var(--ui); font-size: 11px; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 0.2s;">📖 ${d.name}</span>`;
+        }
+      }).join(' ');
+
+      infoCard.innerHTML = `
+        <h3 class="pairing-info-title" style="display: flex; align-items: center; gap: 8px;">
+          <span>${data.emoji}</span>
+          <span>${data.name}</span>
+        </h3>
+        <p class="pairing-info-desc">${data.desc}</p>
+        <div class="pairing-info-science">
+          <strong>Khoa Học Ghép Vị:</strong> ${data.science}
+        </div>
+        <div class="pairing-info-foods" style="margin-bottom: 16px;">
+          <strong style="color: var(--gold); font-family: var(--ui); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;">Món ăn gợi ý:</strong>
+          <span style="font-size: 13.5px; color: var(--muted-2);">${data.foods}</span>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <strong style="color: var(--gold); font-family: var(--ui); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 8px;">Đồ uống khuyên dùng:</strong>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">${drinksHtml}</div>
+        </div>
+        <div style="font-style: italic; font-size: 12.5px; color: var(--muted-3); text-align: right; border-top: 1px dashed var(--line-soft); padding-top: 12px; margin-top: 16px;">
+          “${data.rule}”
+        </div>
+      `;
+
+      // Event listeners for dynamic links
+      infoCard.querySelectorAll('.clickable-recipe').forEach(tag => {
+        tag.addEventListener('click', () => {
+          const recipeId = tag.getAttribute('data-recipe-id');
+          const recipe = RECIPES.find(r => r.id === recipeId);
+          if (recipe && typeof openRecipeModal === 'function') {
+            openRecipeModal(recipe);
+          }
+        });
+      });
+
+      infoCard.querySelectorAll('.clickable-article').forEach(tag => {
+        tag.addEventListener('click', () => {
+          const articleId = tag.getAttribute('data-article-id');
+          const article = ARTICLES[articleId];
+          if (article && typeof openArticleModal === 'function') {
+            openArticleModal(article);
+          }
+        });
+      });
+
+      // Render custom interactive SVG showing flavor bridge
+      const foodIconSvg = foodIcons[category];
+      const drinkIconSvg = drinkIcons[category];
+      const strokeColor = data.strokeColor;
+
+      visualizerSvg.innerHTML = `
+        <defs>
+          <filter id="glow-effect-pairing" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <style>
+          .flow-line {
+            stroke-dasharray: 6, 6;
+            animation: flow 4s linear infinite;
+          }
+          @keyframes flow {
+            to {
+              stroke-dashoffset: -40;
+            }
+          }
+        </style>
+
+        <!-- Left Plate (Food) -->
+        <g transform="translate(0, 0)">
+          <circle cx="80" cy="75" r="32" fill="none" stroke="var(--line-soft)" stroke-width="1.2" />
+          <circle cx="80" cy="75" r="40" fill="none" stroke="var(--line-soft)" stroke-width="0.8" stroke-dasharray="2, 2" />
+          <circle cx="80" cy="75" r="44" fill="none" stroke="${strokeColor}" stroke-width="0.8" opacity="0.3" />
+          <!-- Food Icon -->
+          <g transform="translate(-100, 0)" style="color: ${strokeColor};">
+            ${foodIconSvg}
+          </g>
+          <text x="80" y="132" text-anchor="middle" font-family="var(--ui)" font-size="10" fill="var(--muted-2)" font-weight="500">ẨM THỰC</text>
+        </g>
+
+        <!-- Connection Bridge (Flavor Flow) -->
+        <g filter="url(#glow-effect-pairing)">
+          <!-- Static background curves -->
+          <path d="M 126,75 C 160,50 220,100 254,75" fill="none" stroke="${strokeColor}" stroke-width="1.2" opacity="0.3" />
+          <path d="M 126,75 C 160,75 220,75 254,75" fill="none" stroke="${strokeColor}" stroke-width="1.2" opacity="0.2" />
+          <path d="M 126,75 C 160,100 220,50 254,75" fill="none" stroke="${strokeColor}" stroke-width="1.2" opacity="0.3" />
+          
+          <!-- Flowing active particles -->
+          <path class="flow-line" d="M 126,75 C 160,50 220,100 254,75" fill="none" stroke="${strokeColor}" stroke-width="2.2" stroke-linecap="round" />
+          <path class="flow-line" d="M 126,75 C 160,75 220,75 254,75" fill="none" stroke="${strokeColor}" stroke-width="2.2" stroke-linecap="round" style="animation-delay: -1.33s;" />
+          <path class="flow-line" d="M 126,75 C 160,100 220,50 254,75" fill="none" stroke="${strokeColor}" stroke-width="2.2" stroke-linecap="round" style="animation-delay: -2.66s;" />
+        </g>
+
+        <!-- Right Drink (Glass) -->
+        <g transform="translate(0, 0)">
+          <circle cx="300" cy="75" r="32" fill="none" stroke="var(--line-soft)" stroke-width="1.2" />
+          <circle cx="300" cy="75" r="40" fill="none" stroke="var(--line-soft)" stroke-width="0.8" stroke-dasharray="2, 2" />
+          <circle cx="300" cy="75" r="44" fill="none" stroke="${strokeColor}" stroke-width="0.8" opacity="0.3" />
+          <!-- Drink Icon -->
+          <g transform="translate(108, 0)" style="color: ${strokeColor};">
+            ${drinkIconSvg}
+          </g>
+          <text x="300" y="132" text-anchor="middle" font-family="var(--ui)" font-size="10" fill="var(--muted-2)" font-weight="500">ĐỒ UỐNG</text>
+        </g>
+      `;
+    }
+
+    pairingOpts.forEach(opt => {
+      opt.addEventListener('click', function() {
+        pairingOpts.forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
+        const category = this.getAttribute('data-pairing');
+        
+        if (typeof playTick === 'function') {
+          playTick();
+        }
+        renderPairing(category);
+      });
+    });
+
+    // Initial render
+    renderPairing('seafood');
+  })();
+
   // Initialize and Render Tasting Notes on Startup
   renderTastings();
 });
+

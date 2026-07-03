@@ -790,6 +790,18 @@
     <form id="tastingForm" onsubmit="return false;">
       <div class="tasting-form-layout">
         <div class="tasting-inputs">
+          <!-- Mẫu điền nhanh (Quick Templates) -->
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label style="margin-bottom: 6px; color: var(--gold); display: block; font-family: var(--ui); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;">Chọn nhanh mẫu gợi ý</label>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-template" data-template="negroni">🥃 Negroni</button>
+              <button type="button" class="btn-template" data-template="martini">🍸 Dry Martini</button>
+              <button type="button" class="btn-template" data-template="sour">🥃 Whisky Sour</button>
+              <button type="button" class="btn-template" data-template="espresso">☕ Espresso Martini</button>
+              <button type="button" class="btn-template" data-template="wine">🍷 Vang Đỏ</button>
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="tasteName">Tên rượu / Cocktail</label>
             <input type="text" id="tasteName" class="form-control" placeholder="Ví dụ: Bowmore 12, Negroni..." required>
@@ -810,6 +822,20 @@
               <option value="Cocktail">Cocktail</option>
               <option value="Khác">Khác</option>
             </select>
+          </div>
+
+          <!-- Bộ chọn Emoji biểu tượng -->
+          <div class="form-group">
+            <label>Biểu tượng ly cốc (Icon)</label>
+            <div class="emoji-selector-row" id="emojiSelectorRow">
+              <span class="emoji-opt active" data-emoji="🥃">🥃</span>
+              <span class="emoji-opt" data-emoji="🍸">🍸</span>
+              <span class="emoji-opt" data-emoji="🍷">🍷</span>
+              <span class="emoji-opt" data-emoji="🍹">🍹</span>
+              <span class="emoji-opt" data-emoji="🍾">🍾</span>
+              <span class="emoji-opt" data-emoji="☕">☕</span>
+            </div>
+            <input type="hidden" id="tasteEmoji" value="🥃">
           </div>
           
           <div class="form-group">
@@ -871,6 +897,23 @@
           <div class="form-group">
             <label for="tasteFinish">Hậu vị (Finish / Aftertaste)</label>
             <input type="text" id="tasteFinish" class="form-control" placeholder="Ví dụ: Kéo dài cay nồng gỗ sồi, Đắng ngọt mượt mà...">
+          </div>
+
+          <!-- Nhãn hương thơm đặc trưng (Aromas) -->
+          <div class="form-group">
+            <label>Hương thơm & Aromas đặc trưng (Chọn nhiều)</label>
+            <div class="aroma-tags-picker" id="aromaTagsPicker">
+              <span class="aroma-picker-tag" data-tag="Bách xù">🌲 Bách xù</span>
+              <span class="aroma-picker-tag" data-tag="Cam chanh">🍋 Cam chanh</span>
+              <span class="aroma-picker-tag" data-tag="Gỗ sồi">🪵 Gỗ sồi</span>
+              <span class="aroma-picker-tag" data-tag="Mật ong">🍯 Mật ong</span>
+              <span class="aroma-picker-tag" data-tag="Cà phê">☕ Cà phê</span>
+              <span class="aroma-picker-tag" data-tag="Thảo mộc">🍂 Thảo mộc</span>
+              <span class="aroma-picker-tag" data-tag="Khói đất">💨 Khói đất</span>
+              <span class="aroma-picker-tag" data-tag="Quả mọng">🍇 Quả mọng</span>
+              <span class="aroma-picker-tag" data-tag="Socola">🍫 Socola</span>
+              <span class="aroma-picker-tag" data-tag="Gia vị">🌶️ Gia vị</span>
+            </div>
           </div>
 
           <div class="form-group">

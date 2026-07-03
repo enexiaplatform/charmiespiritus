@@ -1044,5 +1044,107 @@ const RECIPES = [
       { text: "Rót từ từ 60ml Champagne lạnh đầy ly." },
       { text: "Khuấy thật nhẹ bằng muỗng bar xoắn và trang trí bằng vỏ chanh xoắn dài thả dọc lòng ly." }
     ]
+  },
+  {
+    id: "penicillin",
+    name: "Penicillin",
+    desc: "Vị khói than bùn sâu thẳm quyến rũ hòa cùng vị cay ấm của gừng tươi và mật ong ngọt ngào.",
+    ingredients: ["whiskey", "lemon", "syrup", "ginger_beer"],
+    strength: "balanced",
+    flavor: "citrus",
+    mood: "solitary",
+    flavorProfile: [3.5, 3, 3, 1, 4.5],
+    details: {
+      category: "Cocktail Hiện Đại",
+      time: "4 phút pha chế",
+      title: "Penicillin: Liều Thuốc Cho Tâm Hồn",
+      content: `
+        <p>Được tạo ra bởi bartender huyền thoại Sam Ross vào năm 2005 tại Milk & Honey (New York), Penicillin nhanh chóng trở thành một trong những ly cocktail hiện đại nổi tiếng nhất thế giới nhờ sự kết hợp tinh tế giữa rượu Scotch Whiskey, chanh, mật ong và gừng.</p>
+        <h3>Công Thức & Tỷ Lệ</h3>
+        <ul>
+          <li>60ml Blended Scotch Whisky</li>
+          <li>22.5ml Nước cốt chanh vàng tươi</li>
+          <li>22.5ml Honey-Ginger Syrup (Syrup mật ong & gừng tươi)</li>
+          <li>7.5ml Peated Islay Single Malt Whisky (để rót nổi trên bề mặt)</li>
+        </ul>
+        <h3>Kỹ Thuật Pha Chế</h3>
+        <p><strong>Shake & Float (Lắc và Rót nổi):</strong> Lắc đều Blended Scotch, chanh và syrup mật ong gừng với đá viên. Lọc mịn ra ly Rocks chứa một viên đá lớn. Cuối cùng, nhẹ nhàng rót Single Malt Islay Scotch lên trên mặt ly qua muỗng bar để tạo một lớp hương khói nồng nàn lan tỏa ngay khi ghé môi ngửi.</p>
+        <blockquote>"Một ly Penicillin hoàn hảo sẽ đánh thức mọi giác quan của bạn bằng lớp hương khói ấm áp ban đầu, sau đó dẫn lối vào vị ngọt cay của mật ong gừng và vị chua sáng khoái."</blockquote>
+      `
+    },
+    steps: [
+      { text: "Chuẩn bị ly Rocks chứa sẵn một viên đá lớn trong suốt." },
+      { text: "Đong 60ml Blended Scotch Whisky, 22.5ml nước chanh vàng và 22.5ml Honey-Ginger Syrup vào bình lắc." },
+      { text: "Thêm đá viên cứng đầy bình lắc và lắc mạnh mẽ liên tục trong 12 giây.", timer: 12 },
+      { text: "Lọc mịn (double strain) rượu ra ly Rocks đã chuẩn bị." },
+      { text: "Dùng muỗng bar xoắn rót nổi 7.5ml Peated Single Malt Whisky lên bề mặt ly để tạo tầng khói đặc trưng." },
+      { text: "Trang trí bằng một miếng gừng ngâm đường hoặc vỏ chanh vàng." }
+    ]
+  },
+  {
+    id: "paper_plane",
+    name: "Paper Plane",
+    desc: "Màu cam san hô rực rỡ, vị chua ngọt đắng dịu vô cùng cân bằng từ Bourbon và thảo mộc.",
+    ingredients: ["whiskey", "lemon", "campari", "triple_sec"],
+    strength: "balanced",
+    flavor: "bitter",
+    mood: "social",
+    flavorProfile: [3, 3, 3.5, 2.5, 4],
+    details: {
+      category: "Cocktail Hiện Đại",
+      time: "3 phút pha chế",
+      title: "Paper Plane: Chuyến Bay Trên Đôi Cánh Thảo Mộc",
+      content: `
+        <p>Được đặt tên theo bài hát "Paper Planes" của M.I.A, ly cocktail này do Sam Ross sáng tạo vào năm 2007 cho quầy bar The Violet Hour (Chicago). Sử dụng công thức bốn phần bằng nhau (equal parts) độc đáo, mang lại sự kết hợp rực rỡ giữa Bourbon ngọt ấm và các dòng thảo mộc tinh tế.</p>
+        <h3>Công Thức & Tỷ Lệ</h3>
+        <ul>
+          <li>22.5ml Bourbon Whiskey</li>
+          <li>22.5ml Aperol (hoặc Campari thay thế nhẹ)</li>
+          <li>22.5ml Amaro Nonino (hoặc Vermouth ngọt nhẹ)</li>
+          <li>22.5ml Nước cốt chanh vàng (Lemon)</li>
+        </ul>
+        <h3>Kỹ Thuật Pha Chế</h3>
+        <p><strong>Shake (Lắc):</strong> Rót tất cả nguyên liệu với tỷ lệ bằng nhau vào shaker đầy đá. Lắc mạnh trong 10-12 giây và lọc mịn ra ly Coupe đã được làm lạnh. Không trang trí, để nguyên màu sắc cam san hô tuyệt đẹp tự nhiên tỏa sáng.</p>
+      `
+    },
+    steps: [
+      { text: "Làm lạnh ly Coupe chân cao bằng đá." },
+      { text: "Đong chính xác 22.5ml Bourbon, 22.5ml Aperol (hoặc Campari), 22.5ml Amaro Nonino và 22.5ml nước chanh vàng vào bình shaker." },
+      { text: "Đổ đầy đá viên cứng và lắc mạnh mẽ trong 11 giây.", timer: 11 },
+      { text: "Lọc mịn rượu ra ly Coupe chân cao thanh lịch (không dùng đá)." }
+    ]
+  },
+  {
+    id: "bees_knees",
+    name: "Bee's Knees",
+    desc: "Mật ong rừng ngọt ngào hòa cùng chanh vàng tươi tắn nâng đỡ hương bách xù thảo mộc của Gin.",
+    ingredients: ["gin", "lemon", "syrup"],
+    strength: "balanced",
+    flavor: "citrus",
+    mood: "social",
+    flavorProfile: [3, 3.5, 3.5, 0, 4],
+    details: {
+      category: "Cocktail Kinh Điển",
+      time: "3 phút pha chế",
+      title: "Bee's Knees: Tuyệt Phẩm Thời Kỳ Cấm Luật",
+      content: `
+        <p>Thuật ngữ "Bee's Knees" trong tiếng lóng những năm 1920 có nghĩa là "thứ xuất sắc nhất". Ly cocktail này ra đời trong thời kỳ cấm luật tại Mỹ, khi mật ong và chanh vàng được dùng để che giấu mùi nồng gắt của các loại rượu Gin tự nấu (Bathtub Gin) kém chất lượng thời bấy giờ.</p>
+        <h3>Công Thức & Tỷ Lệ</h3>
+        <ul>
+          <li>60ml London Dry Gin</li>
+          <li>22.5ml Nước cốt chanh vàng tươi</li>
+          <li>22.5ml Honey Syrup (Syrup mật ong tỷ lệ 1:1 hoặc 2:1)</li>
+        </ul>
+        <h3>Kỹ Thuật Pha Chế</h3>
+        <p><strong>Shake (Lắc):</strong> Lắc đều các nguyên liệu với đá viên cứng để làm loãng mật ong sánh mịn và hòa quyện cùng acid chanh. Rót ra ly Coupe đã làm lạnh. Trang trí bằng vỏ chanh vàng xoắn.</p>
+      `
+    },
+    steps: [
+      { text: "Làm lạnh ly Coupe chân cao." },
+      { text: "Đong 60ml London Dry Gin, 22.5ml nước cốt chanh vàng tươi và 22.5ml Honey Syrup vào bình lắc." },
+      { text: "Cho đầy đá viên cứng và lắc thật mạnh để hòa tan syrup mật ong trong 10 giây.", timer: 10 },
+      { text: "Đổ đá làm lạnh ở ly đi, lọc mịn rượu rót vào ly Coupe." },
+      { text: "Vắt vỏ chanh vàng lấy tinh dầu lên mặt ly và gài vỏ chanh trang trí." }
+    ]
   }
 ];

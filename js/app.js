@@ -1001,6 +1001,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (label && input) label.textContent = input.value;
     });
+
+    // Reset emoji picker to default
+    document.querySelectorAll('#emojiSelectorRow .emoji-opt').forEach(opt => {
+      opt.classList.remove('active');
+      if (opt.getAttribute('data-emoji') === '🥃') {
+        opt.classList.add('active');
+      }
+    });
+    const tasteEmojiInput = document.getElementById('tasteEmoji');
+    if (tasteEmojiInput) tasteEmojiInput.value = '🥃';
+
+    // Reset aroma tags
+    document.querySelectorAll('#aromaTagsPicker .aroma-picker-tag').forEach(tag => {
+      tag.classList.remove('active');
+    });
   }
 
   // 7. Local storage management
@@ -1053,12 +1068,39 @@ document.addEventListener('DOMContentLoaded', () => {
       const colorText = note.color ? `<div style="font-size: 13.5px; color: var(--muted-2); margin-top: 6px;"><b>Màu sắc:</b> ${note.color}</div>` : '';
       const finishText = note.finish ? `<div style="font-size: 13.5px; color: var(--muted-2); margin-top: 2px;"><b>Hậu vị:</b> ${note.finish}</div>` : '';
 
+      // Emojis and Aroma tags
+      const emojiIcon = note.emoji || '🥃';
+      let aromasHtml = '';
+      if (note.aromas && note.aromas.length > 0) {
+        aromasHtml = '<div class="t-aromas-container">';
+        note.aromas.forEach(a => {
+          let tagWithEmoji = a;
+          if (a === 'Bách xù') tagWithEmoji = '🌲 ' + a;
+          else if (a === 'Cam chanh') tagWithEmoji = '🍋 ' + a;
+          else if (a === 'Gỗ sồi') tagWithEmoji = '🪵 ' + a;
+          else if (a === 'Mật ong') tagWithEmoji = '🍯 ' + a;
+          else if (a === 'Cà phê') tagWithEmoji = '☕ ' + a;
+          else if (a === 'Thảo mộc') tagWithEmoji = '🍂 ' + a;
+          else if (a === 'Khói đất') tagWithEmoji = '💨 ' + a;
+          else if (a === 'Quả mọng') tagWithEmoji = '🍇 ' + a;
+          else if (a === 'Socola') tagWithEmoji = '🍫 ' + a;
+          else if (a === 'Gia vị') tagWithEmoji = '🌶️ ' + a;
+          
+          aromasHtml += `<span class="t-aroma-badge">${tagWithEmoji}</span>`;
+        });
+        aromasHtml += '</div>';
+      }
+
       html += `
         <div class="tasting-note-card">
           <div class="info">
             <div class="t-date">${note.category} · ${note.date}</div>
-            <h4 class="t-name">${note.name}</h4>
-            <div class="t-rating" title="Đánh giá: ${note.rating || 5} sao">${starsStr}</div>
+            <h4 class="t-name" style="display: flex; align-items: center; gap: 8px;">
+              <span class="t-emoji" style="font-size: 24px; line-height: 1;">${emojiIcon}</span>
+              <span>${note.name}</span>
+            </h4>
+            <div class="t-rating" style="margin-top: 4px;" title="Đánh giá: ${note.rating || 5} sao">${starsStr}</div>
+            ${aromasHtml}
             ${colorText}
             ${finishText}
             <p class="t-text" style="white-space: pre-line; margin-top: 10px; margin-bottom: 30px;">${note.notes || 'Không có mô tả chi tiết.'}</p>
@@ -1113,12 +1155,152 @@ document.addEventListener('DOMContentLoaded', () => {
       if (input && label) label.textContent = input.value;
     });
 
+    // Populate emoji
+    const activeEmoji = note.emoji || '🥃';
+    document.getElementById('tasteEmoji').value = activeEmoji;
+    document.querySelectorAll('#emojiSelectorRow .emoji-opt').forEach(opt => {
+      if (opt.getAttribute('data-emoji') === activeEmoji) {
+        opt.classList.add('active');
+      } else {
+        opt.classList.remove('active');
+      }
+    });
+
+    // Populate aroma tags
+    const activeAromas = note.aromas || [];
+    document.querySelectorAll('#aromaTagsPicker .aroma-picker-tag').forEach(tag => {
+      const tagVal = tag.getAttribute('data-tag');
+      if (activeAromas.includes(tagVal)) {
+        tag.classList.add('active');
+      } else {
+        tag.classList.remove('active');
+      }
+    });
+
     updateModalRadar();
     document.querySelector('#tastingModalSubmitBtn').textContent = "Cập nhật ghi chép";
     
     tastingModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   };
+
+  // Upgraded interactive inputs for tasting journal (emoji & aroma tag picker, quick templates)
+  document.querySelectorAll('#emojiSelectorRow .emoji-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('#emojiSelectorRow .emoji-opt').forEach(x => x.classList.remove('active'));
+      opt.classList.add('active');
+      const val = opt.getAttribute('data-emoji');
+      document.getElementById('tasteEmoji').value = val;
+    });
+  });
+
+  document.querySelectorAll('#aromaTagsPicker .aroma-picker-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      tag.classList.toggle('active');
+    });
+  });
+
+  // Quick Templates mapping data
+  const TASTING_TEMPLATES = {
+    negroni: {
+      name: "Negroni",
+      category: "Cocktail",
+      emoji: "🥃",
+      sliders: { Strength: 4.5, Sweet: 3, Sour: 1, Bitter: 4.5, Aroma: 4.5 },
+      color: "Đỏ hồng ngọc sáng",
+      finish: "Đắng ngọt kéo dài thảo mộc, ấm cồn nhẹ",
+      rating: 5,
+      aromas: ["Cam chanh", "Thảo mộc", "Gia vị"]
+    },
+    martini: {
+      name: "Dry Martini",
+      category: "Cocktail",
+      emoji: "🍸",
+      sliders: { Strength: 5, Sweet: 0.5, Sour: 0.5, Bitter: 1, Aroma: 4.5 },
+      color: "Trong suốt tinh khiết",
+      finish: "Khô ráo, sạch sẽ, thơm lừng bách xù và cồn sắc",
+      rating: 5,
+      aromas: ["Bách xù", "Thảo mộc"]
+    },
+    sour: {
+      name: "Whiskey Sour",
+      category: "Cocktail",
+      emoji: "🥃",
+      sliders: { Strength: 3.5, Sweet: 2.5, Sour: 3, Bitter: 0.5, Aroma: 4 },
+      color: "Vàng chanh nhạt, bọt mịn trắng",
+      finish: "Chua thanh dịu ngọt mượt mà sồi Bourbon",
+      rating: 5,
+      aromas: ["Cam chanh", "Gỗ sồi"]
+    },
+    espresso: {
+      name: "Espresso Martini",
+      category: "Cocktail",
+      emoji: "☕",
+      sliders: { Strength: 3.5, Sweet: 3.5, Sour: 0.5, Bitter: 3, Aroma: 4.5 },
+      color: "Nâu sẫm cafe đen, lớp Crema dày",
+      finish: "Đắng thơm nồng cafe rang, ngọt ngào liqueur",
+      rating: 5,
+      aromas: ["Cà phê", "Socola"]
+    },
+    wine: {
+      name: "Vang Đỏ Bordeaux",
+      category: "Vang",
+      emoji: "🍷",
+      sliders: { Strength: 2.5, Sweet: 1, Sour: 2, Bitter: 2, Aroma: 4.5 },
+      color: "Đỏ ruby đậm đà",
+      finish: "Chát nhẹ, kéo dài nốt nho khô và gỗ sồi",
+      rating: 4,
+      aromas: ["Gỗ sồi", "Quả mọng"]
+    }
+  };
+
+  document.querySelectorAll('.btn-template').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const templateKey = btn.getAttribute('data-template');
+      const data = TASTING_TEMPLATES[templateKey];
+      if (!data) return;
+
+      // Fill name & category
+      document.getElementById('tasteName').value = data.name;
+      document.getElementById('tasteCategory').value = data.category;
+      document.getElementById('tasteColor').value = data.color;
+      document.getElementById('tasteFinish').value = data.finish;
+      
+      // Rating stars
+      setStarsInput(data.rating);
+
+      // Emoji picker
+      document.querySelectorAll('#emojiSelectorRow .emoji-opt').forEach(opt => {
+        if (opt.getAttribute('data-emoji') === data.emoji) {
+          opt.classList.add('active');
+        } else {
+          opt.classList.remove('active');
+        }
+      });
+      document.getElementById('tasteEmoji').value = data.emoji;
+
+      // Sliders
+      for (const [key, val] of Object.entries(data.sliders)) {
+        const input = document.getElementById('val' + key);
+        const label = document.getElementById('lbl' + key);
+        if (input) input.value = val;
+        if (label) label.textContent = val;
+      }
+
+      // Aroma tags
+      document.querySelectorAll('#aromaTagsPicker .aroma-picker-tag').forEach(tag => {
+        const tagVal = tag.getAttribute('data-tag');
+        if (data.aromas.includes(tagVal)) {
+          tag.classList.add('active');
+        } else {
+          tag.classList.remove('active');
+        }
+      });
+
+      // Update radar chart in modal
+      updateModalRadar();
+    });
+  });
 
   if (btnNewTasting) {
     btnNewTasting.addEventListener('click', () => {
@@ -1147,6 +1329,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const sour = parseFloat(document.getElementById('valSour').value);
       const bitter = parseFloat(document.getElementById('valBitter').value);
       const aroma = parseFloat(document.getElementById('valAroma').value);
+
+      // Extract emoji
+      const emoji = document.getElementById('tasteEmoji').value || '🥃';
+
+      // Extract aromas
+      const aromas = [];
+      document.querySelectorAll('#aromaTagsPicker .aroma-picker-tag.active').forEach(tag => {
+        aromas.push(tag.getAttribute('data-tag'));
+      });
       
       let dateStr = '';
       if (editingIndex !== null) {
@@ -1169,6 +1360,8 @@ document.addEventListener('DOMContentLoaded', () => {
         bitter,
         aroma,
         notes,
+        emoji,
+        aromas,
         date: dateStr
       };
       
@@ -1693,7 +1886,8 @@ document.addEventListener('DOMContentLoaded', () => {
           { id: "martini", name: "Dry Martini" },
           { id: "negroni", name: "Negroni" },
           { id: "tom_collins", name: "Tom Collins" },
-          { id: "french_75", name: "French 75" }
+          { id: "french_75", name: "French 75" },
+          { id: "bees_knees", name: "Bee's Knees" }
         ]
       },
       "juniper": {
@@ -1706,7 +1900,8 @@ document.addEventListener('DOMContentLoaded', () => {
           { id: "martini", name: "Dry Martini" },
           { id: "negroni", name: "Negroni" },
           { id: "tom_collins", name: "Tom Collins" },
-          { id: "french_75", name: "French 75" }
+          { id: "french_75", name: "French 75" },
+          { id: "bees_knees", name: "Bee's Knees" }
         ]
       },
       "bitter_herbs": {
@@ -1720,7 +1915,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         recipes: [
           { id: "negroni", name: "Negroni" },
-          { id: "sazerac", name: "Sazerac" }
+          { id: "sazerac", name: "Sazerac" },
+          { id: "paper_plane", name: "Paper Plane" }
         ]
       },
       "fruity": {
@@ -1736,7 +1932,8 @@ document.addEventListener('DOMContentLoaded', () => {
           { id: "daiquiri", name: "Daiquiri" },
           { id: "clover_club", name: "Clover Club" },
           { id: "sidecar", name: "Sidecar" },
-          { id: "moscow_mule", name: "Moscow Mule" }
+          { id: "moscow_mule", name: "Moscow Mule" },
+          { id: "paper_plane", name: "Paper Plane" }
         ]
       },
       "citrus": {
@@ -1753,7 +1950,9 @@ document.addEventListener('DOMContentLoaded', () => {
           { id: "daiquiri", name: "Daiquiri" },
           { id: "sidecar", name: "Sidecar" },
           { id: "tom_collins", name: "Tom Collins" },
-          { id: "french_75", name: "French 75" }
+          { id: "french_75", name: "French 75" },
+          { id: "bees_knees", name: "Bee's Knees" },
+          { id: "penicillin", name: "Penicillin" }
         ]
       },
       "berries_grapes": {
@@ -1817,7 +2016,8 @@ document.addEventListener('DOMContentLoaded', () => {
         recipes: [
           { id: "moscow_mule", name: "Moscow Mule" },
           { id: "sazerac", name: "Sazerac" },
-          { id: "old_fashioned", name: "Old Fashioned" }
+          { id: "old_fashioned", name: "Old Fashioned" },
+          { id: "penicillin", name: "Penicillin" }
         ]
       },
       "spice_ginger": {
@@ -1828,7 +2028,8 @@ document.addEventListener('DOMContentLoaded', () => {
         spirits: [{ id: "spirit-whiskey", name: "Whisky (Rye)" }],
         recipes: [
           { id: "moscow_mule", name: "Moscow Mule" },
-          { id: "sazerac", name: "Sazerac" }
+          { id: "sazerac", name: "Sazerac" },
+          { id: "penicillin", name: "Penicillin" }
         ]
       },
       "peat_smoke": {
@@ -1837,7 +2038,10 @@ document.addEventListener('DOMContentLoaded', () => {
         desc: "Mùi hương độc bản trầm mặc tựa khói đất ẩm ấm áp, bắt nguồn từ quá trình sấy mạch nha bằng khói than bùn tự nhiên của Scotch Whisky.",
         tips: "Đây là nốt hương kén người nhưng một khi đã phải lòng, bạn sẽ say mê nốt trầm sâu lắng không dòng rượu nào có được.",
         spirits: [{ id: "spirit-whiskey", name: "Whisky" }],
-        recipes: [{ id: "old_fashioned", name: "Old Fashioned" }]
+        recipes: [
+          { id: "old_fashioned", name: "Old Fashioned" },
+          { id: "penicillin", name: "Penicillin" }
+        ]
       }
     };
 

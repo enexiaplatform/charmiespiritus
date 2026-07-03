@@ -634,6 +634,58 @@ document.addEventListener('DOMContentLoaded', () => {
     printWindow.document.close();
   }
 
+  function scaleIngredients(container, multiplier) {
+    // 1. Scale ingredients list
+    container.querySelectorAll('ul li').forEach(li => {
+      if (!li.hasAttribute('data-original-text')) {
+        li.setAttribute('data-original-text', li.innerHTML);
+      }
+      const originalText = li.getAttribute('data-original-text');
+      
+      let scaledText = originalText.replace(/^(\s*)(\d+(?:\.\d+)?)(-\d+)?(\s*(?:ml|dash|giọt|lát|quả|oz|phần|viên|nhánh|cọng|muỗng|thìa|lon)?)/i, (match, p1, numStr, rangeStr, unitStr) => {
+        let num = parseFloat(numStr);
+        let scaledNum = num * multiplier;
+        let formattedNum = Number(scaledNum.toFixed(1));
+        
+        let rangePart = '';
+        if (rangeStr) {
+          let rangeNum = parseFloat(rangeStr.substring(1));
+          let scaledRangeNum = rangeNum * multiplier;
+          let formattedRangeNum = Number(scaledRangeNum.toFixed(1));
+          rangePart = `-${formattedRangeNum}`;
+        }
+        
+        return `${p1}${formattedNum}${rangePart}${unitStr || ''}`;
+      });
+      li.innerHTML = scaledText;
+    });
+
+    // 2. Scale numbers in step descriptions
+    container.querySelectorAll('.step-desc').forEach(desc => {
+      if (!desc.hasAttribute('data-original-text')) {
+        desc.setAttribute('data-original-text', desc.innerHTML);
+      }
+      const originalText = desc.getAttribute('data-original-text');
+      
+      let scaledText = originalText.replace(/(\d+(?:\.\d+)?)(-\d+)?\s*(ml|dash|giọt|lát|quả|oz|phần|viên|nhánh|cọng|muỗng|thìa|lon)\b/gi, (match, numStr, rangeStr, unitStr) => {
+        let num = parseFloat(numStr);
+        let scaledNum = num * multiplier;
+        let formattedNum = Number(scaledNum.toFixed(1));
+        
+        let rangePart = '';
+        if (rangeStr) {
+          let rangeNum = parseFloat(rangeStr.substring(1));
+          let scaledRangeNum = rangeNum * multiplier;
+          let formattedRangeNum = Number(scaledRangeNum.toFixed(1));
+          rangePart = `-${formattedRangeNum}`;
+        }
+        
+        return `${formattedNum}${rangePart} ${unitStr}`;
+      });
+      desc.innerHTML = scaledText;
+    });
+  }
+
   function openRecipeModal(recipe) {
     if (!articleModal || !articleContainer) return;
     clearAllTimers();
@@ -689,10 +741,39 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
       <div class="article-body" style="font-family: var(--body); font-size: 16px; line-height: 1.75; color: var(--muted-2);">
-        ${recipe.details.content}
-        ${stepsHtml}
+        <div class="portion-adjuster" style="display: flex; align-items: center; justify-content: space-between; background: rgba(138, 92, 199, 0.05); border: 1px solid var(--line-soft); border-radius: 6px; padding: 10px 16px; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-family: var(--ui); font-size: 9px; text-transform: uppercase; color: var(--gold); letter-spacing: 0.05em; line-height: 1.2;">Căn chỉnh phần pha</span>
+            <span style="font-size: 13px; color: var(--cream); font-weight: 500; line-height: 1.3;">Tự động nhân tỷ lệ nguyên liệu</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <button class="btn btn-ghost portion-btn active" data-mult="1" style="padding: 4px 10px; font-size: 11px; margin: 0; border-radius: 4px; line-height: 1.2;">1 Ly</button>
+            <button class="btn btn-ghost portion-btn" data-mult="2" style="padding: 4px 10px; font-size: 11px; margin: 0; border-radius: 4px; line-height: 1.2;">2 Ly</button>
+            <button class="btn btn-ghost portion-btn" data-mult="4" style="padding: 4px 10px; font-size: 11px; margin: 0; border-radius: 4px; line-height: 1.2;">4 Ly</button>
+            <button class="btn btn-ghost portion-btn" data-mult="6" style="padding: 4px 10px; font-size: 11px; margin: 0; border-radius: 4px; line-height: 1.2;">6 Ly</button>
+          </div>
+        </div>
+        <div class="recipe-content-wrap">
+          ${recipe.details.content}
+          ${stepsHtml}
+        </div>
       </div>
     `;
+
+    // Bind portions scaling
+    articleContainer.querySelectorAll('.portion-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        articleContainer.querySelectorAll('.portion-btn').forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
+        const multiplier = parseInt(this.getAttribute('data-mult'));
+        
+        const contentWrap = articleContainer.querySelector('.recipe-content-wrap');
+        if (contentWrap) {
+          scaleIngredients(contentWrap, multiplier);
+        }
+        playTick();
+      });
+    });
 
     // Bind print button
     const printBtn = document.getElementById('printRecipeBtn');
@@ -2133,6 +2214,350 @@ document.addEventListener('DOMContentLoaded', () => {
         showFlavorDetails(flavorId);
       });
     });
+  })();
+
+  // ============ 14 · GLASSWARE & ICE LABORATORY INTERACTIVE LOGIC ============
+  (() => {
+    const GLASSWARE_DATA = {
+      coupe: {
+        name: "Ly Coupe (Champagne Saucer)",
+        volume: "150ml - 180ml",
+        science: "Bầu ly rộng làm tăng tốc độ giải phóng hương thơm trái cây và cam chanh từ các ly cocktail nhóm Sour hoặc Sweet. Phần chân cao (stem) ngăn không cho nhiệt từ tay truyền lên bầu rượu, giữ cho ly cocktail lạnh sâu mà không cần đá.",
+        drinks: "Daiquiri, Clover Club, Sidecar, French 75, Bee's Knees.",
+        recommendedIce: "Không dùng đá (Phục vụ Up). Ly đã được lắc lạnh sẵn trước khi rót."
+      },
+      rocks: {
+        name: "Ly Rocks (Old Fashioned / Lowball)",
+        volume: "240ml - 320ml",
+        science: "Thân ly thấp, rộng và đáy cực dày để giữ nhiệt độ lạnh từ viên đá lớn tiếp xúc trực tiếp. Thiết kế này lý tưởng cho các ly cocktail nhóm Spirit-Forward (rượu nền chủ đạo) cần sự pha loãng chậm rãi từ viên đá lớn để giải phóng các tầng hương gỗ sồi và vani tinh tế mà không bị nhạt quá nhanh.",
+        drinks: "Old Fashioned, Negroni, Boulevardier, Sazerac.",
+        recommendedIce: "Đá khối lớn (Big Cube) hoặc Đá cầu lớn (Sphere) để tối thiểu hóa tốc độ tan chảy."
+      },
+      highball: {
+        name: "Ly Highball (Tall Tumbler)",
+        volume: "270ml - 360ml",
+        science: "Dáng ly cao, thuôn dài giúp tối thiểu hóa diện tích tiếp xúc bề mặt của chất lỏng với không khí, qua đó bảo toàn ga sủi (carbonation) từ Soda, Tonic hoặc Ginger Beer lâu nhất có thể. Thiết kế này cũng cho phép chứa nhiều đá nhỏ/đá đập để làm lạnh nhanh và sảng khoái.",
+        drinks: "Gin Tonic, Tom Collins, Moscow Mule, Mojito.",
+        recommendedIce: "Đá đập (Crushed Ice) hoặc đá viên thông thường xếp đầy ly."
+      },
+      martini: {
+        name: "Ly Martini (Classic Cocktail Glass)",
+        volume: "120ml - 160ml",
+        science: "Bầu ly hình nón ngược dốc đứng giúp tối đa hóa diện tích bề mặt để hương thơm thảo mộc tự nhiên từ Gin và Vermouth được giải phóng trực diện vào khứu giác khi nhấp môi. Chân cao giữ lạnh và góc dốc của thành ly giúp các nguyên liệu không bị phân tách.",
+        drinks: "Dry Martini, Manhattan, Gibson, Vesper.",
+        recommendedIce: "Không dùng đá (Phục vụ Up). Rượu đã được khuấy lạnh sâu trước khi rót."
+      },
+      snifter: {
+        name: "Ly Snifter (Glencairn / Tulip Glass)",
+        volume: "130ml - 170ml",
+        science: "Bầu ly phình to ở phía dưới cho phép lòng bàn tay áp sát vào làm ấm nhẹ rượu mạnh (như Cognac, Whisky neat), kích thích sự bay hơi tự nhiên của các este hương thơm. Miệng ly thu hẹp tối đa giúp giữ lại và tập trung toàn bộ các nốt hương gỗ sồi, khói và hạt rang ngay tại vành ly.",
+        drinks: "Cognac neat, Single Malt Scotch Whisky, Rum lâu năm.",
+        recommendedIce: "Uống nguyên bản (Neat) - Không đá để cảm nhận trọn vẹn hương vị thô mộc ấm cồn."
+      }
+    };
+
+    const liquidGradients = `
+      <defs>
+        <!-- Liquid Gradients -->
+        <linearGradient id="liq-water" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#EBF5FB" stop-opacity="0.25" />
+          <stop offset="100%" stop-color="#AED6F1" stop-opacity="0.45" />
+        </linearGradient>
+        <linearGradient id="liq-negroni" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E74C3C" stop-opacity="0.9" />
+          <stop offset="60%" stop-color="#900C3F" stop-opacity="0.95" />
+          <stop offset="100%" stop-color="#581845" stop-opacity="0.95" />
+        </linearGradient>
+        <linearGradient id="liq-margarita" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FCF3CF" stop-opacity="0.75" />
+          <stop offset="50%" stop-color="#D5F5E3" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#A9DFBF" stop-opacity="0.85" />
+        </linearGradient>
+        <linearGradient id="liq-highball" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F9E79F" stop-opacity="0.8" />
+          <stop offset="50%" stop-color="#F39C12" stop-opacity="0.85" />
+          <stop offset="100%" stop-color="#D35400" stop-opacity="0.9" />
+        </linearGradient>
+        <linearGradient id="liq-martini" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FDFEFE" stop-opacity="0.3" />
+          <stop offset="100%" stop-color="#EAEDED" stop-opacity="0.5" />
+        </linearGradient>
+        
+        <!-- Ice Gradients -->
+        <linearGradient id="ice-block-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.75" />
+          <stop offset="40%" stop-color="#EAF2F8" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#D4E6F1" stop-opacity="0.5" />
+        </linearGradient>
+        <radialGradient id="ice-sphere-grad" cx="30%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.85" />
+          <stop offset="50%" stop-color="#F2F4F4" stop-opacity="0.35" />
+          <stop offset="100%" stop-color="#D6DBDF" stop-opacity="0.5" />
+        </radialGradient>
+        
+        <!-- Glassware Reflection Gradient -->
+        <linearGradient id="glass-glow" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#ECE6F4" stop-opacity="0.45" />
+          <stop offset="25%" stop-color="#ECE6F4" stop-opacity="0.12" />
+          <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.05" />
+          <stop offset="75%" stop-color="#ECE6F4" stop-opacity="0.12" />
+          <stop offset="100%" stop-color="#ECE6F4" stop-opacity="0.45" />
+        </linearGradient>
+      </defs>
+    `;
+
+    function drawGlassVisualizer(glass, ice, drink) {
+      let html = liquidGradients;
+      
+      // 1. LIQUID PATHS
+      let liquidPath = '';
+      let bubblesHtml = '';
+      let oliveHtml = '';
+      
+      if (drink !== 'none') {
+        const fillVal = `url(#liq-${drink})`;
+        if (glass === 'coupe') {
+          liquidPath = `<path d="M 50,115 C 55,152 165,152 170,115 Z" fill="${fillVal}" />`;
+        } else if (glass === 'rocks') {
+          liquidPath = `<path d="M 71,135 L 74,220 C 74,220 146,220 146,220 L 149,135 Z" fill="${fillVal}" />`;
+        } else if (glass === 'highball') {
+          liquidPath = `<path d="M 79,90 L 81.5,228 C 81.5,228 138.5,228 138.5,228 L 141,90 Z" fill="${fillVal}" />`;
+          if (drink === 'highball' || drink === 'water') {
+            // Add carbonation bubbles
+            const bubblePositions = [
+              {x: 88, y: 210, r: 2}, {x: 100, y: 180, r: 1.5}, {x: 125, y: 195, r: 2.2},
+              {x: 110, y: 150, r: 1.2}, {x: 95, y: 120, r: 1.8}, {x: 130, y: 110, r: 1.5},
+              {x: 115, y: 100, r: 2}, {x: 105, y: 220, r: 1.5}, {x: 85, y: 160, r: 1.2}
+            ];
+            bubblesHtml = bubblePositions.map(pos => `<circle cx="${pos.x}" cy="${pos.y}" r="${pos.r}" fill="#fff" opacity="0.6" />`).join('');
+          }
+        } else if (glass === 'martini') {
+          liquidPath = `<path d="M 52,96 L 110,165 L 168,96 Z" fill="${fillVal}" />`;
+          if (drink === 'martini') {
+            // Add martini olive on toothpick
+            oliveHtml = `
+              <!-- Toothpick -->
+              <line x1="85" y1="75" x2="135" y2="155" stroke="#D5DBDB" stroke-width="1.2" />
+              <!-- Olive -->
+              <circle cx="115" cy="120" r="11" fill="#7D6608" stroke="#5D4037" stroke-width="0.8" />
+              <!-- Olive red pimiento center -->
+              <circle cx="118" cy="118" r="3.5" fill="#E74C3C" />
+            `;
+          }
+        } else if (glass === 'snifter') {
+          liquidPath = `<path d="M 82,145 C 72,175 74,210 88,223 C 88,223 132,223 132,223 C 146,210 148,175 138,145 Z" fill="${fillVal}" />`;
+        }
+      }
+      
+      // 2. ICE PATHS
+      let iceHtml = '';
+      if (ice !== 'none' && drink !== 'none') {
+        if (ice === 'cube') {
+          if (glass === 'rocks') {
+            iceHtml = `
+              <g transform="translate(10, 10)">
+                <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+              </g>
+            `;
+          } else if (glass === 'highball') {
+            iceHtml = `
+              <!-- Bottom Cube -->
+              <g transform="translate(5, 45)">
+                <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+              </g>
+              <!-- Top Cube -->
+              <g transform="translate(12, 0)">
+                <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+              </g>
+            `;
+          } else {
+            iceHtml = `
+              <g transform="translate(5, 5)">
+                <polygon points="90,120 115,130 115,155 90,145" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                <polygon points="90,120 110,110 135,120 115,130" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                <polygon points="115,130 135,120 135,145 115,155" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+              </g>
+            `;
+          }
+        } else if (ice === 'sphere') {
+          if (glass === 'rocks') {
+            iceHtml = `
+              <circle cx="110" cy="180" r="30" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" />
+              <path d="M 92,165 A 25 25 0 0 1 128,165" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.6" />
+            `;
+          } else if (glass === 'highball') {
+            iceHtml = `
+              <circle cx="110" cy="185" r="28" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" />
+              <path d="M 93,171 A 23 23 0 0 1 127,171" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.6" />
+            `;
+          } else {
+            iceHtml = `
+              <circle cx="110" cy="140" r="25" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" />
+              <path d="M 95,127 A 20 20 0 0 1 125,127" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.6" />
+            `;
+          }
+        } else if (ice === 'crushed') {
+          const particles = [
+            "M 90,210 L 105,200 L 100,215 Z", "M 108,212 L 125,205 L 120,218 Z",
+            "M 122,208 L 138,202 L 132,216 Z", "M 82,198 L 98,188 L 94,204 Z",
+            "M 99,195 L 115,188 L 110,202 Z", "M 116,192 L 132,185 L 126,198 Z",
+            "M 88,182 L 102,175 L 98,188 Z", "M 104,178 L 120,172 L 114,184 Z",
+            "M 120,175 L 134,168 L 130,181 Z", "M 96,162 L 110,155 L 105,168 Z",
+            "M 112,158 L 126,152 L 122,165 Z"
+          ];
+          iceHtml = particles.map(p => `<path d="${p}" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.4" />`).join('');
+        }
+      }
+      
+      // 3. GLASS OUTLINES
+      let glassOutline = '';
+      if (glass === 'coupe') {
+        glassOutline = `
+          <!-- Bowl -->
+          <path d="M 45,100 C 45,160 175,160 175,100" fill="none" stroke="url(#glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="100" rx="65" ry="10" fill="none" stroke="url(#glass-glow)" stroke-width="2" />
+          <!-- Stem -->
+          <line x1="110" y1="155" x2="110" y2="242" stroke="url(#glass-glow)" stroke-width="4.5" />
+          <!-- Base -->
+          <ellipse cx="110" cy="245" rx="45" ry="8" fill="none" stroke="url(#glass-glow)" stroke-width="2.5" />
+          <ellipse cx="110" cy="245" rx="45" ry="8" fill="rgba(201, 182, 232, 0.05)" />
+        `;
+      } else if (glass === 'rocks') {
+        glassOutline = `
+          <!-- Glass body -->
+          <path d="M 65,100 L 70,240 C 70,245 150,245 150,240 L 155,100" fill="none" stroke="url(#glass-glow)" stroke-width="3" />
+          <!-- Heavy Bottom -->
+          <path d="M 70,222 C 70,222 150,222 150,222 L 150,240 C 150,244 70,244 70,240 Z" fill="rgba(237, 228, 250, 0.15)" stroke="url(#glass-glow)" stroke-width="1" />
+          <!-- Lip -->
+          <ellipse cx="110" cy="100" rx="45" ry="6" fill="none" stroke="url(#glass-glow)" stroke-width="2" />
+        `;
+      } else if (glass === 'highball') {
+        glassOutline = `
+          <!-- Glass body -->
+          <path d="M 75,70 L 79,245 C 79,247 141,247 141,245 L 145,70" fill="none" stroke="url(#glass-glow)" stroke-width="3" />
+          <!-- Heavy Bottom -->
+          <path d="M 79,228 C 79,228 141,228 141,228 L 141,245 C 141,246 79,246 79,245 Z" fill="rgba(237, 228, 250, 0.15)" stroke="url(#glass-glow)" stroke-width="1" />
+          <!-- Lip -->
+          <ellipse cx="110" cy="70" rx="35" ry="5" fill="none" stroke="url(#glass-glow)" stroke-width="2" />
+        `;
+      } else if (glass === 'martini') {
+        glassOutline = `
+          <!-- Cone Bowl -->
+          <path d="M 40,80 L 110,170 L 180,80" fill="none" stroke="url(#glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="80" rx="70" ry="10" fill="none" stroke="url(#glass-glow)" stroke-width="2" />
+          <!-- Stem -->
+          <line x1="110" y1="170" x2="110" y2="242" stroke="url(#glass-glow)" stroke-width="4.5" />
+          <!-- Base -->
+          <ellipse cx="110" cy="245" rx="45" ry="8" fill="none" stroke="url(#glass-glow)" stroke-width="2.5" />
+        `;
+      } else if (glass === 'snifter') {
+        glassOutline = `
+          <!-- Tulip body -->
+          <path d="M 80,100 C 60,130 60,200 82,225 L 138,225 C 160,200 160,130 140,100" fill="none" stroke="url(#glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="100" rx="30" ry="5" fill="none" stroke="url(#glass-glow)" stroke-width="2" />
+          <!-- Short stem/base -->
+          <path d="M 85,225 L 85,245 C 85,245 70,246 70,250 C 70,250 150,250 150,250 C 150,246 135,245 135,245 L 135,225 Z" fill="rgba(237, 228, 250, 0.18)" stroke="url(#glass-glow)" stroke-width="2" />
+        `;
+      }
+      
+      html += liquidPath + bubblesHtml + oliveHtml + iceHtml + glassOutline;
+      return html;
+    }
+
+    const svgVisualizer = document.getElementById('glassVisualizerSvg');
+    const infoCard = document.getElementById('glassInfoCard');
+    if (svgVisualizer && infoCard) {
+      const renderGlasswareLab = () => {
+        svgVisualizer.innerHTML = drawGlassVisualizer(currentGlass, currentIce, currentDrink);
+        const data = GLASSWARE_DATA[currentGlass];
+        if (data) {
+          infoCard.innerHTML = `
+            <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 6px;">
+              Dung tích tiêu chuẩn: ${data.volume}
+            </div>
+            <h3 style="font-family: var(--display); font-size: 19px; color: var(--cream); margin-bottom: 12px; font-weight: 600;">
+              ${data.name}
+            </h3>
+            <p style="font-size: 13.5px; line-height: 1.6; color: var(--muted-2); margin-bottom: 16px;">
+              ${data.science}
+            </p>
+            <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 12px; margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <div style="font-family: var(--ui); font-size: 9.5px; text-transform: uppercase; color: var(--muted-3); margin-bottom: 4px;">Cocktail Tiêu Biểu</div>
+                <div style="font-size: 12.5px; color: var(--lilac); font-weight: 500;">${data.drinks}</div>
+              </div>
+              <div>
+                <div style="font-family: var(--ui); font-size: 9.5px; text-transform: uppercase; color: var(--muted-3); margin-bottom: 4px;">Khuyên Dùng Đá</div>
+                <div style="font-size: 12.5px; color: var(--gold); font-weight: 500;">${data.recommendedIce}</div>
+              </div>
+            </div>
+          `;
+        }
+      };
+
+      document.querySelectorAll('.glass-opt').forEach(opt => {
+        opt.addEventListener('click', function() {
+          document.querySelectorAll('.glass-opt').forEach(el => el.classList.remove('active'));
+          this.classList.add('active');
+          currentGlass = this.getAttribute('data-glass');
+          
+          if (currentGlass === 'rocks') {
+            currentIce = 'sphere';
+            currentDrink = 'negroni';
+          } else if (currentGlass === 'highball') {
+            currentIce = 'cube';
+            currentDrink = 'highball';
+          } else if (currentGlass === 'martini') {
+            currentIce = 'none';
+            currentDrink = 'martini';
+          } else if (currentGlass === 'snifter') {
+            currentIce = 'none';
+            currentDrink = 'highball';
+          } else {
+            currentIce = 'none';
+            currentDrink = 'margarita';
+          }
+
+          document.querySelectorAll('[data-ice]').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-ice') === currentIce);
+          });
+          document.querySelectorAll('[data-drink]').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-drink') === currentDrink);
+          });
+
+          playTick();
+          renderGlasswareLab();
+        });
+      });
+
+      document.querySelectorAll('[data-ice]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('[data-ice]').forEach(el => el.classList.remove('active'));
+          this.classList.add('active');
+          currentIce = this.getAttribute('data-ice');
+          playTick();
+          renderGlasswareLab();
+        });
+      });
+
+      document.querySelectorAll('[data-drink]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('[data-drink]').forEach(el => el.classList.remove('active'));
+          this.classList.add('active');
+          currentDrink = this.getAttribute('data-drink');
+          playTick();
+          renderGlasswareLab();
+        });
+      });
+
+      renderGlasswareLab();
+    }
   })();
 
   // Initialize and Render Tasting Notes on Startup

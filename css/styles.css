@@ -2297,3 +2297,58 @@ h1, h2, h3, h4, h5 {
   letter-spacing: 0.02em;
 }
 
+/* ============================================================
+   GLASSWARE & ICE LAB STYLES
+   ============================================================ */
+.glass-lab-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1.0fr;
+  gap: clamp(28px, 5vw, 56px);
+  align-items: flex-start;
+}
+.glass-opt {
+  transition: all 0.25s ease;
+  border: 1px solid var(--line-soft) !important;
+}
+.glass-opt:hover {
+  background: rgba(138, 92, 199, 0.08) !important;
+  border-color: rgba(138, 92, 199, 0.3) !important;
+}
+.glass-opt.active {
+  background: rgba(138, 92, 199, 0.16) !important;
+  border-color: var(--amethyst) !important;
+  box-shadow: 0 0 15px rgba(138, 92, 199, 0.15);
+}
+.glass-btn {
+  background: rgba(14, 10, 28, 0.45);
+  border: 1px solid var(--line-soft);
+  color: var(--muted-2);
+  font-family: var(--ui);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.glass-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.glass-btn.active {
+  background: rgba(214, 162, 74, 0.12);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.glass-svg-container {
+  position: relative;
+  overflow: hidden;
+}
+.glass-info-card {
+  transition: all 0.3s ease;
+  animation: flavorFadeIn 0.4s ease forwards;
+}
+@media (max-width: 900px) {
+  .glass-lab-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+

@@ -1146,5 +1146,39 @@ const RECIPES = [
       { text: "Đổ đá làm lạnh ở ly đi, lọc mịn rượu rót vào ly Coupe." },
       { text: "Vắt vỏ chanh vàng lấy tinh dầu lên mặt ly và gài vỏ chanh trang trí." }
     ]
+  },
+  {
+    id: "aviation",
+    name: "Aviation",
+    desc: "Sắc tím mây trời thơ mộng, hương hoa anh đào và violet hòa quyện cùng nốt chanh rực rỡ.",
+    ingredients: ["gin", "lemon", "syrup"],
+    strength: "balanced",
+    flavor: "aromatic",
+    mood: "solitary",
+    flavorProfile: [3, 2.5, 3.5, 0, 4.5],
+    details: {
+      category: "Cocktail Kinh Điển",
+      time: "4 phút pha chế",
+      title: "Aviation: Sắc Lam Mây Trời Giữa Tầng Khí Quyển",
+      content: `
+        <p>Aviation được sáng tạo bởi Hugo Ensslin vào đầu thế kỷ 20 tại New York. Điểm độc đáo nhất tạo nên linh hồn của Aviation chính là rượu mùi hoa violet (Crème de Violette) mang đến sắc lam tím nhạt lãng mạn như bầu trời hoàng hôn nhìn từ buồng lái máy bay.</p>
+        <h3>Công Thức & Tỷ Lệ</h3>
+        <ul>
+          <li>45ml Gin (London Dry hoặc Floral Gin)</li>
+          <li>15ml Maraschino Liqueur (Rượu mùi anh đào)</li>
+          <li>7.5ml Crème de Violette (Rượu mùi hoa violet)</li>
+          <li>15ml Nước cốt chanh vàng tươi</li>
+        </ul>
+        <h3>Kỹ Thuật Pha Chế</h3>
+        <p><strong>Shake (Lắc):</strong> Lắc thật nhanh các nguyên liệu với đá viên để giữ độ trong và sắc tím óng ánh, sau đó lọc mịn ra ly Coupe lạnh chân cao. Sự kết hợp giữa thảo mộc Gin, ngọt sâu anh đào và hương hoa phấn Violet tạo nên hương vị bay bổng khó quên.</p>
+      `
+    },
+    steps: [
+      { text: "Làm lạnh ly Coupe bằng đá trước." },
+      { text: "Đong chính xác 45ml Gin, 15ml Maraschino Liqueur, 7.5ml Crème de Violette và 15ml nước cốt chanh vàng vào shaker." },
+      { text: "Đổ đầy đá viên cứng và lắc nhanh mạnh trong 10 giây để làm lạnh sâu.", timer: 10 },
+      { text: "Bỏ đá làm lạnh ở ly đi, lọc mịn cocktail rót vào ly Coupe." },
+      { text: "Trang trí bằng một trái anh đào ngâm đường chìm dưới đáy ly." }
+    ]
   }
 ];

@@ -8,199 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  /* ============================================================
-     CHARMIE SPIRITUS — Trang chủ (tiếng Việt)
-     "Elegant Home Bar Academy" — bản nâng cấp huyền bí + minh họa SVG
-     ============================================================ */
-  :root{
-    --indigo:#0E0A1C; --velvet:#1C1438; --card:#1A1335; --card-2:#160F2E; --deep:#0A0716;
-    --cream:#ECE6F4; --amethyst:#8A5CC7; --gold:#D6A24A; --plum:#4A3270; --oxblood:#7A2A48;
-    --lilac:#C9B6E8; --lilac-2:#C9A0EC; --teal:#5E8C8A;
-    --muted:#B3A4CE; --muted-2:#9B8CB8; --muted-3:#C4B6DC;
-    --line:rgba(138,92,199,0.26); --line-soft:rgba(138,92,199,0.18);
-    --display:'Cormorant Garamond',Georgia,serif; --body:'Spectral',Georgia,serif; --ui:'Hanken Grotesk',system-ui,sans-serif;
-    --wrap:1180px; --pad:40px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0;background:var(--indigo);color:var(--cream);font-family:var(--body);
-       -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative;line-height:1.6;}
-  ::selection{background:var(--amethyst);color:var(--indigo);}
-  a{color:inherit;text-decoration:none;} img{max-width:100%;display:block;}
-  h1,h2,h3{margin:0;font-weight:600;}
-
-  .wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);position:relative;z-index:1;}
-  .eyebrow{font-family:var(--ui);font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);}
-  .kicker{display:flex;align-items:baseline;gap:18px;margin-bottom:10px;}
-  .kicker .num{font-family:var(--ui);font-size:13px;letter-spacing:0.2em;color:var(--gold);}
-  .kicker .lbl{font-family:var(--ui);font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:var(--muted-2);}
-  .h2{font-family:var(--display);font-size:clamp(34px,5vw,48px);line-height:1.08;letter-spacing:-0.01em;}
-  .glow{font-style:italic;font-weight:500;color:var(--lilac-2);text-shadow:0 0 50px rgba(201,160,236,0.55);}
-  .lede{max-width:720px;font-size:18px;line-height:1.7;color:var(--muted);}
-  .section{padding-top:clamp(70px,10vw,104px);}
-
-  .pill{display:inline-block;border:1px solid rgba(138,92,199,0.42);border-radius:100px;padding:8px 16px;font-family:var(--ui);font-size:12px;letter-spacing:0.04em;color:#D6C7EC;}
-
-  .btn{font-family:var(--ui);font-size:12.5px;letter-spacing:0.06em;font-weight:600;padding:13px 24px;border-radius:100px;display:inline-flex;align-items:center;gap:9px;transition:transform .2s, box-shadow .2s, background .2s;cursor:pointer;}
-  .btn-gold{background:var(--gold);color:var(--indigo);box-shadow:0 0 30px -6px rgba(214,162,74,0.55);}
-  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 34px -6px rgba(214,162,74,0.75);}
-  .btn-ghost{border:1px solid rgba(138,92,199,0.5);color:var(--cream);}
-  .btn-ghost:hover{border-color:var(--gold);transform:translateY(-2px);}
-
-  .divider{margin:clamp(56px,8vw,84px) auto;display:flex;align-items:center;gap:16px;color:rgba(138,92,199,0.5);}
-  .divider .rule{flex:1;height:1px;background:currentColor;}
-  .divider .dot{width:7px;height:7px;transform:rotate(45deg);background:var(--gold);box-shadow:0 0 12px rgba(214,162,74,0.7);}
-
-  .card{background:var(--card);border:1px solid rgba(138,92,199,0.22);border-radius:8px;}
-
-  /* ---------- ATMOSPHERE ---------- */
-  .atmos{position:fixed;inset:0;pointer-events:none;z-index:0;
-    background-image:radial-gradient(rgba(201,182,232,0.45) 0.6px, transparent 0.6px),
-                     radial-gradient(rgba(214,162,74,0.32) 0.6px, transparent 0.6px);
-    background-size:60px 60px, 92px 92px;background-position:0 0, 30px 40px;opacity:0.45;}
-  .glow-a{position:absolute;top:-180px;left:50%;width:1050px;height:820px;z-index:0;pointer-events:none;
-    background:radial-gradient(ellipse at center, rgba(138,92,199,0.30), transparent 64%);animation:drift 13s ease-in-out infinite;}
-  .glow-b{position:absolute;top:100px;left:50%;transform:translateX(-50%);width:600px;height:440px;z-index:0;pointer-events:none;
-    background:radial-gradient(ellipse at center, rgba(214,162,74,0.16), transparent 66%);animation:drift 17s ease-in-out infinite reverse;}
-  /* drifting motes over the whole hero */
-  .motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-  .mote{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:0;
-    box-shadow:0 0 8px 1px rgba(214,162,74,0.8);animation:rise linear infinite;}
-  @keyframes drift{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-16px);}}
-  @keyframes rise{0%{opacity:0;transform:translateY(20px) scale(0.6);}15%{opacity:.9;}85%{opacity:.5;}100%{opacity:0;transform:translateY(-120px) scale(1);}}
-  @keyframes twinkle{0%,100%{opacity:.15;}50%{opacity:.95;}}
-  @keyframes flame{0%,100%{opacity:.85;}50%{opacity:1;}}
-  @keyframes floatWisp{0%{opacity:0;transform:translateY(6px);}45%{opacity:.6;}100%{opacity:0;transform:translateY(-16px);}}
-  @media (prefers-reduced-motion:reduce){.mote,.glow-a,.glow-b,[class*="anim"]{animation:none!important;}}
-
-  /* ---------- SVG SCENES ---------- */
-  .sprite{position:absolute;width:0;height:0;overflow:hidden;}
-  .scene{position:absolute;inset:0;width:100%;height:100%;display:block;}
-  .spark{animation:twinkle 4s ease-in-out infinite;}
-  .flame-anim{transform-box:fill-box;transform-origin:center bottom;animation:flame 2.4s ease-in-out infinite;}
-  .wisp-anim{transform-box:fill-box;animation:floatWisp 6s ease-in-out infinite;}
-
-  /* ---------- NAV ---------- */
-  .nav{position:sticky;top:0;z-index:50;background:rgba(14,10,28,0.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
-  .nav-in{max-width:var(--wrap);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:24px;}
-  .brand{display:flex;align-items:baseline;gap:9px;font-family:var(--display);font-size:22px;}
-  .brand b{font-weight:600;color:var(--cream);} .brand i{font-style:italic;font-weight:500;color:var(--lilac-2);}
-  .nav-links{display:flex;gap:24px;font-family:var(--ui);font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-2);}
-  .nav-links a:hover{color:var(--cream);}
-  .nav-cta{font-family:var(--ui);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--gold);border:1px solid rgba(214,162,74,0.5);border-radius:100px;padding:8px 16px;}
-  .nav-burger{display:none;flex-direction:column;gap:4px;cursor:pointer;} .nav-burger span{width:22px;height:1.5px;background:var(--cream);}
-
-  /* ---------- HERO ---------- */
-  .hero{padding-top:clamp(56px,8vw,86px);padding-bottom:clamp(48px,7vw,74px);}
-  .hero-grid{display:grid;grid-template-columns:1.06fr 0.94fr;gap:52px;align-items:center;}
-  .hero h1{font-family:var(--display);font-weight:600;line-height:1.0;letter-spacing:-0.015em;font-size:clamp(42px,5.6vw,74px);text-shadow:0 0 80px rgba(138,92,199,0.5);}
-  .hero .sub{margin-top:26px;max-width:520px;font-size:19px;line-height:1.62;color:var(--muted-3);}
-  .hero-cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px;}
-  .hero-tags{margin-top:30px;display:flex;flex-wrap:wrap;gap:8px;}
-  .hero-visual{position:relative;}
-  .frame{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;border:1px solid rgba(214,162,74,0.28);
-    background:radial-gradient(ellipse at 52% 34%, #2C1E52 0%, #160F2E 46%, #0A0716 100%);
-    box-shadow:0 50px 120px -50px rgba(0,0,0,0.9), inset 0 0 90px rgba(138,92,199,0.18);}
-  .frame::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(8,6,15,0.6) 100%);}
-  .hero-float{position:absolute;left:-34px;bottom:34px;width:230px;background:rgba(26,19,53,0.92);backdrop-filter:blur(6px);border:1px solid rgba(214,162,74,0.35);border-radius:10px;padding:16px 18px;box-shadow:0 24px 60px -30px rgba(0,0,0,0.9);z-index:3;}
-
-  /* ---------- ESSENCE ---------- */
-  .essence{background:linear-gradient(180deg,#160F2E,#1C1438);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .essence-in{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:44px;padding:64px var(--pad);max-width:var(--wrap);margin:0 auto;}
-  .essence .big{font-family:var(--display);font-size:26px;font-style:italic;line-height:1.38;color:var(--cream);}
-  .note{margin-top:16px;display:inline-flex;align-items:center;gap:9px;font-family:var(--ui);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(214,162,74,0.34);background:rgba(214,162,74,0.08);border-radius:100px;padding:7px 14px;}
-
-  .grid{display:grid;gap:18px;} .g2{grid-template-columns:repeat(2,1fr);} .g3{grid-template-columns:repeat(3,1fr);} .g4{grid-template-columns:repeat(4,1fr);}
-
-  .cat{padding:26px 24px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s, transform .2s, box-shadow .2s;position:relative;overflow:hidden;}
-  .cat:hover{border-color:rgba(214,162,74,0.45);transform:translateY(-3px);box-shadow:0 24px 50px -30px rgba(214,162,74,0.4);}
-  .cat .ico{width:46px;height:46px;filter:drop-shadow(0 0 8px rgba(214,162,74,0.35));}
-  .cat h3{font-family:var(--display);font-size:24px;line-height:1.1;color:var(--cream);}
-  .cat p{font-size:14px;line-height:1.6;color:var(--muted-2);margin:0;}
-  .cat .go{margin-top:auto;font-family:var(--ui);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);}
-  .swatch{width:26px;height:3px;border-radius:2px;}
-
-  .art{overflow:hidden;transition:transform .2s, border-color .2s, box-shadow .2s;}
-  .art:hover{transform:translateY(-3px);border-color:rgba(214,162,74,0.4);box-shadow:0 26px 54px -32px rgba(0,0,0,0.9);}
-  .art .thumb{aspect-ratio:16/10;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 38%, #2E2052, #100B22);}
-  .art .body{padding:16px 18px 20px;}
-  .art h3{font-family:var(--display);font-size:22px;line-height:1.14;margin-top:6px;color:var(--cream);}
-  .art .meta{font-family:var(--ui);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted-2);margin-top:10px;}
-
-  .feat{display:grid;grid-template-columns:1.15fr 1fr;gap:0;overflow:hidden;border-radius:8px;background:radial-gradient(ellipse at 20% 10%, #2A1F4D, #0E0A1C);border:1px solid var(--line);}
-  .feat .txt{padding:clamp(30px,4vw,52px);display:flex;flex-direction:column;justify-content:center;}
-  .feat h3{font-family:var(--display);font-size:clamp(30px,3.6vw,42px);line-height:1.06;color:var(--cream);margin:12px 0 8px;}
-  .feat .stage{position:relative;border-left:1px solid var(--line);min-height:300px;overflow:hidden;background:radial-gradient(ellipse at 55% 42%, #34235C, #120C26);}
-
-  .spirit{aspect-ratio:1/1.2;border-radius:8px;border:1px solid var(--line);overflow:hidden;position:relative;
-    background:radial-gradient(ellipse at 50% 30%, #241A45, #100B22);display:flex;flex-direction:column;justify-content:flex-end;
-    padding:16px;transition:transform .2s, border-color .2s, box-shadow .2s;}
-  .spirit:hover{transform:translateY(-4px);border-color:rgba(214,162,74,0.5);box-shadow:0 26px 54px -30px rgba(214,162,74,0.35);}
-  .spirit .bot{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:64%;height:66%;}
-  .spirit .nm{font-family:var(--display);font-size:22px;color:var(--cream);position:relative;}
-  .spirit .ds{font-family:var(--ui);font-size:9.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-2);position:relative;}
-
-  .topic{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border:1px solid var(--line-soft);border-radius:6px;background:rgba(26,19,53,0.5);transition:border-color .2s;}
-  .topic:hover{border-color:rgba(214,162,74,0.4);}
-  .topic .n{font-family:var(--display);font-style:italic;font-size:22px;color:var(--gold);line-height:1;min-width:26px;}
-  .topic h4{font-family:var(--display);font-size:20px;color:var(--cream);margin:0 0 3px;font-weight:600;}
-  .topic p{font-size:13.5px;line-height:1.55;color:var(--muted-2);margin:0;}
-
-  .bar-list li{font-family:var(--body);font-size:15.5px;line-height:1.55;color:var(--muted-3);padding:12px 0;border-bottom:1px dotted rgba(138,92,199,0.3);display:flex;gap:12px;align-items:baseline;}
-  .bar-list li:last-child{border-bottom:none;}
-  .bar-list .dot{width:6px;height:6px;transform:rotate(45deg);background:var(--gold);flex:none;position:relative;top:6px;}
-  .goodtoknow{background:rgba(214,162,74,0.12);border:1px solid rgba(214,162,74,0.34);border-radius:6px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start;}
-  .goodtoknow .i{font-family:var(--display);font-style:italic;font-size:22px;color:var(--gold);line-height:1;}
-
-  .journal{position:relative;background:radial-gradient(ellipse at 50% 0%, #2A1F4D, #0E0A1C);border:1px solid var(--line);border-radius:8px;padding:clamp(34px,5vw,60px);overflow:hidden;}
-  .journal .candle{position:absolute;top:24px;right:28px;width:70px;height:120px;opacity:0.9;}
-  .entry{padding:22px 0;border-bottom:1px solid rgba(138,92,199,0.2);display:grid;grid-template-columns:130px 1fr auto;gap:24px;align-items:baseline;position:relative;}
-  .entry:last-child{border-bottom:none;}
-  .entry .date{font-family:var(--ui);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);}
-  .entry h4{font-family:var(--display);font-size:26px;color:var(--cream);font-weight:600;margin:0 0 4px;}
-  .entry p{font-size:15px;line-height:1.6;color:var(--muted);margin:0;max-width:560px;}
-  .entry .arrow{font-family:var(--display);font-size:24px;color:var(--muted-2);}
-
-  .future{overflow:hidden;}
-  .future .top{aspect-ratio:4/3;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 40%, #2E2052, #110B24);display:flex;align-items:center;justify-content:center;}
-  .future .body{padding:22px 24px;}
-  .future h3{font-family:var(--display);font-size:24px;color:var(--cream);margin:6px 0;}
-  .future p{font-size:13.5px;line-height:1.6;color:var(--muted-2);margin:0;}
-
-  .news{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 20%, #2A1F4D, #0E0A1C);border:1px solid var(--line);border-radius:10px;padding:clamp(40px,6vw,72px) var(--pad);text-align:center;background-image:radial-gradient(rgba(201,182,232,0.12) 1px, transparent 1px);background-size:20px 20px;}
-  .news form{margin:28px auto 0;max-width:480px;display:flex;gap:10px;position:relative;z-index:1;}
-  .news input{flex:1;background:rgba(10,7,20,0.6);border:1px solid rgba(138,92,199,0.4);border-radius:100px;padding:13px 20px;color:var(--cream);font-family:var(--body);font-size:15px;}
-  .news input::placeholder{color:var(--muted-2);} .news input:focus{outline:none;border-color:var(--gold);}
-
-  .footer{margin-top:clamp(70px,10vw,96px);border-top:1px solid var(--line);background:linear-gradient(180deg,#0E0A1C,#08060F);}
-  .footer-in{max-width:var(--wrap);margin:0 auto;padding:60px var(--pad) 40px;}
-  .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;}
-  .footer h5{font-family:var(--ui);font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);margin:0 0 16px;}
-  .footer nav a{display:block;font-family:var(--body);font-size:15px;color:var(--muted);padding:5px 0;}
-  .footer nav a:hover{color:var(--cream);}
-  .footer .soc{display:flex;gap:10px;margin-top:4px;}
-  .footer .soc a{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted-2);}
-  .footer .soc a:hover{border-color:var(--gold);color:var(--gold);}
-  .footer-bottom{margin-top:44px;padding-top:24px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-family:var(--ui);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6088;}
-
-  @media (max-width:900px){
-    :root{--pad:22px;}
-    .nav-links,.nav-cta{display:none;} .nav-burger{display:flex;}
-    .hero-grid{grid-template-columns:1fr;gap:34px;} .hero-visual{order:-1;}
-    .hero-float{left:auto;right:16px;bottom:16px;width:190px;}
-    .essence-in{grid-template-columns:1fr;gap:30px;padding:44px var(--pad);}
-    .g4,.g3{grid-template-columns:repeat(2,1fr);}
-    .feat{grid-template-columns:1fr;} .feat .stage{border-left:none;border-top:1px solid var(--line);min-height:240px;}
-    .entry{grid-template-columns:1fr;gap:8px;} .entry .arrow{display:none;}
-    .footer-top{grid-template-columns:1fr 1fr;gap:28px;} .footer-bottom{flex-direction:column;align-items:flex-start;}
-  }
-  @media (max-width:560px){
-    .g4,.g3,.g2{grid-template-columns:1fr;}
-    .spirit-grid{grid-template-columns:repeat(2,1fr)!important;}
-    .news form{flex-direction:column;} .footer-top{grid-template-columns:1fr;} .hero-float{display:none;}
-  }
-</style>
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -439,7 +247,7 @@
   <div class="nav-in">
     <a class="brand" href="#top"><b>Charmie</b><i>Spiritus</i></a>
     <nav class="nav-links">
-      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#homebar">Quầy bar tại nhà</a><a href="#journal">Nhật ký</a>
+      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#homebar">Quầy bar tại nhà</a><a href="#flavor-explorer">Hương vị</a><a href="#journal">Nhật ký</a>
     </nav>
     <a class="nav-cta" href="#learn">Bắt đầu học</a>
     <div class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></div>
@@ -520,27 +328,32 @@
   <h2 class="h2">Những bài đáng đọc lại lần hai</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:36px;">Những bài nền tảng dài, viết để dễ hiểu dưới ánh đèn — không thuật ngữ nào bị bỏ lại không giải thích.</p>
 
+  <div class="search-bar-container">
+    <input type="text" id="articleSearchInput" class="form-control" placeholder="Tìm bài viết, kiến thức, rượu..." style="background: rgba(10, 7, 20, 0.6); border: 1px solid rgba(138, 92, 199, 0.4); color: var(--cream); font-family: var(--body); font-size: 15px; width: 100%; border-radius: 100px; padding: 12px 20px 12px 48px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted-2)" stroke-width="1.8" style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); pointer-events: none;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  </div>
+
   <div class="feat" style="margin-bottom:22px;">
     <div class="txt">
       <div class="eyebrow">Nền tảng · 6 phút đọc</div>
       <h3>Điều gì làm nên một ly cocktail <span class="glow">cân bằng</span>?</h3>
       <p style="font-family:var(--body);font-size:16px;line-height:1.7;color:var(--muted);max-width:440px;">Một khi bạn cảm nhận được một ly theo bốn phần — ngọt, chua, đắng, mạnh — cả thế giới cocktail sẽ mở ra. Đây là ý tưởng nền tảng mà mọi thứ khác được xây dựng nên.</p>
-      <div style="margin-top:22px;"><a class="btn btn-ghost" href="#">Đọc bài hướng dẫn</a></div>
+      <div style="margin-top:22px;"><a class="btn btn-ghost" href="#" data-article-id="balance">Đọc bài hướng dẫn</a></div>
     </div>
     <div class="stage"><svg class="scene"><use href="#scPour"/></svg></div>
   </div>
 
   <div class="grid g4">
-    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scBottleScene"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--amethyst);">Rượu mạnh</div><h3>Gin và Vodka: khác nhau thật sự ở đâu?</h3><div class="meta">5 phút đọc</div></div></a>
-    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scShaker"/></svg></div><div class="body"><div class="eyebrow">Dụng cụ</div><h3>Hướng dẫn dụng cụ pha chế cho người mới</h3><div class="meta">7 phút đọc</div></div></a>
-    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scShelf"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--teal);">Quầy bar</div><h3>Cách dựng một quầy bar tại nhà đơn giản</h3><div class="meta">8 phút đọc</div></div></a>
-    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scCitrus"/></svg></div><div class="body"><div class="eyebrow">Nguyên liệu</div><h3>Bitters thật ra là gì?</h3><div class="meta">4 phút đọc</div></div></a>
+    <a class="card art" href="#" data-article-id="gin-vs-vodka"><div class="thumb"><svg class="scene"><use href="#scBottleScene"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--amethyst);">Rượu mạnh</div><h3>Gin và Vodka: khác nhau thật sự ở đâu?</h3><div class="meta">5 phút đọc</div></div></a>
+    <a class="card art" href="#" data-article-id="barware"><div class="thumb"><svg class="scene"><use href="#scShaker"/></svg></div><div class="body"><div class="eyebrow">Dụng cụ</div><h3>Hướng dẫn dụng cụ pha chế cho người mới</h3><div class="meta">7 phút đọc</div></div></a>
+    <a class="card art" href="#" data-article-id="homebar-setup"><div class="thumb"><svg class="scene"><use href="#scShelf"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--teal);">Quầy bar</div><h3>Cách dựng một quầy bar tại nhà đơn giản</h3><div class="meta">8 phút đọc</div></div></a>
+    <a class="card art" href="#" data-article-id="bitters"><div class="thumb"><svg class="scene"><use href="#scCitrus"/></svg></div><div class="body"><div class="eyebrow">Nguyên liệu</div><h3>Bitters thật ra là gì?</h3><div class="meta">4 phút đọc</div></div></a>
   </div>
   <div class="grid g4" style="margin-top:18px;">
-    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scIce"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--teal);">Kỹ thuật</div><h3>Đá thay đổi một ly cocktail thế nào</h3><div class="meta">5 phút đọc</div></div></a>
-    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scShaker"/></svg></div><div class="body"><div class="eyebrow">Nền tảng</div><h3>Lắc và khuấy: khác nhau ra sao?</h3><div class="meta">4 phút đọc</div></div></a>
-    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scPour"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--amethyst);">Nền tảng</div><h3>Cách đọc một công thức cocktail</h3><div class="meta">6 phút đọc</div></div></a>
-    <a class="card art" href="#"><div class="thumb"><svg class="scene"><use href="#scWine"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--oxblood);">Vang</div><h3>Đọc nhãn vang mà không còn e ngại</h3><div class="meta">6 phút đọc</div></div></a>
+    <a class="card art" href="#" data-article-id="ice"><div class="thumb"><svg class="scene"><use href="#scIce"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--teal);">Kỹ thuật</div><h3>Đá thay đổi một ly cocktail thế nào</h3><div class="meta">5 phút đọc</div></div></a>
+    <a class="card art" href="#" data-article-id="shake-stir"><div class="thumb"><svg class="scene"><use href="#scShaker"/></svg></div><div class="body"><div class="eyebrow">Nền tảng</div><h3>Lắc và khuấy: khác nhau ra sao?</h3><div class="meta">4 phút đọc</div></div></a>
+    <a class="card art" href="#" data-article-id="read-recipe"><div class="thumb"><svg class="scene"><use href="#scPour"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--amethyst);">Nền tảng</div><h3>Cách đọc một công thức cocktail</h3><div class="meta">6 phút đọc</div></div></a>
+    <a class="card art" href="#" data-article-id="wine-labels"><div class="thumb"><svg class="scene"><use href="#scWine"/></svg></div><div class="body"><div class="eyebrow" style="color:var(--oxblood);">Vang</div><h3>Đọc nhãn vang mà không còn e ngại</h3><div class="meta">6 phút đọc</div></div></a>
   </div>
 </section>
 
@@ -552,14 +365,14 @@
   <h2 class="h2">Mỗi dòng rượu, được giải thích</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:38px;">Một kệ kiến thức được sắp xếp gọn gàng — mỗi loại rượu là gì, làm ra sao và uống thế nào. Để tra cứu, không phải để bán.</p>
   <div class="grid g4 spirit-grid">
-    <a class="spirit" href="#" style="color:#B98CE6;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Gin</div><div class="ds">Cây bách xù · thảo mộc</div></a>
-    <a class="spirit" href="#" style="color:#CBB6E8;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Vodka</div><div class="ds">Trong trẻo · trung tính</div></a>
-    <a class="spirit" href="#" style="color:#D6853A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Rum</div><div class="ds">Mía đường · ấm nồng</div></a>
-    <a class="spirit" href="#" style="color:#8FB88A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Tequila</div><div class="ds">Cây thùa · vị thực vật</div></a>
-    <a class="spirit" href="#" style="color:#C98A44;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Whisky</div><div class="ds">Ngũ cốc · ủ · sồi</div></a>
-    <a class="spirit" href="#" style="color:#B65A46;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Brandy</div><div class="ds">Trái cây · tăng độ</div></a>
-    <a class="spirit" href="#" style="color:#C77A9A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Rượu mùi</div><div class="ds">Ngọt · tạo hương</div></a>
-    <a class="spirit" href="#" style="color:#8A5CC7;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Vermouth</div><div class="ds">Vang thảo mộc</div></a>
+    <a class="spirit" href="#" data-article-id="spirit-gin" style="color:#B98CE6;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Gin</div><div class="ds">Cây bách xù · thảo mộc</div></a>
+    <a class="spirit" href="#" data-article-id="spirit-vodka" style="color:#CBB6E8;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Vodka</div><div class="ds">Trong trẻo · trung tính</div></a>
+    <a class="spirit" href="#" data-article-id="spirit-rum" style="color:#D6853A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Rum</div><div class="ds">Mía đường · ấm nồng</div></a>
+    <a class="spirit" href="#" data-article-id="spirit-tequila" style="color:#8FB88A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Tequila</div><div class="ds">Cây thùa · vị thực vật</div></a>
+    <a class="spirit" href="#" data-article-id="spirit-whiskey" style="color:#C98A44;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Whisky</div><div class="ds">Ngũ cốc · ủ · sồi</div></a>
+    <a class="spirit" href="#" data-article-id="spirit-brandy" style="color:#B65A46;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Brandy</div><div class="ds">Trái cây · tăng độ</div></a>
+    <a class="spirit" href="#" data-article-id="spirit-liqueur" style="color:#C77A9A;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Rượu mùi</div><div class="ds">Ngọt · tạo hương</div></a>
+    <a class="spirit" href="#" data-article-id="spirit-vermouth" style="color:#8A5CC7;"><svg class="bot"><use href="#scBottle"/></svg><div class="nm">Vermouth</div><div class="ds">Vang thảo mộc</div></a>
   </div>
   <div style="margin-top:22px;text-align:center;"><a class="btn btn-ghost" href="#spirits">Khám phá toàn bộ Thư viện Rượu</a></div>
 </section>
@@ -572,14 +385,14 @@
   <h2 class="h2">Nghề pha chế, từ gốc rễ</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:38px;">Những bài học cốt lõi mà người pha chế tại nhà nào cũng quay lại — hiểu chúng là bạn có thể tự ứng biến phần còn lại.</p>
   <div class="grid g2">
-    <div class="topic"><span class="n">01</span><div><h4>Các họ cocktail</h4><p>Sour, spirit-forward, highball, flip — vài công thức khung đứng sau hàng trăm ly.</p></div></div>
-    <div class="topic"><span class="n">02</span><div><h4>Sự cân bằng</h4><p>Ngọt, chua, đắng, mạnh &amp; thơm — cách cảm nhận một ly theo từng phần và điều chỉnh.</p></div></div>
-    <div class="topic"><span class="n">03</span><div><h4>Kỹ thuật</h4><p>Lắc, khuấy, dựng, dằm, lọc — mỗi thao tác tác động đến kết cấu, độ loãng và nhiệt độ.</p></div></div>
-    <div class="topic"><span class="n">04</span><div><h4>Trang trí căn bản</h4><p>Vì sao vỏ vắt, lát cắt hay nhánh thảo mộc quan trọng — là hương và dụng ý, không phải trang trí.</p></div></div>
-    <div class="topic"><span class="n">05</span><div><h4>Chọn ly</h4><p>Ghép ly với ly cocktail, và ý nghĩa thật của "up", "on the rocks" và "long".</p></div></div>
-    <div class="topic"><span class="n">06</span><div><h4>Kiến thức về đá</h4><p>Viên, bào, trong hay khối — đá định hình độ loãng, độ lạnh và cả cảm giác của ly.</p></div></div>
-    <div class="topic"><span class="n">07</span><div><h4>Công thức kinh điển</h4><p>Những cái tên đáng thuộc lòng — Negroni, Daiquiri, Old Fashioned, Whiskey Sour và bạn bè.</p></div></div>
-    <div class="topic"><span class="n">08</span><div><h4>Biến tấu hiện đại</h4><p>Cách người pha chế làm mới kinh điển — thay nguyên liệu, đổi tỷ lệ, những phá cách bạn có thể thử.</p></div></div>
+    <div class="topic" data-article-id="topic-cocktail-families" style="cursor: pointer;"><span class="n">01</span><div><h4>Các họ cocktail</h4><p>Sour, spirit-forward, highball, flip — vài công thức khung đứng sau hàng trăm ly.</p></div></div>
+    <div class="topic" data-article-id="balance" style="cursor: pointer;"><span class="n">02</span><div><h4>Sự cân bằng</h4><p>Ngọt, chua, đắng, mạnh &amp; thơm — cách cảm nhận một ly theo từng phần và điều chỉnh.</p></div></div>
+    <div class="topic" data-article-id="shake-stir" style="cursor: pointer;"><span class="n">03</span><div><h4>Kỹ thuật</h4><p>Lắc, khuấy, dựng, dằm, lọc — mỗi thao tác tác động đến kết cấu, độ loãng và nhiệt độ.</p></div></div>
+    <div class="topic" data-article-id="topic-garnish" style="cursor: pointer;"><span class="n">04</span><div><h4>Trang trí căn bản</h4><p>Vì sao vỏ vắt, lát cắt hay nhánh thảo mộc quan trọng — là hương và dụng ý, không phải trang trí.</p></div></div>
+    <div class="topic" data-article-id="topic-glassware" style="cursor: pointer;"><span class="n">05</span><div><h4>Chọn ly</h4><p>Ghép ly với ly cocktail, và ý nghĩa thật của "up", "on the rocks" và "long".</p></div></div>
+    <div class="topic" data-article-id="ice" style="cursor: pointer;"><span class="n">06</span><div><h4>Kiến thức về đá</h4><p>Viên, bào, trong hay khối — đá định hình độ loãng, độ lạnh và cả cảm giác của ly.</p></div></div>
+    <div class="topic" data-article-id="topic-classic-recipes" style="cursor: pointer;"><span class="n">07</span><div><h4>Công thức kinh điển</h4><p>Những cái tên đáng thuộc lòng — Negroni, Daiquiri, Old Fashioned, Whiskey Sour và bạn bè.</p></div></div>
+    <div class="topic" data-article-id="topic-modern-riff" style="cursor: pointer;"><span class="n">08</span><div><h4>Biến tấu hiện đại</h4><p>Cách người pha chế làm mới kinh điển — thay nguyên liệu, đổi tỷ lệ, những phá cách bạn có thể thử.</p></div></div>
   </div>
 </section>
 
@@ -616,34 +429,303 @@
       </ul>
     </div>
   </div>
-</section>
 
-<div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+  <!-- ============ CABINET EXPLORER WIDGET ============ -->
+  <div class="cabinet-widget card" style="margin-top: clamp(30px, 5vw, 44px); padding: clamp(24px, 4vw, 40px); background: linear-gradient(135deg, var(--card), var(--card-2)); border: 1px solid var(--line);">
+    <div class="eyebrow" style="margin-bottom: 12px; color: var(--gold);">Công cụ tương tác</div>
+    <h3 style="font-family: var(--display); font-size: 28px; color: var(--cream); margin-bottom: 10px;">Quầy Pha Chế Ảo (Cabinet Explorer)</h3>
+    <p style="font-size: 15px; color: var(--muted); margin-bottom: 24px; max-width: 720px;">Đánh dấu những nguyên liệu bạn đang có sẵn tại nhà. Hệ thống sẽ tự động tìm kiếm các ly cocktail kinh điển bạn có thể pha chế ngay lập tức, hoặc gợi ý những chai còn thiếu để mở khóa hương vị mới.</p>
+    
+    <div class="cab-grid">
+      <div>
+        <div class="cab-section-title">1. Chọn rượu nền sẵn có</div>
+        <div class="cab-list">
+          <input type="checkbox" id="ing_gin" class="cab-checkbox" value="gin">
+          <label for="ing_gin" class="cab-label">Gin</label>
+          
+          <input type="checkbox" id="ing_whiskey" class="cab-checkbox" value="whiskey">
+          <label for="ing_whiskey" class="cab-label">Whiskey (Bourbon)</label>
+          
+          <input type="checkbox" id="ing_rum" class="cab-checkbox" value="rum">
+          <label for="ing_rum" class="cab-label">Rum (Light/Dark)</label>
+          
+          <input type="checkbox" id="ing_vodka" class="cab-checkbox" value="vodka">
+          <label for="ing_vodka" class="cab-label">Vodka</label>
+          
+          <input type="checkbox" id="ing_tequila" class="cab-checkbox" value="tequila">
+          <label for="ing_tequila" class="cab-label">Tequila</label>
 
-<!-- ============ 8 · NHẬT KÝ ============ -->
-<section class="wrap section" id="journal" style="padding-top:0;">
-  <div class="kicker"><span class="num">06</span><span class="lbl">Nhật ký Đồ uống</span></div>
-  <h2 class="h2">Học thành lời, ngay bên lề trang</h2>
-  <p class="lede" style="margin-top:16px;margin-bottom:34px;">Một cuốn sổ cá nhân nơi người sáng lập ghi lại những buổi nếm thử, thử nghiệm, dụng cụ và cả sai lầm thành thật — mặt con người của nghề pha chế.</p>
-  <div class="journal">
-    <svg class="candle"><use href="#scCandle"/></svg>
-    <div class="entry"><div class="date">Ghi chép · Số 14</div><div><h4>Đêm tôi làm loãng quá tay một ly Negroni</h4><p>Đá tan đã thật sự làm gì đến sự cân bằng — và điều chỉnh nhỏ đã cứu lượt thứ hai.</p></div><div class="arrow">→</div></div>
-    <div class="entry"><div class="date">Ghi chép · Số 13</div><div><h4>Nếm thử ba loại vermouth cạnh nhau</h4><p>Dry, sweet và bianco, rót ẩn danh. Ghi chú về điều làm tôi bất ngờ và loại tôi sẽ mua lại.</p></div><div class="arrow">→</div></div>
-    <div class="entry"><div class="date">Ghi chép · Số 12</div><div><h4>Dựng quầy bar tại nhà với chi phí bằng vài ly cà phê</h4><p>Năm thứ tôi mua đầu tiên, và một thứ tôi ước mình đã bỏ qua.</p></div><div class="arrow">→</div></div>
-    <div class="entry"><div class="date">Ghi chép · Số 11</div><div><h4>Vì sao cam chanh của tôi cứ nhạt vị</h4><p>Một bài học về độ tươi, nhiệt độ và thời điểm — những lỗi tôi mắc để bạn không phải mắc lại.</p></div><div class="arrow">→</div></div>
+          <input type="checkbox" id="ing_cognac" class="cab-checkbox" value="cognac">
+          <label for="ing_cognac" class="cab-label">Cognac / Brandy</label>
+
+          <input type="checkbox" id="ing_campari" class="cab-checkbox" value="campari">
+          <label for="ing_campari" class="cab-label">Campari</label>
+          
+          <input type="checkbox" id="ing_vermouth_sweet" class="cab-checkbox" value="vermouth_sweet">
+          <label for="ing_vermouth_sweet" class="cab-label">Sweet Vermouth</label>
+
+          <input type="checkbox" id="ing_vermouth_dry" class="cab-checkbox" value="vermouth_dry">
+          <label for="ing_vermouth_dry" class="cab-label">Dry Vermouth</label>
+
+          <input type="checkbox" id="ing_triple_sec" class="cab-checkbox" value="triple_sec">
+          <label for="ing_triple_sec" class="cab-label">Triple Sec</label>
+
+          <input type="checkbox" id="ing_absinthe" class="cab-checkbox" value="absinthe">
+          <label for="ing_absinthe" class="cab-label">Absinthe</label>
+        </div>
+        
+        <div class="cab-section-title" style="margin-top: 14px;">2. Chọn chất tạo vị & Nước pha</div>
+        <div class="cab-list">
+          <input type="checkbox" id="ing_lime" class="cab-checkbox" value="lime">
+          <label for="ing_lime" class="cab-label">Chanh xanh</label>
+
+          <input type="checkbox" id="ing_lemon" class="cab-checkbox" value="lemon">
+          <label for="ing_lemon" class="cab-label">Chanh vàng</label>
+          
+          <input type="checkbox" id="ing_syrup" class="cab-checkbox" value="syrup">
+          <label for="ing_syrup" class="cab-label">Syrup đường</label>
+
+          <input type="checkbox" id="ing_raspberry_syrup" class="cab-checkbox" value="raspberry_syrup">
+          <label for="ing_raspberry_syrup" class="cab-label">Syrup mâm xôi</label>
+          
+          <input type="checkbox" id="ing_bitters" class="cab-checkbox" value="bitters">
+          <label for="ing_bitters" class="cab-label">Angostura Bitters</label>
+
+          <input type="checkbox" id="ing_mint" class="cab-checkbox" value="mint">
+          <label for="ing_mint" class="cab-label">Bạc hà tươi</label>
+
+          <input type="checkbox" id="ing_egg_white" class="cab-checkbox" value="egg_white">
+          <label for="ing_egg_white" class="cab-label">Lòng trắng trứng</label>
+          
+          <input type="checkbox" id="ing_espresso" class="cab-checkbox" value="espresso">
+          <label for="ing_espresso" class="cab-label">Espresso nóng</label>
+
+          <input type="checkbox" id="ing_kahlua" class="cab-checkbox" value="kahlua">
+          <label for="ing_kahlua" class="cab-label">Rượu mùi cà phê (Kahlua)</label>
+          
+          <input type="checkbox" id="ing_tonic" class="cab-checkbox" value="tonic">
+          <label for="ing_tonic" class="cab-label">Nước Tonic</label>
+          
+          <input type="checkbox" id="ing_soda" class="cab-checkbox" value="soda">
+          <label for="ing_soda" class="cab-label">Club Soda</label>
+          
+          <input type="checkbox" id="ing_ginger_beer" class="cab-checkbox" value="ginger_beer">
+          <label for="ing_ginger_beer" class="cab-label">Bia gừng (Ginger Beer)</label>
+          
+          <input type="checkbox" id="ing_champagne" class="cab-checkbox" value="champagne">
+          <label for="ing_champagne" class="cab-label">Sâm-panh / Prosecco</label>
+        </div>
+      </div>
+      
+      <div>
+        <div class="cab-section-title">3. Đồ uống phù hợp của bạn</div>
+        <div class="rec-list" id="cabinetMatches">
+          <!-- Dynamic matches injected by JS -->
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
-<!-- ============ 9 · TƯƠNG LAI ============ -->
+<!-- ============ 6 · THƯ VIỆN COCKTAIL KINH ĐIỂN ============ -->
+<section class="wrap section" id="cocktail-library" style="padding-top:0;">
+  <div class="kicker"><span class="num">06</span><span class="lbl">Thư viện Cocktail Kinh Điển</span></div>
+  <h2 class="h2" style="margin-bottom: 12px;">Khám Phá Hương Vị Thượng Hạng</h2>
+  <p class="lede" style="margin-bottom: 30px;">Học cách pha chế các công thức cocktail kinh điển thế giới với tỷ lệ chuẩn xác và bản đồ vị giác trực quan.</p>
+  
+  <!-- Filter Pills -->
+  <div class="filter-container" style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; border-bottom: 1px solid var(--line-soft); padding-bottom: 20px;">
+    <!-- Flavor filters -->
+    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+      <span style="font-family: var(--ui); font-size: 11px; text-transform: uppercase; color: var(--gold); letter-spacing: 0.1em; min-width: 90px;">Nhóm hương vị:</span>
+      <button class="filter-pill active" data-filter-flavor="all">Tất cả</button>
+      <button class="filter-pill" data-filter-flavor="citrus">Chua thanh</button>
+      <button class="filter-pill" data-filter-flavor="sweet">Ngọt ngào</button>
+      <button class="filter-pill" data-filter-flavor="bitter">Đắng thảo mộc</button>
+      <button class="filter-pill" data-filter-flavor="aromatic">Thơm nồng</button>
+      <button class="filter-pill" data-filter-flavor="dry">Khô ráo</button>
+    </div>
+    
+    <!-- ABV filters -->
+    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+      <span style="font-family: var(--ui); font-size: 11px; text-transform: uppercase; color: var(--gold); letter-spacing: 0.1em; min-width: 90px;">Nồng độ cồn:</span>
+      <button class="filter-pill active" data-filter-abv="all">Tất cả</button>
+      <button class="filter-pill" data-filter-abv="low">Nhẹ nhàng (Low ABV)</button>
+      <button class="filter-pill" data-filter-abv="balanced">Cân bằng (Medium ABV)</button>
+      <button class="filter-pill" data-filter-abv="strong">Mạnh mẽ (Spirit-Forward)</button>
+    </div>
+  </div>
+
+  <!-- Library Grid -->
+  <div class="grid g4" id="libraryGrid">
+    <!-- Dynamic cards injected by JS -->
+  </div>
+</section>
+
+<!-- ============ 7 · TASTE MATCHING QUIZ WIDGET ============ -->
+<section class="wrap section" id="taste-quiz" style="padding-top:0;">
+  <div class="kicker"><span class="num">07</span><span class="lbl">Hành trình Khám phá Vị giác</span></div>
+  <div class="quiz-widget card" style="padding: clamp(24px, 4vw, 40px); background: linear-gradient(135deg, var(--card), var(--card-2)); border: 1px solid var(--line); margin-top: 20px;">
+    <div class="eyebrow" style="margin-bottom: 12px; color: var(--gold);">Tìm kiếm linh hồn</div>
+    <h3 style="font-family: var(--display); font-size: 28px; color: var(--cream); margin-bottom: 10px;">Hành Trình Khám Phá Vị Giác (Taste Matcher)</h3>
+    <p style="font-size: 15px; color: var(--muted); margin-bottom: 24px; max-width: 720px;">Bạn chưa biết tối nay nên uống gì? Trả lời 3 câu hỏi nhanh về sở thích hiện tại, hệ thống sẽ gợi ý ly cocktail hoàn hảo tương thích với tâm trạng và khẩu vị của bạn.</p>
+    
+    <div id="quizContainer">
+      <!-- Quiz progress and steps rendered dynamically -->
+      <div class="quiz-progress-container">
+        <span>Tiến trình khám phá</span>
+        <span id="quizStepIndicator">Câu hỏi 1/3</span>
+      </div>
+      <div class="quiz-progress">
+        <div class="quiz-progress-bar" id="quizProgressBar" style="width: 33%;"></div>
+      </div>
+
+      <!-- Step 1: Strength -->
+      <div class="quiz-step active" id="quizStep1">
+        <h4 style="font-family: var(--display); font-size: 20px; color: var(--cream); margin-bottom: 16px;">1. Độ mạnh (nồng độ cồn) bạn mong muốn tối nay?</h4>
+        <div class="quiz-options">
+          <div class="quiz-option" data-val="low">
+            <div class="opt-title">Nhẹ nhàng (Low ABV)</div>
+            <div class="opt-desc">Dễ chịu, nhiều nước pha sủi tăm, nồng độ cồn rất thấp để thư giãn kéo dài.</div>
+          </div>
+          <div class="quiz-option" data-val="balanced">
+            <div class="opt-title">Cân bằng (Medium ABV)</div>
+            <div class="opt-desc">Tỷ lệ hài hòa giữa rượu mạnh và nước chanh/syrup ngọt, chuẩn mực cocktail kinh điển.</div>
+          </div>
+          <div class="quiz-option" data-val="strong">
+            <div class="opt-title">Mạnh mẽ (Spirit-Forward)</div>
+            <div class="opt-desc">Hương cồn đậm đà, sâu lắng, đậm chất rượu nguyên bản thích hợp nhâm nhi chậm rãi.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Flavor Profile -->
+      <div class="quiz-step" id="quizStep2">
+        <h4 style="font-family: var(--display); font-size: 20px; color: var(--cream); margin-bottom: 16px;">2. Nốt hương vị chủ đạo nào làm bạn tò mò lúc này?</h4>
+        <div class="quiz-options">
+          <div class="quiz-option" data-val="citrus">
+            <div class="opt-title">Chua thanh & Tươi mát</div>
+            <div class="opt-desc">Vị chua tự nhiên từ chanh tươi, mang cảm giác sáng sủa và giải nhiệt.</div>
+          </div>
+          <div class="quiz-option" data-val="sweet">
+            <div class="opt-title">Ngọt ngào & Êm dịu</div>
+            <div class="opt-desc">Vị ngọt dễ chịu của trái cây, đường syrup hoặc rượu mùi cam mượt mà.</div>
+          </div>
+          <div class="quiz-option" data-val="bitter">
+            <div class="opt-title">Đắng nhẹ & Thảo mộc</div>
+            <div class="opt-desc">Hương thơm phức tạp từ các loại vỏ cây, rễ cây thảo mộc tinh tế.</div>
+          </div>
+          <div class="quiz-option" data-val="dry">
+            <div class="opt-title">Khô ráo & Sâu lắng</div>
+            <div class="opt-desc">Đậm mùi gỗ sồi, không đường ngọt hoặc rất ít, hậu vị sắc sảo tinh tế.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Mood/Vibe -->
+      <div class="quiz-step" id="quizStep3">
+        <h4 style="font-family: var(--display); font-size: 20px; color: var(--cream); margin-bottom: 16px;">3. Không gian hoặc tâm trạng của bạn lúc này thế nào?</h4>
+        <div class="quiz-options">
+          <div class="quiz-option" data-val="solitary">
+            <div class="opt-title">Yên tĩnh một mình</div>
+            <div class="opt-desc">Không gian tĩnh lặng, đọc sách hoặc suy ngẫm trầm mặc trong đêm muộn.</div>
+          </div>
+          <div class="quiz-option" data-val="refreshing">
+            <div class="opt-title">Cần nạp năng lượng</div>
+            <div class="opt-desc">Bừng tỉnh tinh thần sau một ngày làm việc mệt mỏi, sảng khoái mát lạnh.</div>
+          </div>
+          <div class="quiz-option" data-val="social">
+            <div class="opt-title">Ấm cúng chia sẻ</div>
+            <div class="opt-desc">Trò chuyện cởi mở cùng người thân thiết hoặc tận hưởng nhịp điệu êm dịu.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Navigation -->
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" id="quizBtnPrev" style="visibility: hidden;">Quay lại</button>
+        <div style="font-family: var(--ui); font-size: 12px; color: var(--muted-2);">Lựa chọn sẽ tự động chuyển trang</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+
+<!-- ============ 8 · BẢN ĐỒ HƯƠNG VỊ (FLAVOR EXPLORER) ============ -->
+<section class="wrap section" id="flavor-explorer" style="padding-top:0;">
+  <div class="kicker"><span class="num">08</span><span class="lbl">Hành trình Giác quan</span></div>
+  <h2 class="h2">Bản Đồ Vòng Tròn <span class="glow">Hương Vị</span></h2>
+  <p class="lede" style="margin-top:16px;margin-bottom:38px;">Mỗi dòng rượu, mỗi ly cocktail là một sự hòa hợp giác quan tinh tế. Hãy bấm vào các phân vùng hương vị trên vòng quay để giải mã nguồn gốc và tìm đồ uống tương hợp.</p>
+  
+  <div class="flavor-explorer-card" style="background: linear-gradient(135deg, var(--card), var(--card-2)); border: 1px solid var(--line); border-radius: 12px; padding: clamp(24px, 4vw, 40px); margin-top: 20px;">
+    <div class="flavor-explorer-layout">
+      <!-- Vòng xoay SVG -->
+      <div class="flavor-wheel-panel">
+        <svg id="flavorWheelSvg" viewBox="0 0 400 400" width="100%" height="100%" style="max-width: 380px; margin: 0 auto; display: block; overflow: visible;">
+          <!-- Generate SVG segments dynamically via JavaScript -->
+        </svg>
+        <div class="wheel-hint" style="text-align: center; font-family: var(--ui); font-size: 11px; color: var(--muted-2); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 16px;">
+          ✦ Bấm vào các khu vực để giải mã hương vị ✦
+        </div>
+      </div>
+      
+      <!-- Bảng thông tin chi tiết -->
+      <div class="flavor-info-panel" id="flavorInfoPanel">
+        <div class="default-state" style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; color: var(--muted-2);">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.2" style="margin-bottom:18px; filter: drop-shadow(0 0 10px rgba(214, 162, 74, 0.35));"><circle cx="12" cy="12" r="10"/><path d="m12 8-4 4 4 4M16 12H8"/></svg>
+          <h4 style="font-family: var(--display); font-size: 21px; color: var(--cream); margin-bottom: 10px;">Khám Phá Bản Đồ Vị Giác</h4>
+          <p style="font-size: 14.5px; line-height: 1.6; max-width: 320px; margin: 0;">Bấm vào bất kỳ vùng nào trên vòng tròn hương vị bên trái để xem ghi chú cảm quan, cách nhận biết khi thưởng thức, cùng danh sách rượu nền và cocktail tương ứng.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+
+<!-- ============ 9 · NHẬT KÝ ============ -->
+<section class="wrap section" id="journal" style="padding-top:0;">
+  <div class="kicker"><span class="num">09</span><span class="lbl">Nhật ký Đồ uống</span></div>
+  <h2 class="h2">Học thành lời, ngay bên lề trang</h2>
+  <p class="lede" style="margin-top:16px;margin-bottom:34px;">Một cuốn sổ cá nhân nơi người sáng lập ghi lại những buổi nếm thử, thử nghiệm, dụng cụ và cả sai lầm thành thật — mặt con người của nghề pha chế.</p>
+  <div class="journal">
+    <svg class="candle"><use href="#scCandle"/></svg>
+    <div class="entry" data-article-id="journal-14" style="cursor: pointer;"><div class="date">Ghi chép · Số 14</div><div><h4>Đêm tôi làm loãng quá tay một ly Negroni</h4><p>Đá tan đã thật sự làm gì đến sự cân bằng — và điều chỉnh nhỏ đã cứu lượt thứ hai.</p></div><div class="arrow">→</div></div>
+    <div class="entry" data-article-id="journal-13" style="cursor: pointer;"><div class="date">Ghi chép · Số 13</div><div><h4>Nếm thử ba loại vermouth cạnh nhau</h4><p>Dry, sweet và bianco, rót ẩn danh. Ghi chú về điều làm tôi bất ngờ và loại tôi sẽ mua lại.</p></div><div class="arrow">→</div></div>
+    <div class="entry" data-article-id="journal-12" style="cursor: pointer;"><div class="date">Ghi chép · Số 12</div><div><h4>Dựng quầy bar tại nhà với chi phí bằng vài ly cà phê</h4><p>Năm thứ tôi mua đầu tiên, và một thứ tôi ước mình đã bỏ qua.</p></div><div class="arrow">→</div></div>
+    <div class="entry" data-article-id="journal-11" style="cursor: pointer;"><div class="date">Ghi chép · Số 11</div><div><h4>Vì sao cam chanh của tôi cứ nhạt vị</h4><p>Một bài học về độ tươi, nhiệt độ và thời điểm — những lỗi tôi mắc để bạn không phải mắc lại.</p></div><div class="arrow">→</div></div>
+  </div>
+  
+  <div style="margin-top: 30px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+    <button class="btn btn-gold" id="btnNewTasting">Viết Ghi Chép Thử Vị Mới</button>
+    <button class="btn btn-ghost" id="btnExportTasting">Xuất Nhật Ký (JSON)</button>
+    <label class="btn btn-ghost" for="fileImportTasting" style="display: inline-flex; align-items: center; cursor: pointer; margin: 0;">
+      Nhập Nhật Ký (JSON)
+      <input type="file" id="fileImportTasting" accept=".json" style="display: none;">
+    </label>
+  </div>
+
+  <div id="userTastingSection" style="display: none; margin-top: clamp(34px, 6vw, 56px);">
+    <h3 class="tasting-notes-title">Ghi chép vị giác cá nhân</h3>
+    <div class="tasting-cards-grid" id="userTastingGrid">
+      <!-- Saved notes with SVG radar charts rendered here -->
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+
+<!-- ============ 10 · TƯƠNG LAI ============ -->
 <section class="wrap section" style="padding-top:0;">
-  <div class="kicker"><span class="num">07</span><span class="lbl">Một ngày nào đó phía trước</span></div>
+  <div class="kicker"><span class="num">10</span><span class="lbl">Một ngày nào đó phía trước</span></div>
   <h2 class="h2">Được xây để lớn thành một cửa hàng lặng lẽ</h2>
   <p class="lede" style="margin-top:16px;margin-bottom:38px;">Kiến thức vẫn miễn phí và hào phóng. Một ngày nào đó, vài công cụ học đẹp đẽ có thể xuất hiện cùng nó — thật khẽ khàng, không ồn ào.</p>
   <div class="grid g3">
     <div class="card future"><div class="top"><svg class="scene"><use href="#scGuide"/></svg></div><div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Cẩm nang &amp; PDF số</h3><p>Sổ tay cocktail, kiến thức vang và hướng dẫn ghép vị — sẵn sàng để in, trong cùng hệ thống phát sáng.</p></div></div>
-    <div class="card future"><div class="top"><svg class="scene"><use href="#scCards"/></svg></div><div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Thẻ công thức &amp; nếm thử</h3><p>Bộ thẻ sưu tầm — công thức, nguyên liệu và ghi chú nếm rượu mà bạn có thể giữ lại.</p></div></div>
+    <div class="card future" style="border: 1px solid var(--gold);"><div class="top"><svg class="scene"><use href="#scCards"/></svg></div><div class="body"><div class="eyebrow" style="color: var(--gold);">Đã ra mắt</div><h3>Thẻ công thức &amp; nếm thử</h3><p>Mở bất kỳ công thức nào và chọn "In thẻ công thức" để lưu/in thẻ nếm A6 của riêng bạn.</p></div></div>
     <div class="card future"><div class="top"><svg class="scene"><use href="#scWorkshop"/></svg></div><div class="body"><div class="eyebrow">Một ngày nào đó</div><h3>Workshop &amp; bộ kit</h3><p>Những buổi học quầy bar ấm cúng và bộ kit cho người mới — cuốn nhật ký hiện thân, dưới ánh nến.</p></div></div>
   </div>
   <p style="max-width:760px;font-size:15px;line-height:1.7;color:var(--muted-2);margin:26px 0 0;"><span class="eyebrow">Nguyên tắc&nbsp;&nbsp;</span>Không bán rượu, không chào mời gắt gao. Thứ được bán chỉ đơn giản là đi sâu hơn — kiến thức vẫn luôn miễn phí.</p>
@@ -689,25 +771,148 @@
   </div>
 </footer>
 
-<script>
-  // rắc hạt sáng lơ lửng trong khu vực hero
-  (function(){
-    var host=document.getElementById('motes'); if(!host) return;
-    for(var i=0;i<16;i++){
-      var m=document.createElement('span'); m.className='mote';
-      m.style.left=(Math.random()*100)+'%';
-      m.style.bottom=(Math.random()*60)+'%';
-      m.style.animationDuration=(6+Math.random()*7)+'s';
-      m.style.animationDelay=(Math.random()*8)+'s';
-      m.style.opacity=String(0.3+Math.random()*0.5);
-      var s=(1+Math.random()*2.2).toFixed(1); m.style.width=s+'px'; m.style.height=s+'px';
-      host.appendChild(m);
-    }
-  })();
-  document.querySelector('.nav-burger')?.addEventListener('click',function(){
-    document.querySelector('.nav-links')?.scrollIntoView({behavior:'smooth'});
-    alert('Ở bản chính thức, đây sẽ mở menu toàn màn hình: Học · Rượu mạnh · Cocktail · Quầy bar tại nhà · Nhật ký · Bắt đầu học');
-  });
-</script>
+<!-- ============ ARTICLE MODAL ============ -->
+<div class="modal-overlay" id="articleModal">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Đóng modal">&times;</button>
+    <div id="articleContainer">
+      <!-- Content injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ TASTING NOTE MODAL ============ -->
+<div class="modal-overlay" id="tastingModal">
+  <div class="modal-content" style="max-width: 800px;">
+    <button class="modal-close" aria-label="Đóng modal">&times;</button>
+    <h2 class="h2" style="margin-bottom: 24px; font-family: var(--display);">Ghi chép nếm thử mới</h2>
+    
+    <form id="tastingForm" onsubmit="return false;">
+      <div class="tasting-form-layout">
+        <div class="tasting-inputs">
+          <div class="form-group">
+            <label for="tasteName">Tên rượu / Cocktail</label>
+            <input type="text" id="tasteName" class="form-control" placeholder="Ví dụ: Bowmore 12, Negroni..." required>
+          </div>
+          
+          <div class="form-group">
+            <label for="tasteCategory">Phân loại</label>
+            <select id="tasteCategory" class="form-control form-select">
+              <option value="Gin">Gin</option>
+              <option value="Vodka">Vodka</option>
+              <option value="Rum">Rum</option>
+              <option value="Tequila">Tequila</option>
+              <option value="Whisky">Whisky</option>
+              <option value="Brandy">Brandy</option>
+              <option value="Rượu mùi">Rượu mùi (Liqueur)</option>
+              <option value="Vermouth">Vermouth</option>
+              <option value="Vang">Vang (Wine)</option>
+              <option value="Cocktail">Cocktail</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Ngũ Giác Vị Giác (Flavor Profile)</label>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--muted-2);">
+                  <span>Mạnh (Alcohol Strength)</span>
+                </div>
+                <div class="slider-row">
+                  <input type="range" id="valStrength" class="form-range" min="0" max="5" step="0.5" value="3">
+                  <span id="lblStrength">3</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--muted-2);">
+                  <span>Ngọt (Sweetness)</span>
+                </div>
+                <div class="slider-row">
+                  <input type="range" id="valSweet" class="form-range" min="0" max="5" step="0.5" value="2">
+                  <span id="lblSweet">2</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--muted-2);">
+                  <span>Chua (Acidity)</span>
+                </div>
+                <div class="slider-row">
+                  <input type="range" id="valSour" class="form-range" min="0" max="5" step="0.5" value="1">
+                  <span id="lblSour">1</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--muted-2);">
+                  <span>Đắng (Bitterness)</span>
+                </div>
+                <div class="slider-row">
+                  <input type="range" id="valBitter" class="form-range" min="0" max="5" step="0.5" value="0.5">
+                  <span id="lblBitter">0.5</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--muted-2);">
+                  <span>Thơm (Aroma Intensity)</span>
+                </div>
+                <div class="slider-row">
+                  <input type="range" id="valAroma" class="form-range" min="0" max="5" step="0.5" value="4">
+                  <span id="lblAroma">4</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="tasteColor">Màu sắc (Color / Appearance)</label>
+            <input type="text" id="tasteColor" class="form-control" placeholder="Ví dụ: Vàng hổ phách, Đỏ hồng ngọc, Trong suốt...">
+          </div>
+
+          <div class="form-group">
+            <label for="tasteFinish">Hậu vị (Finish / Aftertaste)</label>
+            <input type="text" id="tasteFinish" class="form-control" placeholder="Ví dụ: Kéo dài cay nồng gỗ sồi, Đắng ngọt mượt mà...">
+          </div>
+
+          <div class="form-group">
+            <label>Độ hài lòng (Satisfaction Rating)</label>
+            <div id="ratingStarsContainer" class="star-rating-input" style="font-size: 26px; color: var(--gold); cursor: pointer; display: flex; gap: 8px; margin-top: 6px; user-select: none;">
+              <span class="star-input active" data-rating="1">★</span>
+              <span class="star-input active" data-rating="2">★</span>
+              <span class="star-input active" data-rating="3">★</span>
+              <span class="star-input active" data-rating="4">★</span>
+              <span class="star-input active" data-rating="5">★</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tasteNotes">Ghi chú cảm vị</label>
+            <textarea id="tasteNotes" class="form-control" rows="4" placeholder="Cảm nhận về hương vị, hoàn cảnh thưởng thức..." style="resize: none;"></textarea>
+          </div>
+          
+          <div style="margin-top: 10px;">
+            <button type="submit" id="tastingModalSubmitBtn" class="btn btn-gold" style="width: 100%; justify-content: center;">Lưu ghi chép</button>
+          </div>
+        </div>
+        
+        <div class="tasting-radar-panel">
+          <div style="font-family: var(--ui); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;">Sơ đồ vị giác trực quan</div>
+          <svg width="220" height="220" viewBox="0 0 220 220" class="radar-svg" id="modalRadarSvg">
+            <!-- Draw radar grid & polygon dynamically -->
+          </svg>
+          <div class="radar-legend">
+            <span>M: Mạnh</span>
+            <span>N: Ngọt</span>
+            <span>Ch: Chua</span>
+            <span>Đ: Đắng</span>
+            <span>Th: Thơm</span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

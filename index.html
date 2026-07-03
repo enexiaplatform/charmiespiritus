@@ -856,6 +856,168 @@
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
 
+<!-- ============ 10A · DIY MIXOLOGY LAB ============ -->
+<section class="wrap section" id="diy-lab" style="padding-top:0;">
+  <div class="kicker"><span class="num">10A</span><span class="lbl">Phòng Thí Nghiệm Tự Do</span></div>
+  <h2 class="h2">Phòng Thí Nghiệm <span class="glow">Pha Chế Tự Do (DIY Lab)</span></h2>
+  <p class="lede" style="margin-top:16px;margin-bottom:38px;">Trở thành nghệ sĩ pha chế của riêng bạn. Thử nghiệm kết hợp các nguyên liệu cồn, chua, ngọt và bitters để thấu hiểu sự cân bằng và lưu lại công thức độc bản.</p>
+
+  <div class="diy-card card" style="background: linear-gradient(135deg, var(--card), var(--card-2)); border: 1px solid var(--line); border-radius: 12px; padding: clamp(24px, 4vw, 40px);">
+    <div class="diy-layout">
+      <!-- Cột trái: Điều khiển (Controls) -->
+      <div class="diy-controls-panel">
+        <h4 style="font-family: var(--ui); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px;">1. Lựa chọn thành phần & Tỷ lệ</h4>
+        
+        <!-- Rượu nền -->
+        <div class="diy-group" style="margin-bottom: 20px;">
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">Rượu nền (Base Spirit) - <span id="diy-lbl-base-name">Gin</span></label>
+          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+            <select id="diy-base-select" class="form-control form-select" style="flex: 1.2; background: rgba(10, 7, 20, 0.6); border: 1px solid rgba(138, 92, 199, 0.4); color: var(--cream); font-family: var(--body); font-size: 14px; border-radius: 4px; padding: 10px;">
+              <option value="gin" selected>London Dry Gin</option>
+              <option value="whiskey">Bourbon Whiskey</option>
+              <option value="rum">Light Rum</option>
+              <option value="tequila">Tequila Blue Agave</option>
+              <option value="vodka">Vodka Pure</option>
+              <option value="cognac">Cognac / Brandy</option>
+            </select>
+            <div style="display: flex; align-items: center; gap: 6px; flex: 1;" class="slider-row">
+              <input type="range" id="diy-base-vol" min="0" max="3" step="0.25" value="2" class="form-range" style="width: 100%;">
+              <span id="diy-base-vol-lbl" style="font-size: 13px; font-weight: 600; min-width: 48px; text-align: right; color: var(--gold);">2.0 oz</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rượu điều vị (Modifier) -->
+        <div class="diy-group" style="margin-bottom: 20px;">
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">Rượu mùi / Điều hương (Modifier) - <span id="diy-lbl-mod-name">Không dùng</span></label>
+          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+            <select id="diy-mod-select" class="form-control form-select" style="flex: 1.2; background: rgba(10, 7, 20, 0.6); border: 1px solid rgba(138, 92, 199, 0.4); color: var(--cream); font-family: var(--body); font-size: 14px; border-radius: 4px; padding: 10px;">
+              <option value="none" selected>Không dùng</option>
+              <option value="vermouth_sweet">Sweet Vermouth</option>
+              <option value="vermouth_dry">Dry Vermouth</option>
+              <option value="triple_sec">Triple Sec (Cam)</option>
+              <option value="campari">Campari (Đắng)</option>
+              <option value="kahlua">Coffee Liqueur</option>
+            </select>
+            <div style="display: flex; align-items: center; gap: 6px; flex: 1;" class="slider-row">
+              <input type="range" id="diy-mod-vol" min="0" max="2" step="0.25" value="0" class="form-range" style="width: 100%;">
+              <span id="diy-mod-vol-lbl" style="font-size: 13px; font-weight: 600; min-width: 48px; text-align: right; color: var(--gold);">0.0 oz</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nước chua (Sour) -->
+        <div class="diy-group" style="margin-bottom: 20px;">
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">Vị chua (Acid / Sour) - <span id="diy-lbl-sour-name">Chanh xanh</span></label>
+          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+            <select id="diy-sour-select" class="form-control form-select" style="flex: 1.2; background: rgba(10, 7, 20, 0.6); border: 1px solid rgba(138, 92, 199, 0.4); color: var(--cream); font-family: var(--body); font-size: 14px; border-radius: 4px; padding: 10px;">
+              <option value="none">Không dùng</option>
+              <option value="lime" selected>Nước cốt chanh xanh</option>
+              <option value="lemon">Nước cốt chanh vàng</option>
+            </select>
+            <div style="display: flex; align-items: center; gap: 6px; flex: 1;" class="slider-row">
+              <input type="range" id="diy-sour-vol" min="0" max="1.5" step="0.25" value="0.75" class="form-range" style="width: 100%;">
+              <span id="diy-sour-vol-lbl" style="font-size: 13px; font-weight: 600; min-width: 48px; text-align: right; color: var(--gold);">0.75 oz</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nước ngọt (Sweet) -->
+        <div class="diy-group" style="margin-bottom: 20px;">
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">Vị ngọt (Sweetener) - <span id="diy-lbl-sweet-name">Syrup đường</span></label>
+          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+            <select id="diy-sweet-select" class="form-control form-select" style="flex: 1.2; background: rgba(10, 7, 20, 0.6); border: 1px solid rgba(138, 92, 199, 0.4); color: var(--cream); font-family: var(--body); font-size: 14px; border-radius: 4px; padding: 10px;">
+              <option value="none">Không dùng</option>
+              <option value="syrup" selected>Simple Syrup đường (1:1)</option>
+              <option value="honey_syrup">Honey Syrup (Mật ong)</option>
+              <option value="raspberry_syrup">Raspberry Syrup</option>
+            </select>
+            <div style="display: flex; align-items: center; gap: 6px; flex: 1;" class="slider-row">
+              <input type="range" id="diy-sweet-vol" min="0" max="1.5" step="0.25" value="0.75" class="form-range" style="width: 100%;">
+              <span id="diy-sweet-vol-lbl" style="font-size: 13px; font-weight: 600; min-width: 48px; text-align: right; color: var(--gold);">0.75 oz</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bitters -->
+        <div class="diy-group" style="margin-bottom: 24px;">
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">Hương đắng (Bitters) - Angostura Bitters</label>
+          <div style="display: flex; align-items: center; gap: 12px;" class="slider-row">
+            <input type="range" id="diy-bitters-dash" min="0" max="4" step="1" value="0" class="form-range" style="flex: 1;">
+            <span id="diy-bitters-dash-lbl" style="font-size: 13px; font-weight: 600; min-width: 80px; text-align: right; color: var(--gold);">0 dashes</span>
+          </div>
+        </div>
+
+        <!-- Ly & Đá -->
+        <div class="diy-group" style="margin-bottom: 10px;">
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">2. Chọn dáng ly & Đá viên</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+            <select id="diy-glass-select" class="form-control form-select" style="background: rgba(10, 7, 20, 0.6); border: 1px solid rgba(138, 92, 199, 0.4); color: var(--cream); font-family: var(--body); font-size: 14px; border-radius: 4px; padding: 10px;">
+              <option value="coupe" selected>Ly Coupe (Phục vụ Up)</option>
+              <option value="rocks">Ly Rocks (Ly thấp)</option>
+              <option value="highball">Ly Highball (Ly cao)</option>
+              <option value="martini">Ly Martini (Hình nón)</option>
+              <option value="snifter">Ly Snifter (Bầu rộng)</option>
+            </select>
+            <select id="diy-ice-select" class="form-control form-select" style="background: rgba(10, 7, 20, 0.6); border: 1px solid rgba(138, 92, 199, 0.4); color: var(--cream); font-family: var(--body); font-size: 14px; border-radius: 4px; padding: 10px;">
+              <option value="none" selected>Không đá (Up)</option>
+              <option value="cube">Đá khối lớn (Cube)</option>
+              <option value="sphere">Đá cầu (Sphere)</option>
+              <option value="crushed">Đá đập vụn (Crushed)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột phải: Hiển thị trực quan, thước đo cân bằng, lưu trữ -->
+      <div class="diy-display-panel" style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="glass-svg-container" style="background: rgba(14, 10, 28, 0.45); border: 1px solid var(--line-soft); border-radius: 8px; height: 320px; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: inset 0 0 30px rgba(138, 92, 199, 0.05); overflow: hidden;">
+          <svg id="diyVisualizerSvg" width="220" height="280" viewBox="0 0 220 280" style="display: block;">
+            <!-- Rendered dynamically -->
+          </svg>
+          <div style="position: absolute; bottom: 8px; right: 12px; font-family: var(--ui); font-size: 9px; color: var(--muted-3);">MÔ PHỎNG MÀU SẮC CHẤT LỎNG THỰC TẾ</div>
+        </div>
+
+        <!-- Thước đo cân bằng (Balance Meter) -->
+        <div class="diy-balance-card" style="background: rgba(138, 92, 199, 0.04); border: 1px solid rgba(138, 92, 199, 0.15); border-radius: 8px; padding: 18px 22px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold);">Đánh giá sự cân bằng (Balance Meter)</div>
+            <span id="diy-balance-badge" class="badge-status balanced" style="font-family: var(--ui); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; text-transform: uppercase;">CÂN BẰNG</span>
+          </div>
+          <h4 id="diy-balance-title" style="font-family: var(--display); font-size: 18px; color: var(--cream); margin-bottom: 6px;">Ly rượu của bạn đang thế nào?</h4>
+          <p id="diy-balance-desc" style="font-size: 13px; line-height: 1.55; color: var(--muted-2); margin-bottom: 12px;">Thêm thành phần để bắt đầu phân tích cấu trúc vị giác.</p>
+          
+          <!-- Balance Visual Indicator (Horizontal bar) -->
+          <div style="height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; position: relative; margin-top: 16px; margin-bottom: 10px; overflow: visible;">
+            <div id="diy-balance-pointer" style="width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid var(--indigo); position: absolute; top: -3px; left: 50%; transform: translateX(-50%); transition: left 0.3s ease; box-shadow: 0 0 8px var(--gold);"></div>
+            <div style="position: absolute; width: 100%; top: 12px; display: flex; justify-content: space-between; font-family: var(--ui); font-size: 9px; color: var(--muted-3); text-transform: uppercase; letter-spacing: 0.05em;">
+              <span>Chua nhiều</span>
+              <span>Cân bằng</span>
+              <span>Ngọt nhiều</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lưu công thức -->
+        <div style="display: flex; gap: 10px; align-items: center; margin-top: 6px;">
+          <input type="text" id="diy-recipe-name" class="form-control" placeholder="Đặt tên ly cocktail..." style="margin-bottom:0; font-size:14px; padding:12px 16px; background: rgba(10, 7, 20, 0.6); border: 1px solid rgba(138, 92, 199, 0.4); color: var(--cream); font-family: var(--body); border-radius: 100px; flex: 1;">
+          <button id="diy-btn-save" class="btn btn-gold" style="white-space: nowrap; margin: 0; padding: 12px 22px;">Lưu Công Thức</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Danh sách công thức tự tạo -->
+  <div id="diySavedRecipesSection" style="display: none; margin-top: 36px;">
+    <h3 style="font-family: var(--display); font-size: 24px; color: var(--cream); margin-bottom: 18px;">Công thức sáng tạo của bạn</h3>
+    <div class="grid g3" id="diySavedRecipesGrid">
+      <!-- Saved DIY recipes rendered dynamically -->
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+
 <!-- ============ 11 · NHẬT KÝ ============ -->
 <section class="wrap section" id="journal" style="padding-top:0;">
   <div class="kicker"><span class="num">11</span><span class="lbl">Nhật ký Đồ uống</span></div>

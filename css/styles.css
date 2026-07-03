@@ -2416,4 +2416,81 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* ============================================================
+   DIY MIXOLOGY LAB STYLES
+   ============================================================ */
+.diy-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: clamp(28px, 5vw, 56px);
+  align-items: flex-start;
+}
+.badge-status {
+  background: var(--line-soft);
+  color: var(--muted-2);
+  border: 1px solid currentColor;
+}
+.badge-status.balanced {
+  background: rgba(94, 140, 138, 0.15) !important;
+  color: var(--teal) !important;
+  border: 1px solid var(--teal) !important;
+}
+.badge-status.strong {
+  background: rgba(186, 58, 92, 0.15) !important;
+  color: var(--oxblood) !important;
+  border: 1px solid var(--oxblood) !important;
+}
+.badge-status.sweet {
+  background: rgba(214, 162, 74, 0.15) !important;
+  color: var(--gold) !important;
+  border: 1px solid var(--gold) !important;
+}
+.badge-status.sour {
+  background: rgba(138, 92, 199, 0.15) !important;
+  color: var(--amethyst) !important;
+  border: 1px solid var(--amethyst) !important;
+}
+.diy-recipe-card {
+  background: rgba(14, 10, 28, 0.35);
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.diy-recipe-card:hover {
+  border-color: var(--amethyst);
+  box-shadow: 0 4px 20px rgba(138, 92, 199, 0.08);
+}
+.diy-recipe-card h4 {
+  font-family: var(--display);
+  font-size: 19px;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.diy-recipe-card .diy-recipe-meta {
+  font-family: var(--ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+.diy-recipe-card ul {
+  padding-left: 14px;
+  margin: 0 0 16px;
+  font-size: 13px;
+  color: var(--muted-2);
+  line-height: 1.5;
+}
+@media (max-width: 900px) {
+  .diy-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
 

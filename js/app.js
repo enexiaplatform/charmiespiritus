@@ -2742,6 +2742,584 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPairing('seafood');
   })();
 
+  // ============ 10A · DIY MIXOLOGY LAB & BALANCE METER ============
+  (() => {
+    // DOM elements
+    const baseSelect = document.getElementById('diy-base-select');
+    const baseVol = document.getElementById('diy-base-vol');
+    const baseVolLbl = document.getElementById('diy-base-vol-lbl');
+    const lblBaseName = document.getElementById('diy-lbl-base-name');
+
+    const modSelect = document.getElementById('diy-mod-select');
+    const modVol = document.getElementById('diy-mod-vol');
+    const modVolLbl = document.getElementById('diy-mod-vol-lbl');
+    const lblModName = document.getElementById('diy-lbl-mod-name');
+
+    const sourSelect = document.getElementById('diy-sour-select');
+    const sourVol = document.getElementById('diy-sour-vol');
+    const sourVolLbl = document.getElementById('diy-sour-vol-lbl');
+    const lblSourName = document.getElementById('diy-lbl-sour-name');
+
+    const sweetSelect = document.getElementById('diy-sweet-select');
+    const sweetVol = document.getElementById('diy-sweet-vol');
+    const sweetVolLbl = document.getElementById('diy-sweet-vol-lbl');
+    const lblSweetName = document.getElementById('diy-lbl-sweet-name');
+
+    const bittersDash = document.getElementById('diy-bitters-dash');
+    const bittersDashLbl = document.getElementById('diy-bitters-dash-lbl');
+
+    const glassSelect = document.getElementById('diy-glass-select');
+    const iceSelect = document.getElementById('diy-ice-select');
+
+    const visualizerSvg = document.getElementById('diyVisualizerSvg');
+    
+    const balanceBadge = document.getElementById('diy-balance-badge');
+    const balanceTitle = document.getElementById('diy-balance-title');
+    const balanceDesc = document.getElementById('diy-balance-desc');
+    const balancePointer = document.getElementById('diy-balance-pointer');
+
+    const recipeNameInput = document.getElementById('diy-recipe-name');
+    const btnSave = document.getElementById('diy-btn-save');
+    const savedGrid = document.getElementById('diySavedRecipesGrid');
+    const savedSection = document.getElementById('diySavedRecipesSection');
+
+    if (!baseSelect || !visualizerSvg) return;
+
+    // Dictionary of ingredient data
+    const INGREDIENT_DATA = {
+      // Base Spirits
+      gin: { r: 235, g: 230, b: 245, a: 0.15, name: "London Dry Gin" },
+      whiskey: { r: 214, g: 138, b: 68, a: 0.8, name: "Bourbon Whiskey" },
+      rum: { r: 235, g: 230, b: 245, a: 0.1, name: "Light Rum" },
+      tequila: { r: 240, g: 235, b: 220, a: 0.15, name: "Tequila Blue Agave" },
+      vodka: { r: 235, g: 235, b: 255, a: 0.05, name: "Vodka Pure" },
+      cognac: { r: 182, g: 90, b: 70, a: 0.85, name: "Cognac / Brandy" },
+
+      // Modifiers
+      none: { r: 0, g: 0, b: 0, a: 0, name: "Không dùng" },
+      vermouth_sweet: { r: 122, g: 42, b: 72, a: 0.85, name: "Sweet Vermouth" },
+      vermouth_dry: { r: 220, g: 235, b: 200, a: 0.25, name: "Dry Vermouth" },
+      triple_sec: { r: 255, g: 255, b: 255, a: 0.1, name: "Triple Sec (Cam)" },
+      campari: { r: 200, g: 20, b: 40, a: 0.9, name: "Campari (Đắng)" },
+      kahlua: { r: 58, g: 30, b: 16, a: 0.95, name: "Coffee Liqueur" },
+
+      // Sours
+      lime: { r: 205, g: 225, b: 160, a: 0.6, name: "Nước cốt chanh xanh" },
+      lemon: { r: 240, g: 230, b: 150, a: 0.6, name: "Nước cốt chanh vàng" },
+
+      // Sweets
+      syrup: { r: 255, g: 250, b: 230, a: 0.2, name: "Simple Syrup đường" },
+      honey_syrup: { r: 245, g: 200, b: 100, a: 0.7, name: "Honey Syrup (Mật ong)" },
+      raspberry_syrup: { r: 210, g: 45, b: 90, a: 0.8, name: "Raspberry Syrup" }
+    };
+
+    // Glass Capacities in oz
+    const GLASS_CAPACITIES = {
+      coupe: 5.5,
+      rocks: 9.0,
+      highball: 12.0,
+      martini: 6.0,
+      snifter: 8.0
+    };
+
+    function drawDiyGlassVisualizer(glass, ice, liquidColor, volumePct) {
+      let html = `
+        <defs>
+          <linearGradient id="diy-glass-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(201, 182, 232, 0.4)" />
+            <stop offset="30%" stop-color="rgba(255, 255, 255, 0.15)" />
+            <stop offset="70%" stop-color="rgba(255, 255, 255, 0.15)" />
+            <stop offset="100%" stop-color="rgba(201, 182, 232, 0.4)" />
+          </linearGradient>
+          <radialGradient id="diy-ice-sphere" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="rgba(255, 255, 255, 0.9)" />
+            <stop offset="50%" stop-color="rgba(235, 245, 255, 0.4)" />
+            <stop offset="100%" stop-color="rgba(180, 210, 255, 0.1)" />
+          </radialGradient>
+          <linearGradient id="diy-ice-block" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="rgba(255, 255, 255, 0.85)" />
+            <stop offset="40%" stop-color="rgba(225, 240, 255, 0.4)" />
+            <stop offset="100%" stop-color="rgba(170, 200, 255, 0.15)" />
+          </linearGradient>
+          
+          <!-- Clipping paths for liquid -->
+          <clipPath id="diy-clip-coupe"><path d="M 47,102 C 47,158 173,158 173,102 Z" /></clipPath>
+          <clipPath id="diy-clip-rocks"><path d="M 66,102 L 71,232 C 71,237 149,237 149,232 L 154,102 Z" /></clipPath>
+          <clipPath id="diy-clip-highball"><path d="M 76,72 L 80,238 C 80,242 140,242 140,238 L 144,72 Z" /></clipPath>
+          <clipPath id="diy-clip-martini"><path d="M 52,96 L 110,165 L 168,96 Z" /></clipPath>
+          <clipPath id="diy-clip-snifter"><path d="M 82,145 C 72,175 74,210 88,223 L 132,223 C 146,210 148,175 138,145 Z" /></clipPath>
+        </defs>
+      `;
+
+      // Draw liquid
+      if (volumePct > 0) {
+        let yTop = 0;
+        let clipId = '';
+        if (glass === 'coupe') {
+          clipId = 'diy-clip-coupe';
+          yTop = 158 - 56 * volumePct; // Empty is 158, Full is 102
+        } else if (glass === 'rocks') {
+          clipId = 'diy-clip-rocks';
+          yTop = 232 - 130 * volumePct; // Empty is 232, Full is 102
+        } else if (glass === 'highball') {
+          clipId = 'diy-clip-highball';
+          yTop = 238 - 166 * volumePct; // Empty is 238, Full is 72
+        } else if (glass === 'martini') {
+          clipId = 'diy-clip-martini';
+          yTop = 165 - 69 * volumePct; // Empty is 165, Full is 96
+        } else if (glass === 'snifter') {
+          clipId = 'diy-clip-snifter';
+          yTop = 223 - 78 * volumePct; // Empty is 223, Full is 145
+        }
+
+        html += `<rect x="10" y="${yTop}" width="200" height="240" fill="${liquidColor}" clip-path="url(#${clipId})" />`;
+        
+        if (volumePct > 0.1) {
+          const bubblePositions = [
+            {x: 95, y: yTop + 20, r: 1}, {x: 120, y: yTop + 15, r: 1.5},
+            {x: 105, y: yTop + 35, r: 1.2}, {x: 115, y: yTop + 45, r: 1.8}
+          ];
+          bubblePositions.forEach(pos => {
+            if (pos.y < 230) {
+              html += `<circle cx="${pos.x}" cy="${pos.y}" r="${pos.r}" fill="#fff" opacity="0.4" />`;
+            }
+          });
+        }
+      }
+
+      // Draw ice
+      if (ice !== 'none' && volumePct > 0) {
+        if (ice === 'cube') {
+          if (glass === 'rocks') {
+            html += `
+              <g transform="translate(10, 30)">
+                <polygon points="90,160 120,170 120,200 90,190" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+                <polygon points="90,160 115,148 145,158 120,170" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+                <polygon points="120,170 145,158 145,188 120,200" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+              </g>
+            `;
+          } else if (glass === 'highball') {
+            html += `
+              <g transform="translate(5, 75)">
+                <polygon points="90,160 120,170 120,200 90,190" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+                <polygon points="90,160 115,148 145,158 120,170" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+                <polygon points="120,170 145,158 145,188 120,200" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+              </g>
+              <g transform="translate(12, 30)">
+                <polygon points="90,160 120,170 120,200 90,190" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+                <polygon points="90,160 115,148 145,158 120,170" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+                <polygon points="120,170 145,158 145,188 120,200" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.5" opacity="0.75" />
+              </g>
+            `;
+          }
+        } else if (ice === 'sphere') {
+          if (glass === 'rocks') {
+            html += `
+              <circle cx="110" cy="180" r="30" fill="url(#diy-ice-sphere)" stroke="#fff" stroke-width="0.5" opacity="0.8" />
+              <path d="M 92,165 A 25 25 0 0 1 128,165" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.5" />
+            `;
+          } else if (glass === 'highball') {
+            html += `
+              <circle cx="110" cy="185" r="28" fill="url(#diy-ice-sphere)" stroke="#fff" stroke-width="0.5" opacity="0.8" />
+              <path d="M 93,171 A 23 23 0 0 1 127,171" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.5" />
+            `;
+          }
+        } else if (ice === 'crushed') {
+          const particles = [
+            "M 90,210 L 105,200 L 100,215 Z", "M 108,212 L 125,205 L 120,218 Z",
+            "M 122,208 L 138,202 L 132,216 Z", "M 82,198 L 98,188 L 94,204 Z",
+            "M 99,195 L 115,188 L 110,202 Z", "M 116,192 L 132,185 L 126,198 Z",
+            "M 88,182 L 102,175 L 98,188 Z", "M 104,178 L 120,172 L 114,184 Z"
+          ];
+          html += particles.map(p => `<path d="${p}" fill="url(#diy-ice-block)" stroke="#fff" stroke-width="0.4" opacity="0.75" />`).join('');
+        }
+      }
+
+      // Draw Glass Outline
+      if (glass === 'coupe') {
+        html += `
+          <!-- Coupe Glass -->
+          <path d="M 45,100 C 45,160 175,160 175,100" fill="none" stroke="url(#diy-glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="100" rx="65" ry="10" fill="none" stroke="url(#diy-glass-glow)" stroke-width="2" />
+          <line x1="110" y1="155" x2="110" y2="242" stroke="url(#diy-glass-glow)" stroke-width="4.5" />
+          <ellipse cx="110" cy="245" rx="45" ry="8" fill="none" stroke="url(#diy-glass-glow)" stroke-width="2.5" />
+        `;
+      } else if (glass === 'rocks') {
+        html += `
+          <!-- Rocks Glass -->
+          <path d="M 65,100 L 70,240 C 70,245 150,245 150,240 L 155,100" fill="none" stroke="url(#diy-glass-glow)" stroke-width="3" />
+          <path d="M 70,222 C 70,222 150,222 150,222 L 150,240 C 150,244 70,244 70,240 Z" fill="rgba(237, 228, 250, 0.12)" stroke="url(#diy-glass-glow)" stroke-width="1" />
+          <ellipse cx="110" cy="100" rx="45" ry="6" fill="none" stroke="url(#diy-glass-glow)" stroke-width="2" />
+        `;
+      } else if (glass === 'highball') {
+        html += `
+          <!-- Highball Glass -->
+          <path d="M 75,70 L 79,245 C 79,247 141,247 141,245 L 145,70" fill="none" stroke="url(#diy-glass-glow)" stroke-width="3" />
+          <path d="M 79,228 C 79,228 141,228 141,228 L 141,245 C 141,246 79,246 79,245 Z" fill="rgba(237, 228, 250, 0.12)" stroke="url(#diy-glass-glow)" stroke-width="1" />
+          <ellipse cx="110" cy="70" rx="35" ry="5" fill="none" stroke="url(#diy-glass-glow)" stroke-width="2" />
+        `;
+      } else if (glass === 'martini') {
+        html += `
+          <!-- Martini Glass -->
+          <path d="M 40,80 L 110,170 L 180,80" fill="none" stroke="url(#diy-glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="80" rx="70" ry="10" fill="none" stroke="url(#diy-glass-glow)" stroke-width="2" />
+          <line x1="110" y1="170" x2="110" y2="242" stroke="url(#diy-glass-glow)" stroke-width="4.5" />
+          <ellipse cx="110" cy="245" rx="45" ry="8" fill="none" stroke="url(#diy-glass-glow)" stroke-width="2.5" />
+        `;
+      } else if (glass === 'snifter') {
+        html += `
+          <!-- Snifter Glass -->
+          <path d="M 80,100 C 60,130 60,200 82,225 L 138,225 C 160,200 160,130 140,100" fill="none" stroke="url(#diy-glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="100" rx="30" ry="5" fill="none" stroke="url(#diy-glass-glow)" stroke-width="2" />
+          <path d="M 85,225 L 85,245 C 85,245 70,246 70,250 C 70,250 150,250 150,250 C 150,246 135,245 135,245 L 135,225 Z" fill="rgba(237, 228, 250, 0.15)" stroke="url(#diy-glass-glow)" stroke-width="2" />
+        `;
+      }
+
+      return html;
+    }
+
+    // Load custom recipes from localstorage
+    function getSavedDiyRecipes() {
+      const data = localStorage.getItem('charmie_diy_recipes');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveDiyRecipe(recipe) {
+      const list = getSavedDiyRecipes();
+      list.push(recipe);
+      localStorage.setItem('charmie_diy_recipes', JSON.stringify(list));
+      renderDiyRecipes();
+    }
+
+    window.deleteDiyRecipe = function(index) {
+      if (confirm('Bạn có chắc muốn xóa công thức sáng tạo này không?')) {
+        const list = getSavedDiyRecipes();
+        list.splice(index, 1);
+        localStorage.setItem('charmie_diy_recipes', JSON.stringify(list));
+        renderDiyRecipes();
+        if (typeof playTick === 'function') playTick();
+      }
+    };
+
+    function renderDiyRecipes() {
+      const list = getSavedDiyRecipes();
+      if (list.length === 0) {
+        savedSection.style.display = 'none';
+        return;
+      }
+      savedSection.style.display = 'block';
+      let html = '';
+      list.forEach((recipe, index) => {
+        let ingredientsHtml = '';
+        recipe.ingredients.forEach(ing => {
+          ingredientsHtml += `<li>${ing.name}: ${ing.volume} oz</li>`;
+        });
+        if (recipe.bitters > 0) {
+          ingredientsHtml += `<li>Angostura Bitters: ${recipe.bitters} dashes</li>`;
+        }
+
+        let badgeClass = 'balanced';
+        if (recipe.balance.status === 'QUÁ MẠNH' || recipe.balance.status === 'MẠNH MẼ') badgeClass = 'strong';
+        else if (recipe.balance.status === 'QUÁ CHUA' || recipe.balance.status === 'THIÊN CHUA') badgeClass = 'sour';
+        else if (recipe.balance.status === 'QUÁ NGỌT' || recipe.balance.status === 'THIÊN NGỌT') badgeClass = 'sweet';
+
+        html += `
+          <div class="diy-recipe-card">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                <h4 style="margin: 0; font-family: var(--display); font-size: 19px; color: var(--cream);">${recipe.name}</h4>
+                <span class="badge-status ${badgeClass}" style="font-family: var(--ui); font-size: 8px; font-weight:700; padding:1px 6px; border-radius:100px; text-transform: uppercase;">${recipe.balance.status}</span>
+              </div>
+              <div class="diy-recipe-meta" style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--muted-2); letter-spacing: 0.05em; margin-bottom: 12px;">Ly ${recipe.glass} · ${recipe.ice === 'none' ? 'Không đá' : 'Đá ' + recipe.ice}</div>
+              <ul style="padding-left: 14px; margin: 0 0 16px; font-size: 13px; color: var(--muted-2); line-height: 1.5;">
+                ${ingredientsHtml}
+              </ul>
+              <p style="font-size: 12.5px; color: var(--muted-3); font-style: italic; margin-top: 10px; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 8px; line-height: 1.4;">
+                "${recipe.balance.desc}"
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 16px; align-items: center;">
+              <div style="width: 24px; height: 24px; border-radius: 4px; background: ${recipe.liquidColor}; border: 1px solid rgba(255,255,255,0.15);" title="Màu cocktail thực tế"></div>
+              <button class="btn btn-ghost" onclick="deleteDiyRecipe(${index})" style="padding: 6px 12px; font-size: 10.5px; border-radius: 4px; margin-left: auto; cursor: pointer;">Xóa</button>
+            </div>
+          </div>
+        `;
+      });
+      savedGrid.innerHTML = html;
+    }
+
+    function updateDiyLab() {
+      const baseId = baseSelect.value;
+      const baseV = parseFloat(baseVol.value);
+      const modId = modSelect.value;
+      const modV = modId === 'none' ? 0 : parseFloat(modVol.value);
+      const sourId = sourSelect.value;
+      const sourV = sourId === 'none' ? 0 : parseFloat(sourVol.value);
+      const sweetId = sweetSelect.value;
+      const sweetV = sweetId === 'none' ? 0 : parseFloat(sweetVol.value);
+      const bittersD = parseInt(bittersDash.value);
+      
+      const glass = glassSelect.value;
+      const ice = iceSelect.value;
+
+      lblBaseName.textContent = INGREDIENT_DATA[baseId].name;
+      baseVolLbl.textContent = baseV.toFixed(2) + " oz";
+
+      lblModName.textContent = INGREDIENT_DATA[modId].name;
+      modVolLbl.textContent = modV.toFixed(2) + " oz";
+
+      lblSourName.textContent = INGREDIENT_DATA[sourId].name;
+      const sourVolVolLbl = sourV.toFixed(2) + " oz";
+      sourVolLbl.textContent = sourVolVolLbl;
+
+      lblSweetName.textContent = INGREDIENT_DATA[sweetId].name;
+      const sweetVolVolLbl = sweetV.toFixed(2) + " oz";
+      sweetVolLbl.textContent = sweetVolVolLbl;
+
+      bittersDashLbl.textContent = bittersD + (bittersD === 1 ? " dash" : " dashes");
+
+      let totalV = baseV + modV + sourV + sweetV;
+      let r = 0, g = 0, b = 0, a = 0;
+
+      if (totalV > 0) {
+        const ingredients = [
+          { id: baseId, vol: baseV },
+          { id: modId, vol: modV },
+          { id: sourId, vol: sourV },
+          { id: sweetId, vol: sweetV }
+        ];
+
+        ingredients.forEach(item => {
+          if (item.vol > 0 && INGREDIENT_DATA[item.id]) {
+            const c = INGREDIENT_DATA[item.id];
+            r += c.r * item.vol;
+            g += c.g * item.vol;
+            b += c.b * item.vol;
+            a += c.a * item.vol;
+          }
+        });
+
+        r = Math.round(r / totalV);
+        g = Math.round(g / totalV);
+        b = Math.round(b / totalV);
+        a = a / totalV;
+        a = Math.min(Math.max(a, 0.2), 0.95);
+      }
+
+      const mixedColor = totalV > 0 ? `rgba(${r}, ${g}, ${b}, ${a.toFixed(2)})` : 'transparent';
+
+      const capacity = GLASS_CAPACITIES[glass] || 6;
+      let totalLiquidV = totalV;
+      if (ice !== 'none') {
+        if (ice === 'sphere') totalLiquidV += 1.5;
+        else if (ice === 'cube') totalLiquidV += 2.0;
+        else if (ice === 'crushed') totalLiquidV += 2.5;
+      }
+      let fillPct = Math.min(totalLiquidV / capacity, 1.0);
+      if (totalV === 0) fillPct = 0;
+
+      visualizerSvg.innerHTML = drawDiyGlassVisualizer(glass, ice, mixedColor, fillPct);
+
+      let balanceStatus = 'CÂN BẰNG';
+      let balanceTitleText = 'Ly Cocktail Của Bạn';
+      let balanceDescText = 'Hãy thêm các nguyên liệu để quầy bar bắt đầu phân tích kết quả.';
+      let pointerLeft = 50;
+
+      const sweetModifierIds = ['vermouth_sweet', 'triple_sec', 'kahlua', 'campari'];
+      const sweetModifierFactor = sweetModifierIds.includes(modId) ? modV * 0.25 : 0;
+      const effectiveSweet = sweetV + sweetModifierFactor;
+      const effectiveSour = sourV;
+
+      if (totalV === 0) {
+        balanceStatus = 'RỖNG';
+        balanceTitleText = 'Ly trống';
+        balanceDescText = 'Bắt đầu rót rượu nền, thêm vị chua ngọt để thử nghiệm kỹ năng phối trộn.';
+        pointerLeft = 50;
+      } else if (effectiveSour === 0 && effectiveSweet === 0) {
+        balanceStatus = 'MẠNH MẼ';
+        balanceTitleText = 'Tinh khiết & Nồng nàn (Spirit-Forward)';
+        balanceDescText = 'Không có chất làm dịu (chua/ngọt). Ly rượu mang đậm hương cồn nguyên bản của rượu nền, ấm áp và khô ráo.';
+        pointerLeft = 50;
+      } else {
+        if (effectiveSweet === 0 && effectiveSour > 0) {
+          balanceStatus = 'QUÁ CHUA';
+          balanceTitleText = 'Chua gắt (Bone Dry)';
+          balanceDescText = 'Vị chua lấn át hoàn toàn. Ly rượu thiếu đi đường hay rượu mùi ngọt để làm dịu các axit từ chanh.';
+          pointerLeft = 15;
+        } else if (effectiveSour === 0 && effectiveSweet > 0) {
+          balanceStatus = 'QUÁ NGỌT';
+          balanceTitleText = 'Ngọt khé (Saccharine)';
+          balanceDescText = 'Thiếu hẳn vị chua cân bằng. Hương vị sẽ bị bết dính và ngọt đậm đà như siro thay vì thanh thoát.';
+          pointerLeft = 85;
+        } else {
+          const ratio = effectiveSour / effectiveSweet;
+          if (ratio > 1.6) {
+            balanceStatus = 'THIÊN CHUA';
+            balanceTitleText = 'Chua thanh trội (Sour-Leaning)';
+            balanceDescText = 'Thích hợp cho những ai yêu thích sự sảng khoái giòn giã. Vị chua lấn lướt một chút nhưng vẫn dễ uống.';
+            pointerLeft = 30;
+          } else if (ratio < 0.6) {
+            balanceStatus = 'THIÊN NGỌT';
+            balanceTitleText = 'Dịu ngọt trội (Sweet-Leaning)';
+            balanceDescText = 'Một chút ngọt ngào dễ chịu lấn át vị chua. Phù hợp cho người mới bắt đầu hoặc thích cocktail tráng miệng.';
+            pointerLeft = 70;
+          } else {
+            const spiritTotal = baseV + (modId !== 'none' ? modV : 0);
+            const sourSweetSum = effectiveSour + effectiveSweet;
+            
+            if (spiritTotal > sourSweetSum * 2.5) {
+              balanceStatus = 'QUÁ MẠNH';
+              balanceTitleText = 'Cân bằng nhưng Nặng vị cồn';
+              balanceDescText = 'Tỷ lệ chua ngọt rất tốt nhưng lượng rượu nền quá nhiều khiến vị cồn lấn át hương trái cây.';
+              pointerLeft = 50;
+            } else if (spiritTotal < sourSweetSum * 0.4) {
+              balanceStatus = 'NHẠT VỊ';
+              balanceTitleText = 'Cân bằng yếu (Watery)';
+              balanceDescText = 'Ly nước quá nhiều nước chanh và đường khiến rượu nền bị loãng đi. Giống nước giải khát hơn cocktail.';
+              pointerLeft = 50;
+            } else {
+              balanceStatus = 'CÂN BẰNG';
+              balanceTitleText = 'Cân bằng tuyệt hảo (Perfect Balance)';
+              balanceDescText = 'Tỷ lệ vàng giữa cồn, chua và ngọt! Ly cocktail mượt mà, cấu trúc vững chắc và bung tỏa hương vị trọn vẹn.';
+              pointerLeft = 50;
+            }
+          }
+        }
+      }
+
+      if (balanceStatus === 'CÂN BẰNG') balanceBadge.className = 'badge-status balanced';
+      else if (balanceStatus === 'QUÁ MẠNH' || balanceStatus === 'MẠNH MẼ') balanceBadge.className = 'badge-status strong';
+      else if (balanceStatus === 'QUÁ CHUA' || balanceStatus === 'THIÊN CHUA') balanceBadge.className = 'badge-status sour';
+      else if (balanceStatus === 'QUÁ NGỌT' || balanceStatus === 'THIÊN NGỌT') balanceBadge.className = 'badge-status sweet';
+      else balanceBadge.className = 'badge-status';
+
+      balanceBadge.textContent = balanceStatus;
+      balanceTitle.textContent = balanceTitleText;
+      balanceDesc.textContent = balanceDescText;
+      balancePointer.style.left = pointerLeft + '%';
+    }
+
+    // Attach Event Listeners
+    [baseSelect, baseVol, modSelect, modVol, sourSelect, sourVol, sweetSelect, sweetVol, bittersDash, glassSelect, iceSelect].forEach(el => {
+      el.addEventListener('input', () => {
+        updateDiyLab();
+      });
+      el.addEventListener('change', () => {
+        updateDiyLab();
+        if (typeof playTick === 'function') playTick();
+      });
+    });
+
+    // Save recipe logic
+    btnSave.addEventListener('click', () => {
+      const name = recipeNameInput.value.trim();
+      if (!name) {
+        alert('Vui lòng nhập tên cho công thức cocktail sáng tạo của bạn!');
+        return;
+      }
+
+      const vals = getDiyValues();
+      if (vals.baseVol === 0 && vals.modVol === 0 && vals.sourVol === 0 && vals.sweetVol === 0) {
+        alert('Vui lòng thêm ít nhất một nguyên liệu trước khi lưu công thức!');
+        return;
+      }
+
+      let totalV = vals.baseVol + vals.modVol + vals.sourVol + vals.sweetVol;
+      let r = 0, g = 0, b = 0, a = 0;
+      const ingredientsList = [];
+
+      if (vals.baseVol > 0) {
+        const c = INGREDIENT_DATA[vals.baseId];
+        r += c.r * vals.baseVol;
+        g += c.g * vals.baseVol;
+        b += c.b * vals.baseVol;
+        a += c.a * vals.baseVol;
+        ingredientsList.push({ name: c.name, volume: vals.baseVol });
+      }
+      if (vals.modId !== 'none' && vals.modVol > 0) {
+        const c = INGREDIENT_DATA[vals.modId];
+        r += c.r * vals.modVol;
+        g += c.g * vals.modVol;
+        b += c.b * vals.modVol;
+        a += c.a * vals.modVol;
+        ingredientsList.push({ name: c.name, volume: vals.modVol });
+      }
+      if (vals.sourId !== 'none' && vals.sourVol > 0) {
+        const c = INGREDIENT_DATA[vals.sourId];
+        r += c.r * vals.sourVol;
+        g += c.g * vals.sourVol;
+        b += c.b * vals.sourVol;
+        a += c.a * vals.sourVol;
+        ingredientsList.push({ name: c.name, volume: vals.sourVol });
+      }
+      if (vals.sweetId !== 'none' && vals.sweetVol > 0) {
+        const c = INGREDIENT_DATA[vals.sweetId];
+        r += c.r * vals.sweetVol;
+        g += c.g * vals.sweetVol;
+        b += c.b * vals.sweetVol;
+        a += c.a * vals.sweetVol;
+        ingredientsList.push({ name: c.name, volume: vals.sweetVol });
+      }
+
+      if (totalV > 0) {
+        r = Math.round(r / totalV);
+        g = Math.round(g / totalV);
+        b = Math.round(b / totalV);
+        a = a / totalV;
+        a = Math.min(Math.max(a, 0.2), 0.95);
+      }
+
+      const mixedColor = totalV > 0 ? `rgba(${r}, ${g}, ${b}, ${a.toFixed(2)})` : 'transparent';
+      const balanceBadgeText = balanceBadge.textContent;
+      const balanceDescText = balanceDesc.textContent;
+
+      const newRecipe = {
+        name: name,
+        ingredients: ingredientsList,
+        bitters: vals.bittersDash,
+        glass: glassSelect.options[glassSelect.selectedIndex].text,
+        ice: iceSelect.value,
+        liquidColor: mixedColor,
+        balance: {
+          status: balanceBadgeText,
+          desc: balanceDescText
+        },
+        date: new Date().toLocaleDateString('vi-VN')
+      };
+
+      saveDiyRecipe(newRecipe);
+      recipeNameInput.value = '';
+      
+      if (typeof playClick === 'function') {
+        playClick();
+      } else if (typeof playTick === 'function') {
+        playTick();
+      }
+
+      alert(`Đã lưu công thức "${name}" thành công! Cuộn xuống dưới để xem.`);
+    });
+
+    function getDiyValues() {
+      const baseId = baseSelect.value;
+      const baseV = parseFloat(baseVol.value);
+      const modId = modSelect.value;
+      const modV = modId === 'none' ? 0 : parseFloat(modVol.value);
+      const sourId = sourSelect.value;
+      const sourV = sourId === 'none' ? 0 : parseFloat(sourVol.value);
+      const sweetId = sweetSelect.value;
+      const sweetV = sweetId === 'none' ? 0 : parseFloat(sweetVol.value);
+      const bittersD = parseInt(bittersDash.value);
+      const glass = glassSelect.value;
+      const ice = iceSelect.value;
+      
+      return { baseId, baseVol: baseV, modId, modVol: modV, sourId, sourVol: sourV, sweetId, sweetVol: sweetV, bittersDash: bittersD, glass, ice };
+    }
+
+    // Initial runs
+    updateDiyLab();
+    renderDiyRecipes();
+  })();
+
   // Initialize and Render Tasting Notes on Startup
   renderTastings();
 });

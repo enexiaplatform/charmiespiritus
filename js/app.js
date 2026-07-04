@@ -3390,26 +3390,81 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    const WINE_LABEL_ZONES = {
-      grand_vin: {
-        title: "Dòng Vang Thượng Hạng (Grand Vin)",
-        desc: "Từ 'Grand Vin' biểu thị đây là dòng vang chính (first wine) chất lượng cao nhất của nhà sản xuất đó. Dòng vang này được ưu tiên tuyển chọn từ những gốc nho lâu năm và được ủ kỹ lưỡng nhất trong niên vụ."
+    const WINE_LABEL_DATA = {
+      bordeaux: {
+        intro: "Bấm vào các vùng tô sáng (màu vàng nhạt) trên nhãn chai rượu Bordeaux Pháp bên trái để khám phá xuất xứ, giống nho, và ý nghĩa của các dòng chữ pháp lý.",
+        zones: {
+          grand_vin: {
+            title: "Dòng Vang Thượng Hạng (Grand Vin)",
+            desc: "Từ 'Grand Vin' biểu thị đây là dòng vang chính (first wine) chất lượng cao nhất của nhà sản xuất đó. Dòng vang này được ưu tiên tuyển chọn từ những gốc nho lâu năm và được ủ kỹ lưỡng nhất trong niên vụ."
+          },
+          chateau: {
+            title: "Tên Lâu Đài / Nhà Sản Xuất (Château)",
+            desc: "Trong vùng Bordeaux Pháp, 'Château' tượng trưng cho trang điền sản xuất rượu vang. Château Spiritus là thương hiệu, thể hiện tính kế thừa gia tộc, danh tiếng và chất lượng sản phẩm xuất xưởng."
+          },
+          appellation: {
+            title: "Vùng Nho Chỉ Định (A.O.C / Appellation)",
+            desc: "Chứng nhận nguồn gốc địa lý pháp lý nghiêm ngặt của Pháp. Appellation Bordeaux Contrôlée chứng nhận toàn bộ quả nho được trồng và làm ra 100% tại Bordeaux, tuân thủ chặt chẽ các luật lệ truyền thống vùng."
+          },
+          vintage: {
+            title: "Niên Vụ / Năm Thu Hoạch (Vintage)",
+            desc: "Năm 2020 ghi trên nhãn biểu thị thời điểm thu hoạch quả nho. Thời tiết của năm đó quyết định chất lượng độ ngọt và độ axit tự nhiên của nước nho, tạo nên nét đặc sắc riêng cho từng niên vụ."
+          },
+          bottling: {
+            title: "Đóng Chai Tại Trang Điền (Estate Bottling)",
+            desc: "'Mis en bouteille au château' dịch nghĩa là đóng chai tại lâu đài sản xuất. Đây là lời cam kết của chủ lâu đài rằng toàn bộ quá trình sản xuất từ ép, ủ đến đóng nút chai đều diễn ra nội bộ, không có sự can thiệp ngoài vùng."
+          }
+        }
       },
-      chateau: {
-        title: "Tên Lâu Đài / Nhà Sản Xuất (Château)",
-        desc: "Trong vùng Bordeaux Pháp, 'Château' tượng trưng cho trang điền sản xuất rượu vang. Château Spiritus là thương hiệu, thể hiện tính kế thừa gia tộc, danh tiếng và chất lượng sản phẩm xuất xưởng."
+      chianti: {
+        intro: "Bấm vào các vùng tô sáng trên nhãn chai rượu Chianti Classico Ý bên trái để khám phá biểu tượng Gà Trống Đen, cấp bậc phân hạng cao nhất DOCG và ý nghĩa của dòng chữ Riserva.",
+        zones: {
+          gallo_nero: {
+            title: "Biểu Tượng Gà Trống Đen (Gallo Nero)",
+            desc: "Biểu tượng lịch sử của liên minh Chianti Classico. Bất kỳ chai rượu vang nào mang danh hiệu Chianti Classico DOCG đều phải có nhãn cổ chai hoặc biểu tượng in hình chú gà trống đen này để khẳng định xuất xứ và tính xác thực độc quyền."
+          },
+          producer: {
+            title: "Nhà Sản Xuất / Điền Trang (Fattoria)",
+            desc: "Fattoria del Sole nghĩa là 'Trang trại Ánh Dương'. Ở Ý, các từ như Fattoria, Tenuta, Castello, Poggio, hoặc Cantina thường đứng trước tên của điền trang hoặc nhà làm rượu vang."
+          },
+          classification: {
+            title: "Phân Hạng Cao Nhất (D.O.C.G)",
+            desc: "Denominazione di Origine Controllata e Garantita (Phân hạng Xuất xứ được Kiểm chứng và Đảm bảo). Đây là cấp bậc cao nhất trong luật rượu vang Ý, yêu cầu kiểm tra hóa học và nếm thử nghiêm ngặt trước khi đóng chai."
+          },
+          riserva: {
+            title: "Dòng Dự Trữ Đặc Biệt (Riserva)",
+            desc: "Để đạt cấp độ 'Riserva', rượu vang Chianti Classico bắt buộc phải ủ tối thiểu 24 tháng (trong đó có ít nhất 3 tháng trong chai). Dòng này có độ đậm đà vượt trội, hương sồi ấm áp và tannin mượt mà."
+          },
+          vintage: {
+            title: "Niên Vụ Thu Hoạch (Annata / Vintage)",
+            desc: "Năm 2018 là năm thu hoạch nho Sangiovese chủ đạo để làm rượu. Với vùng Chianti Classico, niên vụ 2018 mang lại những quả nho chín đều hoàn hảo, có độ chua sống động và cấu trúc tannin mượt mà."
+          }
+        }
       },
-      appellation: {
-        title: "Vùng Nho Chỉ Định (A.O.C / Appellation)",
-        desc: "Chứng nhận nguồn gốc địa lý pháp lý nghiêm ngặt của Pháp. Appellation Bordeaux Contrôlée chứng nhận toàn bộ quả nho được trồng và làm ra 100% tại Bordeaux, tuân thủ chặt chẽ các luật lệ truyền thống vùng."
-      },
-      vintage: {
-        title: "Niên Vụ / Năm Thu Hoạch (Vintage)",
-        desc: "Năm 2020 ghi trên nhãn biểu thị thời điểm thu hoạch quả nho. Thời tiết của năm đó quyết định chất lượng độ ngọt và độ axit tự nhiên của nước nho, tạo nên nét đặc sắc riêng cho từng niên vụ."
-      },
-      bottling: {
-        title: "Đóng Chai Tại Trang Điền (Estate Bottling)",
-        desc: "'Mis en bouteille au château' dịch nghĩa là đóng chai tại lâu đài sản xuất. Đây là lời cam kết của chủ lâu đài rằng toàn bộ quá trình sản xuất từ ép, ủ đến đóng nút chai đều diễn ra nội bộ, không có sự can thiệp ngoài vùng."
+      rioja: {
+        intro: "Bấm vào các vùng tô sáng trên nhãn chai rượu Rioja Tây Ban Nha bên trái để tìm hiểu phân hạng cao cấp nhất D.O.Ca, tiểu vùng Rioja Alavesa danh giá và tiêu chuẩn ủ gỗ sồi Reserva cực kỳ lâu năm.",
+        zones: {
+          producer: {
+            title: "Nhà Làm Vang (Bodegas)",
+            desc: "Bodegas Altar. Ở Tây Ban Nha, 'Bodegas' có nghĩa là hầm rượu hoặc nhà làm rượu vang. Đây là đơn vị chịu trách nhiệm gieo trồng, chưng cất và ủ rượu trong các hầm sồi."
+          },
+          classification: {
+            title: "Vùng Chỉ Định Chất Lượng Cao Nhất (D.O.Ca)",
+            desc: "Denominación de Origen Calificada. Đây là phân hạng chất lượng rượu vang cao nhất tại Tây Ban Nha, chỉ được trao cho hai vùng duy nhất là Rioja và Priorat nhờ lịch sử sản xuất lâu đời và tiêu chuẩn sản xuất cực kỳ khắt khe."
+          },
+          subregion: {
+            title: "Tiểu Vùng Danh Tiếng (Rioja Alavesa)",
+            desc: "Vùng Rioja được chia làm 3 tiểu vùng. Rioja Alavesa là vùng có cao độ lớn nhất, đón gió lạnh từ dãy Cantabrian, tạo ra dòng vang thanh lịch, có độ chua sắc sảo và cấu trúc tannin sang trọng bậc nhất."
+          },
+          reserva: {
+            title: "Cấp Độ Ủ Gỗ Sồi Lâu Năm (Reserva)",
+            desc: "Luật Tây Ban Nha quy định vang đỏ Rioja Reserva phải được ủ ít nhất 36 tháng (3 năm) trước khi bán ra thị trường, trong đó có tối thiểu 12 tháng ủ trong thùng gỗ sồi và 6 tháng trong chai thủy tinh."
+          },
+          vintage: {
+            title: "Niên Vụ Thu Hoạch (Cosecha / Vintage)",
+            desc: "Năm 2016 là niên vụ xuất sắc tại Rioja với khí hậu ôn hòa. Nho Tempranillo đạt cấu trúc dày dặn, axit cân bằng, thích hợp tuyệt đối cho quá trình ủ sồi kéo dài."
+          }
+        }
       }
     };
 
@@ -3508,39 +3563,129 @@ document.addEventListener('DOMContentLoaded', () => {
       return `<defs>${glassGlowDef}${liqGrad}${botGrad}</defs>${bottleSvg}${liquidPath}${bubblesHtml}${glassOutline}`;
     }
 
-    function drawWineLabel() {
-      return `
-        <rect x="15" y="15" width="250" height="290" rx="6" fill="#FDFCF9" stroke="#D6A24A" stroke-width="1.2" />
-        <rect x="20" y="20" width="240" height="280" rx="4" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.6" />
-        
-        <path d="M 25,40 C 25,30 35,25 45,30 C 50,32 50,40 45,45" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.5" />
-        <path d="M 255,40 C 255,30 245,25 235,30 C 230,32 230,40 235,45" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.5" />
+    function drawWineLabel(type) {
+      if (type === 'chianti') {
+        // Chianti Classico label layout
+        return `
+          <!-- Khung nhãn -->
+          <rect x="15" y="15" width="250" height="290" rx="6" fill="#FDFCF9" stroke="#A79B8C" stroke-width="1.2" />
+          <rect x="20" y="20" width="240" height="280" rx="4" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.6" />
+          
+          <!-- Logo Gallo Nero (Gà trống đen) vẽ cách điệu bằng SVG -->
+          <g transform="translate(115, 30)">
+            <!-- Vòng tròn bao quanh Gallo Nero -->
+            <circle cx="25" cy="25" r="22" fill="none" stroke="#0E0A1C" stroke-width="1" />
+            <circle cx="25" cy="25" r="20" fill="none" stroke="#D6A24A" stroke-width="0.5" />
+            <!-- Vẽ gà trống đen cách điệu -->
+            <path d="M 23,12 C 22,12 19,14 18,17 C 17,20 18,22 19,23 C 18,25 17,28 19,30 C 21,31 23,30 25,32 C 27,30 29,32 30,30 C 31,27 30,24 28,22 C 29,20 30,17 28,15 C 27,13 25,12 23,12 Z" fill="#0E0A1C" />
+            <path d="M 18,17 C 16,16 14,17 13,19 C 14,21 16,21 17,20" fill="none" stroke="#0E0A1C" stroke-width="1.2" />
+            <!-- Mào đỏ nhỏ xinh -->
+            <circle cx="22" cy="11" r="1.8" fill="#7A2A48" />
+          </g>
 
-        <text x="140" y="45" font-size="9" fill="#8C7A6B" letter-spacing="0.1em" text-anchor="middle" font-family="var(--ui)">GRAND VIN DE BORDEAUX</text>
-        
-        <g stroke="#D6A24A" stroke-width="0.8" fill="none" transform="translate(100, 55)">
-          <polygon points="40,25 15,25 15,35 65,35 65,25 40,25" />
-          <polygon points="40,5 25,25 55,25 40,5" />
-          <line x1="40" y1="5" x2="40" y2="35" />
-          <rect x="33" y="27" width="14" height="8" />
-          <circle cx="40" cy="18" r="3" />
-        </g>
-        
-        <text x="140" y="125" font-size="14" font-weight="bold" fill="#7A2A48" letter-spacing="0.25em" text-anchor="middle">GRAND VIN</text>
-        <text x="140" y="165" font-size="22" font-weight="bold" fill="#0E0A1C" letter-spacing="0.05em" text-anchor="middle" font-family="var(--display)">CHÂTEAU SPIRITUS</text>
-        <text x="140" y="200" font-size="9.5" font-style="italic" fill="#5D4037" letter-spacing="0.08em" text-anchor="middle" font-family="var(--ui)">APPELLATION BORDEAUX CONTROLÉE</text>
-        <text x="140" y="238" font-size="16" font-weight="bold" fill="#D6A24A" letter-spacing="0.15em" text-anchor="middle">2020</text>
-        <text x="140" y="272" font-size="9.5" fill="#7A2A48" letter-spacing="0.12em" text-anchor="middle" font-family="var(--ui)">MIS EN BOUTEILLE AU CHÂTEAU</text>
-        
-        <text x="45" y="292" font-size="7" fill="#8C7A6B" text-anchor="start">13.5% vol.</text>
-        <text x="235" y="292" font-size="7" fill="#8C7A6B" text-anchor="end">750 ml</text>
-        
-        <rect class="label-zone" data-zone="grand_vin" x="50" y="110" width="180" height="22" rx="3" />
-        <rect class="label-zone" data-zone="chateau" x="25" y="142" width="230" height="32" rx="3" />
-        <rect class="label-zone" data-zone="appellation" x="35" y="186" width="210" height="22" rx="3" />
-        <rect class="label-zone" data-zone="vintage" x="100" y="222" width="80" height="24" rx="3" />
-        <rect class="label-zone" data-zone="bottling" x="30" y="256" width="220" height="24" rx="3" />
-      `;
+          <text x="140" y="95" font-size="8" fill="#8C7A6B" letter-spacing="0.12em" text-anchor="middle" font-family="var(--ui)">TOSCANA - ITALIA</text>
+          
+          <!-- Tên nhà sản xuất -->
+          <text x="140" y="132" font-size="20" font-weight="bold" fill="#7A2A48" letter-spacing="0.05em" text-anchor="middle" font-family="var(--display)">FATTORIA DEL SOLE</text>
+          
+          <!-- Phân hạng -->
+          <text x="140" y="165" font-size="13" font-weight="bold" fill="#0E0A1C" letter-spacing="0.1em" text-anchor="middle">CHIANTI CLASSICO</text>
+          <text x="140" y="182" font-size="7.5" fill="#5D4037" letter-spacing="0.05em" text-anchor="middle" font-family="var(--ui)">DENOMINAZIONE DI ORIGINE CONTROLLATA E GARANTITA</text>
+          
+          <!-- Riserva -->
+          <text x="140" y="215" font-size="11" font-weight="bold" fill="#D6A24A" letter-spacing="0.2em" text-anchor="middle">RISERVA</text>
+          
+          <!-- Niên vụ -->
+          <text x="140" y="250" font-size="15" font-weight="bold" fill="#0E0A1C" letter-spacing="0.1em" text-anchor="middle">2018</text>
+          
+          <text x="45" y="292" font-size="7" fill="#8C7A6B" text-anchor="start">14.0% vol.</text>
+          <text x="235" y="292" font-size="7" fill="#8C7A6B" text-anchor="end">750 ml</text>
+
+          <!-- Vùng tương tác -->
+          <circle class="label-zone" data-zone="gallo_nero" cx="140" cy="55" r="23" />
+          <rect class="label-zone" data-zone="producer" x="25" y="110" width="230" height="30" rx="3" />
+          <rect class="label-zone" data-zone="classification" x="25" y="148" width="230" height="40" rx="3" />
+          <rect class="label-zone" data-zone="riserva" x="80" y="202" width="120" height="18" rx="3" />
+          <rect class="label-zone" data-zone="vintage" x="100" y="232" width="80" height="24" rx="3" />
+        `;
+      } else if (type === 'rioja') {
+        // Rioja Reserva label layout
+        return `
+          <!-- Khung nhãn -->
+          <rect x="15" y="15" width="250" height="290" rx="6" fill="#FDFCF9" stroke="#7A2A48" stroke-width="1.4" />
+          <rect x="20" y="20" width="240" height="280" rx="4" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.6" />
+          
+          <!-- Biểu tượng Bodega (Lâu đài Tây Ban Nha / Cổng đá) -->
+          <g stroke="#7A2A48" stroke-width="1" fill="none" transform="translate(122, 35)">
+            <path d="M 6,25 L 6,10 L 15,6 L 24,10 L 24,25 Z" />
+            <path d="M 11,25 L 11,16 C 11,14 19,14 19,16 L 19,25" />
+            <circle cx="15" cy="11" r="2.5" />
+          </g>
+
+          <text x="140" y="85" font-size="8.5" fill="#8C7A6B" letter-spacing="0.1em" text-anchor="middle" font-family="var(--ui)">PRODUCT OF SPAIN</text>
+          
+          <!-- Tên nhà sản xuất -->
+          <text x="140" y="122" font-size="22" font-weight="bold" fill="#0E0A1C" letter-spacing="0.05em" text-anchor="middle" font-family="var(--display)">BODEGAS ALTAR</text>
+          
+          <!-- Phân hạng -->
+          <text x="140" y="152" font-size="8.5" fill="#5D4037" letter-spacing="0.08em" text-anchor="middle" font-family="var(--ui)">DENOMINACIÓN DE ORIGEN CALIFICADA</text>
+          <text x="140" y="172" font-size="14" font-weight="bold" fill="#7A2A48" letter-spacing="0.2em" text-anchor="middle">RIOJA</text>
+          
+          <!-- Tiểu vùng -->
+          <text x="140" y="192" font-size="8" font-style="italic" fill="#8C7A6B" letter-spacing="0.05em" text-anchor="middle">RIOJA ALAVESA</text>
+          
+          <!-- Reserva -->
+          <rect x="75" y="206" width="130" height="20" fill="#7A2A48" rx="2" />
+          <text x="140" y="220" font-size="10.5" font-weight="bold" fill="#FDFCF9" letter-spacing="0.25em" text-anchor="middle">RESERVA</text>
+          
+          <!-- Niên vụ -->
+          <text x="140" y="258" font-size="16" font-weight="bold" fill="#D6A24A" letter-spacing="0.15em" text-anchor="middle">2016</text>
+          
+          <text x="45" y="292" font-size="7" fill="#8C7A6B" text-anchor="start">14.5% vol.</text>
+          <text x="235" y="292" font-size="7" fill="#8C7A6B" text-anchor="end">750 ml</text>
+
+          <!-- Vùng tương tác -->
+          <rect class="label-zone" data-zone="producer" x="25" y="98" width="230" height="30" rx="3" />
+          <rect class="label-zone" data-zone="classification" x="25" y="138" width="230" height="42" rx="3" />
+          <rect class="label-zone" data-zone="subregion" x="40" y="182" width="200" height="18" rx="3" />
+          <rect class="label-zone" data-zone="reserva" x="70" y="202" width="140" height="28" rx="3" />
+          <rect class="label-zone" data-zone="vintage" x="100" y="242" width="80" height="24" rx="3" />
+        `;
+      } else {
+        // Fallback to bordeaux
+        return `
+          <rect x="15" y="15" width="250" height="290" rx="6" fill="#FDFCF9" stroke="#D6A24A" stroke-width="1.2" />
+          <rect x="20" y="20" width="240" height="280" rx="4" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.6" />
+          
+          <path d="M 25,40 C 25,30 35,25 45,30 C 50,32 50,40 45,45" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.5" />
+          <path d="M 255,40 C 255,30 245,25 235,30 C 230,32 230,40 235,45" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.5" />
+
+          <text x="140" y="45" font-size="9" fill="#8C7A6B" letter-spacing="0.1em" text-anchor="middle" font-family="var(--ui)">GRAND VIN DE BORDEAUX</text>
+          
+          <g stroke="#D6A24A" stroke-width="0.8" fill="none" transform="translate(100, 55)">
+            <polygon points="40,25 15,25 15,35 65,35 65,25 40,25" />
+            <polygon points="40,5 25,25 55,25 40,5" />
+            <line x1="40" y1="5" x2="40" y2="35" />
+            <rect x="33" y="27" width="14" height="8" />
+            <circle cx="40" cy="18" r="3" />
+          </g>
+          
+          <text x="140" y="125" font-size="14" font-weight="bold" fill="#7A2A48" letter-spacing="0.25em" text-anchor="middle">GRAND VIN</text>
+          <text x="140" y="165" font-size="22" font-weight="bold" fill="#0E0A1C" letter-spacing="0.05em" text-anchor="middle" font-family="var(--display)">CHÂTEAU SPIRITUS</text>
+          <text x="140" y="200" font-size="9.5" font-style="italic" fill="#5D4037" letter-spacing="0.08em" text-anchor="middle" font-family="var(--ui)">APPELLATION BORDEAUX CONTROLÉE</text>
+          <text x="140" y="238" font-size="16" font-weight="bold" fill="#D6A24A" letter-spacing="0.15em" text-anchor="middle">2020</text>
+          <text x="140" y="272" font-size="9.5" fill="#7A2A48" letter-spacing="0.12em" text-anchor="middle" font-family="var(--ui)">MIS EN BOUTEILLE AU CHÂTEAU</text>
+          
+          <text x="45" y="292" font-size="7" fill="#8C7A6B" text-anchor="start">13.5% vol.</text>
+          <text x="235" y="292" font-size="7" fill="#8C7A6B" text-anchor="end">750 ml</text>
+          
+          <rect class="label-zone" data-zone="grand_vin" x="50" y="110" width="180" height="22" rx="3" />
+          <rect class="label-zone" data-zone="chateau" x="25" y="142" width="230" height="32" rx="3" />
+          <rect class="label-zone" data-zone="appellation" x="35" y="186" width="210" height="22" rx="3" />
+          <rect class="label-zone" data-zone="vintage" x="100" y="222" width="80" height="24" rx="3" />
+          <rect class="label-zone" data-zone="bottling" x="30" y="256" width="220" height="24" rx="3" />
+        `;
+      }
     }
 
     function renderWineDetails(key) {
@@ -3660,10 +3805,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Label Decoder
     const labelSvg = document.getElementById('wineLabelSvg');
     const labelInfoPanel = document.getElementById('wineLabelInfoPanel');
-    
-    if (labelSvg && labelInfoPanel) {
-      labelSvg.innerHTML = drawWineLabel();
+    let activeLabelType = 'bordeaux';
+
+    function renderLabelDecoder() {
+      if (!labelSvg || !labelInfoPanel) return;
+      labelSvg.innerHTML = drawWineLabel(activeLabelType);
       
+      const currentData = WINE_LABEL_DATA[activeLabelType];
+      labelInfoPanel.innerHTML = `
+        <div style="text-align: center; color: var(--muted-2);">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:14px; display: inline-block;"><circle cx="12" cy="12" r="10" stroke="var(--gold)" stroke-width="1.5"/><path d="m12 8-4 4 4 4M16 12H8" stroke="var(--gold)" stroke-width="1.5"/></svg>
+          <h4 style="font-family: var(--display); font-size: 20px; color: var(--cream); margin-bottom: 8px;">Giải Mã Nhãn Chai</h4>
+          <p style="font-size: 14px; line-height: 1.6; margin: 0;">${currentData.intro}</p>
+        </div>
+      `;
+
       const zones = labelSvg.querySelectorAll('.label-zone');
       zones.forEach(zone => {
         zone.addEventListener('click', function() {
@@ -3671,7 +3827,7 @@ document.addEventListener('DOMContentLoaded', () => {
           this.classList.add('active');
           
           const zoneKey = this.getAttribute('data-zone');
-          const data = WINE_LABEL_ZONES[zoneKey];
+          const data = currentData.zones[zoneKey];
           if (data) {
             labelInfoPanel.innerHTML = `
               <div style="animation: fadeIn 0.3s ease;">
@@ -3686,6 +3842,21 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             if (typeof playTick === 'function') playTick();
           }
+        });
+      });
+    }
+
+    if (labelSvg && labelInfoPanel) {
+      renderLabelDecoder();
+      
+      const labelSelectorBtns = document.querySelectorAll('.label-selector-btn');
+      labelSelectorBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          labelSelectorBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          activeLabelType = this.getAttribute('data-label-type');
+          renderLabelDecoder();
+          if (typeof playTick === 'function') playTick();
         });
       });
     }

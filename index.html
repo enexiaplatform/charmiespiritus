@@ -934,6 +934,14 @@
 
     <!-- Tab 2: Label Decoder -->
     <div class="wine-tab-content" id="wine-tab-label" style="display: none;">
+      <!-- Label Selectors -->
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 1px dashed var(--line-soft); padding-bottom: 16px;">
+        <span style="font-family: var(--ui); font-size: 11px; text-transform: uppercase; color: var(--gold); letter-spacing: 0.1em;">Chọn loại nhãn chai:</span>
+        <button class="filter-pill active label-selector-btn" data-label-type="bordeaux">Bordeaux (Pháp)</button>
+        <button class="filter-pill label-selector-btn" data-label-type="chianti">Chianti Classico (Ý)</button>
+        <button class="filter-pill label-selector-btn" data-label-type="rioja">Rioja Reserva (Tây Ban Nha)</button>
+      </div>
+
       <div class="wine-label-layout">
         <!-- SVG Interactive Label -->
         <div class="wine-label-visual" style="background: rgba(14, 10, 28, 0.45); border: 1px solid var(--line-soft); border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 360px;">

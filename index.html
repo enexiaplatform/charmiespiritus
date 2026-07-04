@@ -247,7 +247,7 @@
   <div class="nav-in">
     <a class="brand" href="#top"><b>Charmie</b><i>Spiritus</i></a>
     <nav class="nav-links">
-      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#homebar">Quầy bar</a><a href="#flavor-explorer">Hương vị</a><a href="#glassware-lab">Ly &amp; Đá</a><a href="#pairing-studio">Ghép vị</a><a href="#journal">Nhật ký</a>
+      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#wine-explorer">Khám phá Vang</a><a href="#homebar">Quầy bar</a><a href="#flavor-explorer">Hương vị</a><a href="#glassware-lab">Ly &amp; Đá</a><a href="#pairing-studio">Ghép vị</a><a href="#journal">Nhật ký</a>
     </nav>
     <a class="nav-cta" href="#learn">Bắt đầu học</a>
     <div class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></div>
@@ -848,6 +848,107 @@
         <!-- Bảng thông tin chi tiết -->
         <div class="pairing-info-card" id="pairingInfoCard" style="background: rgba(138, 92, 199, 0.04); border: 1px solid rgba(138, 92, 199, 0.15); border-radius: 8px; padding: 22px;">
           <!-- Loaded dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+
+<!-- ============ 10B · WINE EXPLORER & LABEL DECODER ============ -->
+<section class="wrap section" id="wine-explorer" style="padding-top:0;">
+  <div class="kicker"><span class="num">10B</span><span class="lbl">Hành trình Thưởng Vang</span></div>
+  <h2 class="h2">Khám Phá Vị Vang &amp; <span class="glow">Giải Mã Nhãn Chai</span></h2>
+  <p class="lede" style="margin-top:16px;margin-bottom:38px;">Hiểu rõ đặc tính vị giác của các giống nho làm vang kinh điển, cách kết hợp chúng với ẩm thực và tự tin đọc hiểu mọi nhãn chai vang cựu thế giới.</p>
+
+  <div class="wine-card card" style="background: linear-gradient(135deg, var(--card), var(--card-2)); border: 1px solid var(--line); border-radius: 12px; padding: clamp(24px, 4vw, 40px);">
+    <!-- Wine Sub-Tabs -->
+    <div class="wine-tabs">
+      <button class="btn btn-ghost wine-tab-btn active" data-wine-tab="profile" style="margin: 0; font-size: 13px; padding: 8px 18px;">Bản Đồ Vị Vang</button>
+      <button class="btn btn-ghost wine-tab-btn" data-wine-tab="label" style="margin: 0; font-size: 13px; padding: 8px 18px;">Giải Mã Nhãn Chai</button>
+    </div>
+
+    <!-- Tab 1: Wine Profile -->
+    <div class="wine-tab-content active" id="wine-tab-profile">
+      <div class="wine-layout">
+        <!-- Select Wine -->
+        <div class="wine-selection-panel" style="display: flex; flex-direction: column; gap: 10px;">
+          <h4 style="font-family: var(--ui); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;">1. Giống nho tiêu biểu</h4>
+          
+          <div class="wine-opt active" data-wine="cabernet">
+            <span style="font-size: 20px;">🍷</span>
+            <div>
+              <div style="font-weight: 600; font-size: 13.5px; color: var(--cream); font-family: var(--display);">Cabernet Sauvignon</div>
+              <div style="font-size: 11px; color: var(--muted-2);">Đỏ đậm đà, vị chát mạnh mẽ, sồi thơm</div>
+            </div>
+          </div>
+          
+          <div class="wine-opt" data-wine="pinot">
+            <span style="font-size: 20px;">🍷</span>
+            <div>
+              <div style="font-weight: 600; font-size: 13.5px; color: var(--cream); font-family: var(--display);">Pinot Noir</div>
+              <div style="font-size: 11px; color: var(--muted-2);">Đỏ thanh lịch, dâu tây, nhẹ nhàng mềm mịn</div>
+            </div>
+          </div>
+
+          <div class="wine-opt" data-wine="chardonnay">
+            <span style="font-size: 20px;">🥂</span>
+            <div>
+              <div style="font-weight: 600; font-size: 13.5px; color: var(--cream); font-family: var(--display);">Chardonnay (Ủ Sồi)</div>
+              <div style="font-size: 11px; color: var(--muted-2);">Trắng ngậy vị bơ, vani gỗ sồi nướng</div>
+            </div>
+          </div>
+
+          <div class="wine-opt" data-wine="sauvignon">
+            <span style="font-size: 20px;">🥂</span>
+            <div>
+              <div style="font-weight: 600; font-size: 13.5px; color: var(--cream); font-family: var(--display);">Sauvignon Blanc</div>
+              <div style="font-size: 11px; color: var(--muted-2);">Trắng giòn tươi mát, chanh xanh, cỏ tươi</div>
+            </div>
+          </div>
+
+          <div class="wine-opt" data-wine="sparkling">
+            <span style="font-size: 20px;">🍾</span>
+            <div>
+              <div style="font-weight: 600; font-size: 13.5px; color: var(--cream); font-family: var(--display);">Champagne / Sparkling</div>
+              <div style="font-size: 11px; color: var(--muted-2);">Vang sủi tăm thanh lịch, hương men bánh mì</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SVG Wine Glass and Bottle -->
+        <div class="wine-visual-panel" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(14, 10, 28, 0.45); border: 1px solid var(--line-soft); border-radius: 8px; padding: 20px 10px; min-height: 330px; position: relative;">
+          <svg id="wineVisualizerSvg" width="180" height="250" viewBox="0 0 180 250" style="display: block; overflow: visible;">
+            <!-- Dynamic SVG elements loaded by JS -->
+          </svg>
+          <div id="wineTempBadge" style="position: absolute; bottom: 12px; right: 12px; font-family: var(--ui); font-size: 10px; color: var(--gold); border: 1px solid rgba(214,162,74,0.4); padding: 2px 6px; border-radius: 4px; background: var(--indigo);">16-18°C</div>
+        </div>
+
+        <!-- Wine Details & Taste meters -->
+        <div class="wine-details-panel" id="wineDetailsPanel" style="background: rgba(14, 10, 28, 0.2); border: 1px solid var(--line-soft); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+          <!-- Dynamic info loaded by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Label Decoder -->
+    <div class="wine-tab-content" id="wine-tab-label" style="display: none;">
+      <div class="wine-label-layout">
+        <!-- SVG Interactive Label -->
+        <div class="wine-label-visual" style="background: rgba(14, 10, 28, 0.45); border: 1px solid var(--line-soft); border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 360px;">
+          <svg id="wineLabelSvg" width="280" height="320" viewBox="0 0 280 320" style="display: block; overflow: visible; font-family: var(--display);">
+            <!-- Dynamic Label SVG rendered by JS -->
+          </svg>
+        </div>
+
+        <!-- Details Panel -->
+        <div class="wine-label-info-panel" id="wineLabelInfoPanel" style="background: rgba(138, 92, 199, 0.04); border: 1px solid rgba(138, 92, 199, 0.15); border-radius: 8px; padding: 24px; min-height: 320px; display: flex; flex-direction: column; justify-content: center;">
+          <div style="text-align: center; color: var(--muted-2);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin-bottom:14px; display: inline-block;"><circle cx="12" cy="12" r="10" stroke="var(--gold)" stroke-width="1.5"/><path d="m12 8-4 4 4 4M16 12H8" stroke="var(--gold)" stroke-width="1.5"/></svg>
+            <h4 style="font-family: var(--display); font-size: 20px; color: var(--cream); margin-bottom: 8px;">Giải Mã Nhãn Chai</h4>
+            <p style="font-size: 14px; line-height: 1.6; margin: 0;">Bấm vào các vùng tô sáng (màu vàng nhạt) trên nhãn chai rượu Bordeaux Pháp bên trái để khám phá xuất xứ, giống nho, và ý nghĩa của các dòng chữ pháp lý.</p>
+          </div>
         </div>
       </div>
     </div>

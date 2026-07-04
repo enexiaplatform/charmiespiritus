@@ -3320,6 +3320,377 @@ document.addEventListener('DOMContentLoaded', () => {
     renderDiyRecipes();
   })();
 
+  // ============ 14B · WINE EXPLORER & LABEL DECODER LOGIC ============
+  (() => {
+    const WINE_DATA = {
+      cabernet: {
+        name: "Cabernet Sauvignon",
+        type: "Vang Đỏ Đậm Đà (Full-Bodied Red)",
+        desc: "Được mệnh danh là hoàng đế của vang đỏ, Cabernet Sauvignon sở hữu cấu trúc mạnh mẽ, vững chãi với hàm lượng tannin cao và vị chua sống động, giúp vang có khả năng lão hóa hàng chục năm.",
+        tasteProfile: { body: 95, tannin: 90, acidity: 70, alcohol: 80, sweetness: 20 },
+        aromas: ["🍇 Quả lý chua đen", "🪵 Gỗ sồi Pháp", "🌿 Hộp xì gà", "🌶️ Gia vị khô", "🍫 Socola đen"],
+        temperature: "16 - 18°C (Phòng mát)",
+        glass: "Ly Bordeaux (Bầu to, cao)",
+        pairing: "Thích hợp nhất với các món thịt đỏ giàu chất béo như Bít tết bò (Ribeye Steak), sườn cừu nướng thảo mộc, hoặc phô mai Cheddar lâu năm. Chất béo trong thức ăn sẽ trung hòa tannin, làm vòm họng mượt mà hơn.",
+        color: "ruby-deep",
+        glassType: "bordeaux",
+        bottleColor: "#1A090D"
+      },
+      pinot: {
+        name: "Pinot Noir",
+        type: "Vang Đỏ Thanh Lịch (Light-Bodied Red)",
+        desc: "Quyến rũ và khó chiều, giống nho Pinot Noir tạo nên những ly vang đỏ có màu ruby nhạt, vị chua sáng tươi tắn cùng lượng tannin cực kỳ mềm mại, thanh tao như nhung mịn.",
+        tasteProfile: { body: 50, tannin: 40, acidity: 80, alcohol: 70, sweetness: 30 },
+        aromas: ["🍒 Quả anh đào đỏ", "🍓 Quả dâu tây", "🍄 Đất ẩm sau mưa", "🍂 Trà đen", "🪵 Đinh hương"],
+        temperature: "12 - 15°C (Mát mẻ)",
+        glass: "Ly Burgundy (Bầu rộng tròn)",
+        pairing: "Tuyệt vời khi đi kèm với thịt gia cầm (vịt quay, gà nướng), các món nấm rừng, cá hồi áp chảo, hoặc phô mai Brie béo ngậy. Vị chua thanh thoát giúp cắt bớt độ béo ngấy.",
+        color: "cherry",
+        glassType: "burgundy",
+        bottleColor: "#2B0B14"
+      },
+      chardonnay: {
+        name: "Chardonnay (Ủ Sồi)",
+        type: "Vang Trắng Béo Ngậy (Rich White)",
+        desc: "Chardonnay khi được ủ trong thùng gỗ sồi Pháp và trải qua quá trình lên men bơ (malolactic) sẽ mang cấu trúc sánh mượt, béo ngậy đầy mê hoặc cùng hương thơm vani sồi sang trọng.",
+        tasteProfile: { body: 80, tannin: 10, acidity: 60, alcohol: 70, sweetness: 25 },
+        aromas: ["🧈 Bơ đun chảy", "🍎 Táo vàng chín", "🪵 Vani gỗ sồi", "🍍 Trái cây nhiệt đới", "🍋 Vỏ chanh vàng"],
+        temperature: "10 - 12°C (Lạnh nhẹ)",
+        glass: "Ly Vang Trắng lớn",
+        pairing: "Hoàn hảo với các món hải sản sốt bơ tỏi, tôm hùm đút lò, gà sốt kem nấm, hoặc mì Ý sốt Carbonara. Vị béo của vang và món ăn nâng đỡ lẫn nhau.",
+        color: "gold",
+        glassType: "white",
+        bottleColor: "#4B3D14"
+      },
+      sauvignon: {
+        name: "Sauvignon Blanc",
+        type: "Vang Trắng Giòn Sảng Khoái (Crisp White)",
+        desc: "Sắc sảo, tràn đầy sức sống và tươi mát. Sauvignon Blanc mang phong vị hoang dã của cỏ xanh tươi, chanh bưởi rực rỡ và vị khoáng chất sắc bén của đá sỏi.",
+        tasteProfile: { body: 40, tannin: 10, acidity: 90, alcohol: 60, sweetness: 15 },
+        aromas: ["🍋 Quả chanh xanh", "🥝 Quả kiwi", "🌿 Cỏ tươi cắt", "🫑 Ớt chuông xanh", "🪨 Khoáng chất sỏi"],
+        temperature: "8 - 10°C (Lạnh sâu)",
+        glass: "Ly Vang Trắng thon nhỏ",
+        pairing: "Rất hợp với hàu sống vắt chanh, salad mực ống, các món hải sản hấp gừng chanh, gỏi đu đủ cay, hoặc phô mai dê (Goat cheese) đặc trưng vùng Loire.",
+        color: "green-straw",
+        glassType: "white-narrow",
+        bottleColor: "#33452B"
+      },
+      sparkling: {
+        name: "Champagne / Sparkling Wine",
+        type: "Vang Sủi Tăm Thanh Lịch (Sparkling)",
+        desc: "Đỉnh cao của nghệ thuật làm vang. Champagne trải qua quá trình lên men thứ hai trong chai, tạo nên hàng triệu bọt ga li ti sủi tăm liên tục, cùng hương vị men bánh mì nướng cực kỳ phức tạp.",
+        tasteProfile: { body: 60, tannin: 10, acidity: 90, alcohol: 70, sweetness: 25 },
+        aromas: ["🍞 Bánh mì gối nướng", "🍎 Táo xanh giòn", "🍋 Vỏ chanh vàng", "🍯 Mật ong nhẹ", "🪵 Hạt hạnh nhân rang"],
+        temperature: "6 - 8°C (Rất lạnh)",
+        glass: "Ly Flute (Chân cao, thon dài)",
+        pairing: "Đặc biệt đa dụng: Từ khoai tây chiên muối mặn, trứng cá tầm Caviar đến gà rán giòn rụm hoặc các món tráng vị hải sản nhẹ. Bọt sủi giúp rửa trôi và làm sạch vòm miệng.",
+        color: "champagne",
+        glassType: "flute",
+        bottleColor: "#1B2E1E"
+      }
+    };
+
+    const WINE_LABEL_ZONES = {
+      grand_vin: {
+        title: "Dòng Vang Thượng Hạng (Grand Vin)",
+        desc: "Từ 'Grand Vin' biểu thị đây là dòng vang chính (first wine) chất lượng cao nhất của nhà sản xuất đó. Dòng vang này được ưu tiên tuyển chọn từ những gốc nho lâu năm và được ủ kỹ lưỡng nhất trong niên vụ."
+      },
+      chateau: {
+        title: "Tên Lâu Đài / Nhà Sản Xuất (Château)",
+        desc: "Trong vùng Bordeaux Pháp, 'Château' tượng trưng cho trang điền sản xuất rượu vang. Château Spiritus là thương hiệu, thể hiện tính kế thừa gia tộc, danh tiếng và chất lượng sản phẩm xuất xưởng."
+      },
+      appellation: {
+        title: "Vùng Nho Chỉ Định (A.O.C / Appellation)",
+        desc: "Chứng nhận nguồn gốc địa lý pháp lý nghiêm ngặt của Pháp. Appellation Bordeaux Contrôlée chứng nhận toàn bộ quả nho được trồng và làm ra 100% tại Bordeaux, tuân thủ chặt chẽ các luật lệ truyền thống vùng."
+      },
+      vintage: {
+        title: "Niên Vụ / Năm Thu Hoạch (Vintage)",
+        desc: "Năm 2020 ghi trên nhãn biểu thị thời điểm thu hoạch quả nho. Thời tiết của năm đó quyết định chất lượng độ ngọt và độ axit tự nhiên của nước nho, tạo nên nét đặc sắc riêng cho từng niên vụ."
+      },
+      bottling: {
+        title: "Đóng Chai Tại Trang Điền (Estate Bottling)",
+        desc: "'Mis en bouteille au château' dịch nghĩa là đóng chai tại lâu đài sản xuất. Đây là lời cam kết của chủ lâu đài rằng toàn bộ quá trình sản xuất từ ép, ủ đến đóng nút chai đều diễn ra nội bộ, không có sự can thiệp ngoài vùng."
+      }
+    };
+
+    function drawWineVisualizer(wineKey) {
+      const data = WINE_DATA[wineKey];
+      if (!data) return '';
+      
+      const glassGlowDef = `
+        <linearGradient id="glass-glow" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255, 255, 255, 0.45)" />
+          <stop offset="25%" stop-color="rgba(201, 182, 232, 0.15)" />
+          <stop offset="50%" stop-color="rgba(255, 255, 255, 0.1)" />
+          <stop offset="75%" stop-color="rgba(201, 182, 232, 0.15)" />
+          <stop offset="100%" stop-color="rgba(255, 255, 255, 0.35)" />
+        </linearGradient>
+      `;
+
+      let liqGrad = '';
+      if (data.color === 'ruby-deep') {
+        liqGrad = `<linearGradient id="wine-liq-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7D1226" /><stop offset="100%" stop-color="#3D0611" /></linearGradient>`;
+      } else if (data.color === 'cherry') {
+        liqGrad = `<linearGradient id="wine-liq-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#B02A43" stop-opacity="0.9" /><stop offset="100%" stop-color="#6D1226" stop-opacity="0.9" /></linearGradient>`;
+      } else if (data.color === 'gold') {
+        liqGrad = `<linearGradient id="wine-liq-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EDC673" stop-opacity="0.8" /><stop offset="100%" stop-color="#BD923A" stop-opacity="0.8" /></linearGradient>`;
+      } else if (data.color === 'green-straw') {
+        liqGrad = `<linearGradient id="wine-liq-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EBF2DA" stop-opacity="0.75" /><stop offset="100%" stop-color="#B8CCA2" stop-opacity="0.75" /></linearGradient>`;
+      } else if (data.color === 'champagne') {
+        liqGrad = `<linearGradient id="wine-liq-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FBE4B8" stop-opacity="0.8" /><stop offset="100%" stop-color="#D6A24A" stop-opacity="0.85" /></linearGradient>`;
+      }
+
+      const botGrad = `<linearGradient id="wine-bot-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="${data.bottleColor}" /><stop offset="50%" stop-color="#705058" stop-opacity="0.2" /><stop offset="100%" stop-color="${data.bottleColor}" /></linearGradient>`;
+
+      const bottleSvg = `
+        <g opacity="0.3" transform="translate(15, 10)">
+          <rect x="33" y="10" width="14" height="22" fill="url(#glass-glow)" rx="1" />
+          <path d="M 34,32 L 34,60 C 34,60 22,75 22,95 L 22,220 C 22,225 58,225 58,220 L 58,95 C 58,75 46,60 46,32 Z" fill="url(#wine-bot-grad)" stroke="url(#glass-glow)" stroke-width="1.2" />
+          <rect x="25" y="115" width="30" height="55" fill="rgba(240,240,240,0.85)" stroke="#A08050" stroke-width="0.5" rx="1" />
+          <line x1="28" y1="130" x2="52" y2="130" stroke="#7A2A48" stroke-width="0.8" />
+          <line x1="28" y1="140" x2="52" y2="140" stroke="#7A2A48" stroke-width="0.8" />
+        </g>
+      `;
+
+      let glassOutline = '';
+      let liquidPath = '';
+      let bubblesHtml = '';
+
+      if (data.glassType === 'bordeaux') {
+        liquidPath = `<path d="M 82,110 C 68,160 142,160 128,110 Z" fill="url(#wine-liq-grad)" />`;
+        glassOutline = `
+          <path d="M 80,100 C 65,155 145,155 130,100" fill="none" stroke="url(#glass-glow)" stroke-width="2.5" />
+          <ellipse cx="105" cy="100" rx="25" ry="4" fill="none" stroke="url(#glass-glow)" stroke-width="1.5" />
+          <line x1="105" y1="152" x2="105" y2="225" stroke="url(#glass-glow)" stroke-width="3.5" />
+          <ellipse cx="105" cy="227" rx="32" ry="5" fill="none" stroke="url(#glass-glow)" stroke-width="2" />
+        `;
+      } else if (data.glassType === 'burgundy') {
+        liquidPath = `<path d="M 82,110 C 58,165 152,165 128,110 Z" fill="url(#wine-liq-grad)" />`;
+        glassOutline = `
+          <path d="M 80,100 C 52,165 158,165 130,100" fill="none" stroke="url(#glass-glow)" stroke-width="2.5" />
+          <ellipse cx="105" cy="100" rx="25" ry="4" fill="none" stroke="url(#glass-glow)" stroke-width="1.5" />
+          <line x1="105" y1="156" x2="105" y2="225" stroke="url(#glass-glow)" stroke-width="3.5" />
+          <ellipse cx="105" cy="227" rx="35" ry="5" fill="none" stroke="url(#glass-glow)" stroke-width="2" />
+        `;
+      } else if (data.glassType === 'white') {
+        liquidPath = `<path d="M 86,110 C 74,148 136,148 124,110 Z" fill="url(#wine-liq-grad)" />`;
+        glassOutline = `
+          <path d="M 84,100 C 70,150 140,150 126,100" fill="none" stroke="url(#glass-glow)" stroke-width="2.5" />
+          <ellipse cx="105" cy="100" rx="21" ry="3.5" fill="none" stroke="url(#glass-glow)" stroke-width="1.5" />
+          <line x1="105" y1="146" x2="105" y2="225" stroke="url(#glass-glow)" stroke-width="3" />
+          <ellipse cx="105" cy="227" rx="28" ry="4" fill="none" stroke="url(#glass-glow)" stroke-width="1.8" />
+        `;
+      } else if (data.glassType === 'white-narrow') {
+        liquidPath = `<path d="M 88,110 C 78,145 132,145 122,110 Z" fill="url(#wine-liq-grad)" />`;
+        glassOutline = `
+          <path d="M 86,100 C 74,147 136,147 124,100" fill="none" stroke="url(#glass-glow)" stroke-width="2.5" />
+          <ellipse cx="105" cy="100" rx="19" ry="3" fill="none" stroke="url(#glass-glow)" stroke-width="1.5" />
+          <line x1="105" y1="143" x2="105" y2="225" stroke="url(#glass-glow)" stroke-width="3" />
+          <ellipse cx="105" cy="227" rx="26" ry="4" fill="none" stroke="url(#glass-glow)" stroke-width="1.8" />
+        `;
+      } else if (data.glassType === 'flute') {
+        liquidPath = `<path d="M 91,85 L 91,135 C 91,158 119,158 119,135 L 119,85 Z" fill="url(#wine-liq-grad)" />`;
+        glassOutline = `
+          <path d="M 90,80 L 90,135 C 90,162 120,162 120,135 L 120,80" fill="none" stroke="url(#glass-glow)" stroke-width="2.5" />
+          <ellipse cx="105" cy="80" rx="15" ry="2.5" fill="none" stroke="url(#glass-glow)" stroke-width="1.5" />
+          <line x1="105" y1="154" x2="105" y2="225" stroke="url(#glass-glow)" stroke-width="3" />
+          <ellipse cx="105" cy="227" rx="24" ry="4" fill="none" stroke="url(#glass-glow)" stroke-width="1.8" />
+        `;
+        
+        const bubblePoints = [
+          {x: 100, y: 145, r: 0.8}, {x: 108, y: 138, r: 1}, {x: 96, y: 125, r: 0.7},
+          {x: 104, y: 110, r: 1.1}, {x: 112, y: 100, r: 0.8}, {x: 99, y: 92, r: 1},
+          {x: 106, y: 120, r: 0.6}, {x: 110, y: 88, r: 0.8}
+        ];
+        bubblesHtml = bubblePoints.map(p => `<circle cx="${p.x}" cy="${p.y}" r="${p.r}" fill="#fff" opacity="0.65" />`).join('');
+      }
+
+      return `<defs>${glassGlowDef}${liqGrad}${botGrad}</defs>${bottleSvg}${liquidPath}${bubblesHtml}${glassOutline}`;
+    }
+
+    function drawWineLabel() {
+      return `
+        <rect x="15" y="15" width="250" height="290" rx="6" fill="#FDFCF9" stroke="#D6A24A" stroke-width="1.2" />
+        <rect x="20" y="20" width="240" height="280" rx="4" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.6" />
+        
+        <path d="M 25,40 C 25,30 35,25 45,30 C 50,32 50,40 45,45" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.5" />
+        <path d="M 255,40 C 255,30 245,25 235,30 C 230,32 230,40 235,45" fill="none" stroke="#D6A24A" stroke-width="0.5" opacity="0.5" />
+
+        <text x="140" y="45" font-size="9" fill="#8C7A6B" letter-spacing="0.1em" text-anchor="middle" font-family="var(--ui)">GRAND VIN DE BORDEAUX</text>
+        
+        <g stroke="#D6A24A" stroke-width="0.8" fill="none" transform="translate(100, 55)">
+          <polygon points="40,25 15,25 15,35 65,35 65,25 40,25" />
+          <polygon points="40,5 25,25 55,25 40,5" />
+          <line x1="40" y1="5" x2="40" y2="35" />
+          <rect x="33" y="27" width="14" height="8" />
+          <circle cx="40" cy="18" r="3" />
+        </g>
+        
+        <text x="140" y="125" font-size="14" font-weight="bold" fill="#7A2A48" letter-spacing="0.25em" text-anchor="middle">GRAND VIN</text>
+        <text x="140" y="165" font-size="22" font-weight="bold" fill="#0E0A1C" letter-spacing="0.05em" text-anchor="middle" font-family="var(--display)">CHÂTEAU SPIRITUS</text>
+        <text x="140" y="200" font-size="9.5" font-style="italic" fill="#5D4037" letter-spacing="0.08em" text-anchor="middle" font-family="var(--ui)">APPELLATION BORDEAUX CONTROLÉE</text>
+        <text x="140" y="238" font-size="16" font-weight="bold" fill="#D6A24A" letter-spacing="0.15em" text-anchor="middle">2020</text>
+        <text x="140" y="272" font-size="9.5" fill="#7A2A48" letter-spacing="0.12em" text-anchor="middle" font-family="var(--ui)">MIS EN BOUTEILLE AU CHÂTEAU</text>
+        
+        <text x="45" y="292" font-size="7" fill="#8C7A6B" text-anchor="start">13.5% vol.</text>
+        <text x="235" y="292" font-size="7" fill="#8C7A6B" text-anchor="end">750 ml</text>
+        
+        <rect class="label-zone" data-zone="grand_vin" x="50" y="110" width="180" height="22" rx="3" />
+        <rect class="label-zone" data-zone="chateau" x="25" y="142" width="230" height="32" rx="3" />
+        <rect class="label-zone" data-zone="appellation" x="35" y="186" width="210" height="22" rx="3" />
+        <rect class="label-zone" data-zone="vintage" x="100" y="222" width="80" height="24" rx="3" />
+        <rect class="label-zone" data-zone="bottling" x="30" y="256" width="220" height="24" rx="3" />
+      `;
+    }
+
+    function renderWineDetails(key) {
+      const data = WINE_DATA[key];
+      if (!data) return;
+      
+      const aromasHtml = data.aromas.map(a => `<span style="background: var(--line-soft); color: var(--muted-3); font-size: 12px; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(138, 92, 199, 0.1);">${a}</span>`).join('');
+      
+      const panel = document.getElementById('wineDetailsPanel');
+      if (panel) {
+        panel.innerHTML = `
+          <div>
+            <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 4px;">${data.type}</div>
+            <h3 style="font-family: var(--display); font-size: 22px; color: var(--cream); margin-bottom: 10px; font-weight: 600;">${data.name}</h3>
+            <p style="font-size: 13.5px; line-height: 1.6; color: var(--muted-2); margin-bottom: 16px; font-style: italic;">
+              "${data.desc}"
+            </p>
+          </div>
+          
+          <div>
+            <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--muted-3); margin-bottom: 12px; letter-spacing: 0.05em;">Cấu trúc vị giác (Taste Profile)</div>
+            
+            <div style="font-size: 12px; margin-bottom: 8px;">
+              <div style="display:flex; justify-content:space-between; color: var(--muted-2);"><span>Độ đậm đà (Body)</span><span style="color:var(--gold); font-weight:600;">${data.tasteProfile.body}%</span></div>
+              <div class="wine-bar-track"><div class="wine-bar-fill" style="width: ${data.tasteProfile.body}%;"></div></div>
+            </div>
+            
+            <div style="font-size: 12px; margin-bottom: 8px;">
+              <div style="display:flex; justify-content:space-between; color: var(--muted-2);"><span>Chất chát (Tannin)</span><span style="color:var(--gold); font-weight:600;">${data.tasteProfile.tannin}%</span></div>
+              <div class="wine-bar-track"><div class="wine-bar-fill" style="width: ${data.tasteProfile.tannin}%;"></div></div>
+            </div>
+
+            <div style="font-size: 12px; margin-bottom: 8px;">
+              <div style="display:flex; justify-content:space-between; color: var(--muted-2);"><span>Độ chua (Acidity)</span><span style="color:var(--gold); font-weight:600;">${data.tasteProfile.acidity}%</span></div>
+              <div class="wine-bar-track"><div class="wine-bar-fill" style="width: ${data.tasteProfile.acidity}%;"></div></div>
+            </div>
+
+            <div style="font-size: 12px; margin-bottom: 8px;">
+              <div style="display:flex; justify-content:space-between; color: var(--muted-2);"><span>Độ cồn (Alcohol)</span><span style="color:var(--gold); font-weight:600;">${data.tasteProfile.alcohol}%</span></div>
+              <div class="wine-bar-track"><div class="wine-bar-fill" style="width: ${data.tasteProfile.alcohol}%;"></div></div>
+            </div>
+
+            <div style="font-size: 12px;">
+              <div style="display:flex; justify-content:space-between; color: var(--muted-2);"><span>Độ ngọt (Sweetness)</span><span style="color:var(--gold); font-weight:600;">${data.tasteProfile.sweetness}%</span></div>
+              <div class="wine-bar-track"><div class="wine-bar-fill" style="width: ${data.tasteProfile.sweetness}%;"></div></div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--muted-3); margin-bottom: 8px; letter-spacing: 0.05em;">Hương thơm đặc trưng</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              ${aromasHtml}
+            </div>
+          </div>
+
+          <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 14px; margin-top: 6px;">
+            <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">Gợi ý phục vụ &amp; Ghép vị</div>
+            <div style="font-size: 12.5px; color: var(--cream); line-height: 1.5; margin-bottom: 6px;">
+              <strong>Ly khuyên dùng:</strong> ${data.glass}
+            </div>
+            <p style="font-size: 12px; color: var(--muted-2); margin: 0; line-height: 1.5;">
+              <strong>Ghép món:</strong> ${data.pairing}
+            </p>
+          </div>
+        `;
+      }
+
+      const tempBadge = document.getElementById('wineTempBadge');
+      if (tempBadge) {
+        tempBadge.textContent = data.temperature;
+      }
+    }
+
+    // 1. Tab switching
+    const tabBtns = document.querySelectorAll('.wine-tab-btn');
+    const tabContents = document.querySelectorAll('.wine-tab-content');
+    
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        this.classList.add('active');
+        const tabId = 'wine-tab-' + this.getAttribute('data-wine-tab');
+        const content = document.getElementById(tabId);
+        if (content) {
+          content.classList.add('active');
+        }
+        
+        if (typeof playTick === 'function') playTick();
+      });
+    });
+
+    // 2. Profile select
+    const wineOpts = document.querySelectorAll('.wine-opt');
+    const visualizerSvg = document.getElementById('wineVisualizerSvg');
+    
+    if (visualizerSvg) {
+      const renderProfile = (key) => {
+        visualizerSvg.innerHTML = drawWineVisualizer(key);
+        renderWineDetails(key);
+      };
+
+      wineOpts.forEach(opt => {
+        opt.addEventListener('click', function() {
+          wineOpts.forEach(o => o.classList.remove('active'));
+          this.classList.add('active');
+          const key = this.getAttribute('data-wine');
+          renderProfile(key);
+          if (typeof playTick === 'function') playTick();
+        });
+      });
+
+      renderProfile('cabernet');
+    }
+
+    // 3. Label Decoder
+    const labelSvg = document.getElementById('wineLabelSvg');
+    const labelInfoPanel = document.getElementById('wineLabelInfoPanel');
+    
+    if (labelSvg && labelInfoPanel) {
+      labelSvg.innerHTML = drawWineLabel();
+      
+      const zones = labelSvg.querySelectorAll('.label-zone');
+      zones.forEach(zone => {
+        zone.addEventListener('click', function() {
+          zones.forEach(z => z.classList.remove('active'));
+          this.classList.add('active');
+          
+          const zoneKey = this.getAttribute('data-zone');
+          const data = WINE_LABEL_ZONES[zoneKey];
+          if (data) {
+            labelInfoPanel.innerHTML = `
+              <div style="animation: fadeIn 0.3s ease;">
+                <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 8px;">BỘ GIẢI MÃ NHÃN CHAI</div>
+                <h4 style="font-family: var(--display); font-size: 21px; color: var(--cream); margin-bottom: 12px; font-weight: 600;">
+                  ${data.title}
+                </h4>
+                <p style="font-size: 13.5px; line-height: 1.6; color: var(--muted-2); margin: 0;">
+                  ${data.desc}
+                </p>
+              </div>
+            `;
+            if (typeof playTick === 'function') playTick();
+          }
+        });
+      });
+    }
+  })();
+
   // Initialize and Render Tasting Notes on Startup
   renderTastings();
 });

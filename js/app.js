@@ -3691,6 +3691,577 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
+  // ============ 10C · COCKTAIL RIFF STUDIO WIDGET ============
+  (() => {
+    const RIFF_DATA = {
+      negroni: {
+        name: "Negroni",
+        desc: "Ly cocktail Ý kinh điển mang sắc đỏ ruby với cấu trúc đắng ngọt vô cùng cân bằng.",
+        glass: "rocks",
+        ice: "sphere",
+        classicIngredients: [
+          "30ml London Dry Gin",
+          "30ml Campari",
+          "30ml Sweet Vermouth"
+        ],
+        classicColor: "#9e2a2b",
+        classicFlavorProfile: [4.0, 3.0, 1.0, 4.5, 4.5], // [Mạnh, Ngọt, Chua, Đắng, Thơm]
+        riffs: {
+          base_swap: {
+            name: "Boulevardier",
+            desc: "Một biến tấu lịch lãm thay thế Gin bằng Bourbon/Rye Whiskey từ thập niên 1920.",
+            ingredients: [
+              "45ml Bourbon Whiskey",
+              "30ml Campari",
+              "30ml Sweet Vermouth"
+            ],
+            color: "#7209b7",
+            flavorProfile: [4.5, 3.5, 0.8, 4.0, 4.8],
+            garnish: "orange_twist",
+            aromas: ["Gỗ sồi", "Thảo mộc"],
+            science: "Bourbon mang nốt hương vani, caramel và gỗ sồi ấm áp từ thùng ủ. Khi thay thế cho Gin thảo mộc, nó liên kết chặt chẽ với vị đắng ngọt thảo quả của Campari và vị cay của Sweet Vermouth, tạo ra cấu trúc dày dặn, béo ấm hơn rõ rệt."
+          },
+          botanical_infusion: {
+            name: "Jasmine Negroni",
+            desc: "Sự kết hợp tinh tế giữa trà hoa nhài thanh tao ngâm lạnh trong Gin và vị đắng của Negroni.",
+            ingredients: [
+              "30ml Jasmine-infused Gin",
+              "30ml Campari",
+              "30ml Sweet Vermouth"
+            ],
+            color: "#b7094c",
+            flavorProfile: [3.8, 3.0, 1.2, 3.8, 5.0],
+            garnish: "orange_twist",
+            aromas: ["Hoa cỏ", "Thảo mộc"],
+            science: "Trà lài ngâm lạnh (Cold infusion) chiết xuất các hợp chất thơm linalool mà không làm tách tannin chát. Hương hoa nhài thanh khiết bay bổng làm dịu độ gắt của cồn và tạo ra một lớp hương mở đầu vô cùng duyên dáng."
+          },
+          sweetener_alternative: {
+            name: "Cold Brew Negroni",
+            desc: "Sự cộng hưởng đắng từ cà phê ủ lạnh hảo hạng quyện cùng đắng thảo mộc thảo quả.",
+            ingredients: [
+              "30ml London Dry Gin",
+              "25ml Campari",
+              "25ml Sweet Vermouth",
+              "15ml Cold Brew Concentrate"
+            ],
+            color: "#3d2621",
+            flavorProfile: [4.2, 3.2, 0.8, 4.8, 4.8],
+            garnish: "orange_twist",
+            aromas: ["Cà phê", "Thảo mộc"],
+            science: "Cà phê ủ lạnh chứa hàm lượng acid thấp hơn pha nóng nhưng giàu dầu hương thơm tự nhiên. Vị đắng rang bùi của cà phê bắt tay cùng vị đắng rễ cây của Campari tạo nên một bản hợp xướng đắng phức tạp, cực kỳ quyến rũ."
+          },
+          special_technique: {
+            name: "Coconut-Washed Negroni",
+            desc: "Áp dụng kỹ thuật Fat-wash bằng dầu dừa để mang lại cảm giác sánh mịn trơn tuột trên lưỡi.",
+            ingredients: [
+              "30ml Coconut-washed Gin",
+              "30ml Campari",
+              "30ml Sweet Vermouth"
+            ],
+            color: "#a6262c",
+            flavorProfile: [3.9, 3.5, 1.0, 3.8, 4.6],
+            garnish: "orange_twist",
+            aromas: ["Ngậy béo", "Thảo mộc"],
+            science: "Fat-washing là quá trình hòa tan chất béo vào cồn rồi làm đông lạnh để gạt bỏ phần bã đông. Tinh dầu dừa để lại các hạt ester béo siêu nhỏ liên kết với gai vị giác, giúp giảm độ sốc của cồn và che chở lưỡi khỏi vị đắng sắc gắt của Campari."
+          }
+        }
+      },
+      daiquiri: {
+        name: "Daiquiri",
+        desc: "Ly cocktail chua ngọt vùng nhiệt đới, tôn vinh độ chua sáng và hương mía đường tinh khiết.",
+        glass: "coupe",
+        ice: "none",
+        classicIngredients: [
+          "60ml White Rum",
+          "30ml Fresh Lime Juice",
+          "22.5ml Simple Syrup"
+        ],
+        classicColor: "#eef1f6",
+        classicFlavorProfile: [3.0, 3.0, 3.5, 0.0, 3.5],
+        riffs: {
+          base_swap: {
+            name: "Gimlet",
+            desc: "Biến tấu kinh điển của hải quân Anh, thay Rum bằng Gin mang hương bách xù mát lạnh.",
+            ingredients: [
+              "60ml London Dry Gin",
+              "30ml Fresh Lime Juice",
+              "22.5ml Simple Syrup"
+            ],
+            color: "#e8eff1",
+            flavorProfile: [3.5, 2.8, 3.5, 1.0, 4.5],
+            garnish: "lime_wheel",
+            aromas: ["Thảo mộc", "Cam chanh"],
+            science: "Khi đổi Rum mía sang Gin, vị ngậy ngọt của mía được thay bằng vị khô ráo thảo mộc và quả bách xù của Gin. Chanh xanh đóng vai trò khuếch đại tinh dầu thông bách xù, làm ly nước cực kỳ sạch vị và kích thích vị giác."
+          },
+          botanical_infusion: {
+            name: "Lavender Daiquiri",
+            desc: "Hương hoa oải hương oải mùi phấn nhẹ nhàng, biến ly Daiquiri thành một giấc mơ mùa hạ thơ mộng.",
+            ingredients: [
+              "60ml Lavender-infused White Rum",
+              "30ml Fresh Lime Juice",
+              "22.5ml Simple Syrup"
+            ],
+            color: "#e1dbec",
+            flavorProfile: [3.0, 3.0, 3.2, 0.5, 4.8],
+            garnish: "lime_wheel",
+            aromas: ["Hoa cỏ", "Cam chanh"],
+            science: "Hoa oải hương có chứa linalyl acetate mang lại cảm giác êm dịu, thư thái tâm hồn. Độ chua sắc của chanh được ôm ấp bởi hương hoa tím phấn, làm dịu hẳn độ sắc cồn của Rum trẻ."
+          },
+          sweetener_alternative: {
+            name: "Honey Daiquiri",
+            desc: "Công thức cổ xưa từ Cuba sử dụng mật ong ấm áp nâng đỡ hương rum nồng nàn.",
+            ingredients: [
+              "60ml Aged Rum",
+              "22.5ml Fresh Lime Juice",
+              "22.5ml Honey Syrup (1:1)"
+            ],
+            color: "#f6e4b2",
+            flavorProfile: [3.2, 3.5, 3.2, 0.2, 4.2],
+            garnish: "lime_wheel",
+            aromas: ["Mật ong", "Cam chanh"],
+            science: "Mật ong tự nhiên có cấu trúc fructose ngọt đậm và chứa nhiều hợp chất hydrocarbon tạo hương đất ấm. Nó tạo ra độ sánh mịn (viscosity) cao hơn syrup đường cát, phủ một lớp ngọt mượt cân bằng vị acid sắc xảo của chanh."
+          },
+          special_technique: {
+            name: "Clarified Daiquiri",
+            desc: "Dùng sữa tươi làm đông tụ để lọc trong suốt ly cocktail, giữ lại vị ngậy béo bí ẩn.",
+            ingredients: [
+              "60ml White Rum",
+              "30ml Fresh Lime Juice",
+              "22.5ml Simple Syrup (Clarified)"
+            ],
+            color: "#f8f9fa",
+            foam: "foam",
+            flavorProfile: [3.0, 3.2, 2.5, 0.0, 3.8],
+            garnish: "lime_wheel",
+            aromas: ["Ngậy béo", "Cam chanh"],
+            science: "Kỹ thuật Milk Clarification dùng acid trong chanh để đông vón casein trong sữa tươi. Các casein này khi lắng xuống sẽ kéo theo toàn bộ chất rắn lơ lửng và sắc tố, lọc ra một dung dịch trong vắt nhưng giữ lại whey protein mang lại hậu vị ngậy béo và kết cấu vô cùng mượt mà."
+          }
+        }
+      },
+      old_fashioned: {
+        name: "Old Fashioned",
+        desc: "Cấu trúc tối giản đỉnh cao của cocktail: Rượu mạnh, đường, nước và bitters thảo mộc.",
+        glass: "rocks",
+        ice: "sphere",
+        classicIngredients: [
+          "60ml Bourbon Whiskey",
+          "5ml Sugar Syrup",
+          "2-3 giọt Angostura Bitters"
+        ],
+        classicColor: "#d94e10",
+        classicFlavorProfile: [4.5, 2.0, 0.5, 2.5, 4.0],
+        riffs: {
+          base_swap: {
+            name: "Oaxacan Old Fashioned",
+            desc: "Chuyến du hành đến Mexico, kết hợp Tequila Reposado ấm sồi và hương khói Mezcal huyền bí.",
+            ingredients: [
+              "45ml Reposado Tequila",
+              "15ml Mezcal",
+              "7.5ml Agave Nectar",
+              "2 dashes Chocolate Bitters"
+            ],
+            color: "#b0570b",
+            flavorProfile: [4.5, 2.2, 0.5, 2.8, 4.6],
+            garnish: "orange_twist",
+            aromas: ["Khói", "Gỗ sồi"],
+            science: "Sự kết hợp giữa agave nướng lò ngầm của Mezcal và Tequila ủ gỗ sồi tạo ra nốt hương đất đá hoang dã. Chocolate bitters bổ sung nốt đắng cacao đen hoàn hảo, hòa quyện với vị ngọt thực vật tự nhiên từ mật agave nectar."
+          },
+          botanical_infusion: {
+            name: "Smoked Rosemary Old Fashioned",
+            desc: "Kích thích mạnh khứu giác bằng tinh dầu hương thảo cháy xém ấm áp trên nền Bourbon nồng nàn.",
+            ingredients: [
+              "60ml Rosemary-infused Bourbon",
+              "5ml Sugar Syrup",
+              "2 dashes Angostura Bitters"
+            ],
+            color: "#ca4e0e",
+            flavorProfile: [4.5, 2.0, 0.5, 2.5, 4.8],
+            garnish: "rosemary_sprig",
+            aromas: ["Thảo mộc", "Gỗ sồi"],
+            science: "Khi đốt xém lá hương thảo tươi, nhiệt độ làm giải phóng các hợp chất cineole và camphene thơm cay đặc trưng. Làn khói mịn bao phủ thành ly tiếp xúc trực tiếp với khoang mũi trước khi nhấp ngụm rượu, tăng cường độ sâu của mùi gỗ sồi."
+          },
+          sweetener_alternative: {
+            name: "Maple & Pecan Old Fashioned",
+            desc: "Vị ngọt đậm đà có nốt caramel cháy từ si-rô phong nâng bước cho vị ấm gỗ sồi.",
+            ingredients: [
+              "60ml Bourbon Whiskey",
+              "7.5ml Maple Syrup",
+              "2 dashes Walnut/Pecan Bitters"
+            ],
+            color: "#9a3300",
+            flavorProfile: [4.6, 2.5, 0.5, 2.8, 4.5],
+            garnish: "orange_twist",
+            aromas: ["Trái cây", "Gỗ sồi"],
+            science: "Maple Syrup chứa đường cô đặc tự nhiên có các hợp chất vanillin và laccase. Khi phối với Bourbon, vị ngọt đậm này hòa quyện tự nhiên với vị vani tự sinh trong thùng gỗ sồi, tạo cảm giác tròn trịa mềm mại hơn hẳn đường tinh luyện."
+          },
+          special_technique: {
+            name: "Brown Butter Old Fashioned",
+            desc: "Bơ hạt phỉ đun cháy béo ngậy được truyền dẫn hoàn hảo vào bourbon bằng fat-washing.",
+            ingredients: [
+              "60ml Brown Butter fat-washed Bourbon",
+              "5ml Sugar Syrup",
+              "2 dashes Angostura Bitters"
+            ],
+            color: "#c25e00",
+            flavorProfile: [4.2, 2.6, 0.5, 2.2, 4.6],
+            garnish: "orange_twist",
+            aromas: ["Ngậy béo", "Gỗ sồi"],
+            science: "Bơ được đun nóng đến khi chuyển màu nâu hạt dẻ (brown butter), tạo ra các hợp chất thơm nutty và toasty nhờ phản ứng Maillard. Quá trình fat-wash truyền toàn bộ este béo bùi này vào rượu Bourbon, làm mượt các tannin gỗ và mang lại kết cấu bơ béo khó cưỡng."
+          }
+        }
+      },
+      whiskey_sour: {
+        name: "Whiskey Sour",
+        desc: "Sự kết hợp hoàn hảo giữa vị Bourbon ấm áp và chanh vàng chua thanh, đệm lớp bọt mịn.",
+        glass: "rocks",
+        ice: "cube",
+        classicIngredients: [
+          "60ml Bourbon Whiskey",
+          "30ml Fresh Lemon Juice",
+          "22.5ml Simple Syrup",
+          "15ml Fresh Egg White"
+        ],
+        classicColor: "#e6cc80",
+        classicFlavorProfile: [3.5, 2.5, 3.5, 0.5, 4.0],
+        riffs: {
+          base_swap: {
+            name: "New York Sour",
+            desc: "Màn trình diễn thị giác và hương vị lộng lẫy với lớp rượu vang đỏ rót nổi trên mặt ly.",
+            ingredients: [
+              "60ml Bourbon Whiskey",
+              "22.5ml Fresh Lemon Juice",
+              "22.5ml Simple Syrup",
+              "15ml Dry Red Wine (Float)"
+            ],
+            color: "#e2bf5c",
+            floatColor: "#6a040f",
+            foam: "red_wine",
+            flavorProfile: [3.8, 2.2, 3.5, 1.5, 4.5],
+            garnish: "none",
+            aromas: ["Trái cây", "Gỗ sồi"],
+            science: "Lớp rượu vang đỏ nổi trên bề mặt nhờ mật độ phân tử nhẹ hơn phần rượu chua ngọt bên dưới. Khi thưởng thức, vang đỏ chát tannin sẽ chạm môi trước, cắt bớt vị ngọt đường và tạo ra sự tương phản khô-chua cực kỳ đặc sắc."
+          },
+          botanical_infusion: {
+            name: "Earl Grey Sour",
+            desc: "Hương cam Bergamot và vị chát nhẹ của trà đen Bá Tước nâng tầm sâu sắc cho dòng Whiskey Sour.",
+            ingredients: [
+              "60ml Earl Grey infused Bourbon",
+              "30ml Fresh Lemon Juice",
+              "22.5ml Simple Syrup",
+              "15ml Lòng trắng trứng"
+            ],
+            color: "#ba894a",
+            foam: "foam",
+            flavorProfile: [3.5, 2.5, 3.2, 1.2, 4.8],
+            garnish: "none",
+            aromas: ["Thảo mộc", "Gỗ sồi"],
+            science: "Trà Earl Grey chứa tinh dầu cam Bergamot tự nhiên và tannin từ trà đen. Các tannin này cung cấp cấu trúc chát mộc mạc, kết hợp với lòng trắng trứng tạo thành lớp bọt mịn giữ hương thơm Bergamot tỏa ra kéo dài."
+          },
+          sweetener_alternative: {
+            name: "Ginger-Honey Sour",
+            desc: "Biến tấu ấm áp với sự bùng nổ của gừng tươi cay nồng và mật ong rừng ấm bụng.",
+            ingredients: [
+              "60ml Blended Scotch",
+              "22.5ml Fresh Lemon Juice",
+              "22.5ml Honey-Ginger Syrup"
+            ],
+            color: "#dfa33a",
+            flavorProfile: [3.5, 3.0, 3.0, 1.0, 4.5],
+            garnish: "none",
+            aromas: ["Gừng", "Mật ong"],
+            science: "Gingerol từ gừng tươi kích hoạt các cơ quan thụ cảm nhiệt trên lưỡi, tạo ra cảm giác ấm áp vật lý. Khi kết hợp với mật ong rừng và chanh vàng, nó tạo ra vị ngọt cay sảng khoái và xoa dịu vòm họng."
+          },
+          special_technique: {
+            name: "Vegan Aquafaba Sour",
+            desc: "Sử dụng nước luộc đậu gà thay lòng trắng trứng để tạo bọt xốp dày mịn màng cho người ăn chay.",
+            ingredients: [
+              "60ml Bourbon Whiskey",
+              "30ml Fresh Lemon Juice",
+              "22.5ml Simple Syrup",
+              "25ml Aquafaba"
+            ],
+            color: "#e6cc80",
+            foam: "foam",
+            flavorProfile: [3.5, 2.5, 3.5, 0.5, 3.8],
+            garnish: "none",
+            aromas: ["Ngậy béo", "Gia vị"],
+            science: "Aquafaba chứa hàm lượng lớn saponin và protein hòa tan tương tự albumin của lòng trắng trứng. Khi lắc mạnh (Dry Shake), các protein này bẫy các bong bóng không khí và tạo nên một cấu trúc bọt xốp mịn màng tuyệt đối không mùi tanh."
+          }
+        }
+      }
+    };
+
+    let activeClassic = 'negroni';
+    let activeRiffType = 'base_swap';
+
+    const classicBtns = document.querySelectorAll('.riff-classic-btn');
+    const styleOpts = document.querySelectorAll('.riff-style-opt');
+    const classicRecipeEl = document.getElementById('riff-classic-recipe');
+    const riffedRecipeEl = document.getElementById('riffed-recipe');
+    const visualizerSvg = document.getElementById('riffVisualizerSvg');
+    const infoCard = document.getElementById('riffInfoCard');
+    const saveBtn = document.getElementById('riff-btn-save');
+
+    if (!visualizerSvg || !infoCard) return;
+
+    // Custom SVG Renderer for Riff Studio
+    function drawRiffVisualizer(glass, color, ice, foamType, garnishType, floatColor) {
+      const glassGlowDef = `
+        <defs>
+          <linearGradient id="riff-glass-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ECE6F4" stop-opacity="0.45" />
+            <stop offset="25%" stop-color="#ECE6F4" stop-opacity="0.12" />
+            <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.05" />
+            <stop offset="75%" stop-color="#ECE6F4" stop-opacity="0.12" />
+            <stop offset="100%" stop-color="#ECE6F4" stop-opacity="0.45" />
+          </linearGradient>
+        </defs>
+      `;
+
+      const liqGrad = `
+        <defs>
+          <linearGradient id="riff-liq-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="${color}" stop-opacity="0.75" />
+            <stop offset="100%" stop-color="${color}" stop-opacity="0.95" />
+          </linearGradient>
+          <linearGradient id="riff-float-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="${floatColor || '#5c0632'}" stop-opacity="0.95" />
+            <stop offset="100%" stop-color="${floatColor || '#5c0632'}" stop-opacity="0.6" />
+          </linearGradient>
+        </defs>
+      `;
+
+      let html = glassGlowDef + liqGrad;
+      let liquidPath = '';
+      let foamHtml = '';
+      let iceHtml = '';
+      let garnishHtml = '';
+      let glassOutline = '';
+
+      // 1. Ice paths
+      if (ice !== 'none') {
+        if (ice === 'sphere') {
+          iceHtml = `
+            <circle cx="110" cy="170" r="28" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.4" />
+            <path d="M 94,156 A 23 23 0 0 1 126,156" fill="none" stroke="#fff" stroke-width="0.8" stroke-linecap="round" opacity="0.5" />
+          `;
+        } else if (ice === 'cube') {
+          iceHtml = `
+            <g transform="translate(10, -5)">
+              <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.4" />
+              <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.4" />
+              <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.4" />
+            </g>
+          `;
+        }
+      }
+
+      // 2. Liquid and Glass Outline
+      if (glass === 'coupe') {
+        liquidPath = `<path d="M 50,115 C 55,152 165,152 170,115 Z" fill="url(#riff-liq-grad)" />`;
+        
+        if (foamType === 'foam') {
+          foamHtml = `
+            <path d="M 50,115 C 55,123 165,123 170,115 Z" fill="#ffffff" opacity="0.95" />
+            <path d="M 50,115 C 50,111 170,111 170,115 Z" fill="#ffffff" opacity="0.95" />
+          `;
+        }
+
+        glassOutline = `
+          <path d="M 46,110 C 52,160 168,160 174,110" fill="none" stroke="url(#riff-glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="110" rx="64" ry="7" fill="none" stroke="url(#riff-glass-glow)" stroke-width="2" />
+          <line x1="110" y1="158" x2="110" y2="240" stroke="url(#riff-glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="240" rx="38" ry="5" fill="rgba(237, 228, 250, 0.15)" stroke="url(#riff-glass-glow)" stroke-width="2" />
+        `;
+      } else {
+        // Rocks glass
+        liquidPath = `<path d="M 71,135 L 74,220 C 74,220 146,220 146,220 L 149,135 Z" fill="url(#riff-liq-grad)" />`;
+        
+        if (foamType === 'red_wine') {
+          foamHtml = `<path d="M 71,135 L 72.8,155 L 147.2,155 L 149,135 Z" fill="url(#riff-float-grad)" />`;
+        } else if (foamType === 'foam') {
+          foamHtml = `<path d="M 71,135 L 72.5,147 L 147.5,147 L 149,135 Z" fill="#ffffff" opacity="0.95" />`;
+        }
+
+        glassOutline = `
+          <path d="M 68,120 L 73,230 C 73,230 75,245 90,245 L 130,245 C 145,245 147,230 147,230 L 152,120" fill="none" stroke="url(#riff-glass-glow)" stroke-width="3" />
+          <ellipse cx="110" cy="120" rx="42" ry="6" fill="none" stroke="url(#riff-glass-glow)" stroke-width="2" />
+          <path d="M 73,222 C 73,222 75,243 90,243 L 130,243 C 145,243 147,222 147,222 Z" fill="rgba(237, 228, 250, 0.15)" stroke="url(#riff-glass-glow)" stroke-width="1.5" />
+        `;
+      }
+
+      // 3. Garnishes
+      if (garnishType === 'orange_twist') {
+        garnishHtml = `<path d="M 140,115 C 150,110 165,115 155,130 C 145,145 160,150 165,140" fill="none" stroke="#e85d04" stroke-width="3.5" stroke-linecap="round" />`;
+      } else if (garnishType === 'rosemary_sprig') {
+        garnishHtml = `
+          <line x1="110" y1="180" x2="60" y2="70" stroke="#5D6D5F" stroke-width="3.5" stroke-linecap="round" />
+          <line x1="90" y1="136" x2="72" y2="130" stroke="#7A8B7B" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="90" y1="136" x2="105" y2="132" stroke="#7A8B7B" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="80" y1="114" x2="62" y2="106" stroke="#7A8B7B" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="80" y1="114" x2="95" y2="110" stroke="#7A8B7B" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="70" y1="92" x2="52" y2="82" stroke="#7A8B7B" stroke-width="2.5" stroke-linecap="round" />
+          <line x1="70" y1="92" x2="85" y2="88" stroke="#7A8B7B" stroke-width="2.5" stroke-linecap="round" />
+        `;
+      } else if (garnishType === 'lime_wheel') {
+        garnishHtml = `
+          <g transform="translate(136, 105)">
+            <circle cx="10" cy="10" r="14" fill="#40916c" stroke="#1b4332" stroke-width="1.5" />
+            <circle cx="10" cy="10" r="11" fill="#74c69d" />
+            <line x1="10" y1="10" x2="10" y2="22" stroke="#40916c" stroke-width="1" />
+            <line x1="10" y1="10" x2="10" y2="-2" stroke="#40916c" stroke-width="1" />
+            <line x1="10" y1="10" x2="22" y2="10" stroke="#40916c" stroke-width="1" />
+            <line x1="10" y1="10" x2="-2" y2="10" stroke="#40916c" stroke-width="1" />
+          </g>
+        `;
+      } else if (garnishType === 'cinnamon_stick') {
+        garnishHtml = `
+          <line x1="115" y1="190" x2="65" y2="80" stroke="#7E5109" stroke-width="4.5" stroke-linecap="round" />
+          <line x1="117" y1="191" x2="67" y2="81" stroke="#A04000" stroke-width="1.5" stroke-linecap="round" />
+        `;
+      }
+
+      return html + liquidPath + foamHtml + iceHtml + garnishHtml + glassOutline;
+    }
+
+    // Render Function
+    function renderRiffStudio() {
+      const classicData = RIFF_DATA[activeClassic];
+      if (!classicData) return;
+      const riff = classicData.riffs[activeRiffType];
+      if (!riff) return;
+
+      // 1. Update Recipes List
+      classicRecipeEl.innerHTML = classicData.classicIngredients.map(ing => `<div style="margin-bottom:4px;">• ${ing}</div>`).join('');
+      riffedRecipeEl.innerHTML = riff.ingredients.map(ing => `<div style="margin-bottom:4px;">• ${ing}</div>`).join('');
+
+      // 2. Render SVG
+      visualizerSvg.innerHTML = drawRiffVisualizer(
+        classicData.glass,
+        riff.color,
+        riff.foam ? 'none' : classicData.ice,
+        riff.foam || 'none',
+        riff.garnish || 'none',
+        riff.floatColor
+      );
+
+      // 3. Render Details and Comparative Bars
+      const labelNames = ["Mạnh", "Ngọt", "Chua", "Đắng", "Thơm"];
+      const classicVals = classicData.classicFlavorProfile;
+      const riffVals = riff.flavorProfile;
+
+      let barsHtml = `<div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--muted-3); margin-bottom: 12px; letter-spacing: 0.05em; margin-top: 16px;">Sự Dịch Chuyển Hương Vị (Tím: Gốc | Vàng: Biến Tấu)</div>`;
+      for (let i = 0; i < 5; i++) {
+        const cPercent = (classicVals[i] / 5) * 100;
+        const rPercent = (riffVals[i] / 5) * 100;
+
+        barsHtml += `
+          <div style="font-size: 11.5px; margin-bottom: 10px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+              <span style="color: var(--muted-2); font-weight: 500;">${labelNames[i]}</span>
+              <span style="color: var(--muted-3); font-size: 10px;">${classicVals[i]} ➔ <b style="color: var(--gold);">${riffVals[i]}</b></span>
+            </div>
+            <div style="height: 12px; display: flex; flex-direction: column; gap: 2px;">
+              <!-- Classic bar -->
+              <div style="height: 5px; background: rgba(255,255,255,0.04); border-radius: 2px; overflow: hidden;">
+                <div style="width: ${cPercent}%; height: 100%; background: var(--amethyst); opacity: 0.45;"></div>
+              </div>
+              <!-- Riff bar -->
+              <div style="height: 5px; background: rgba(255,255,255,0.04); border-radius: 2px; overflow: hidden;">
+                <div style="width: ${rPercent}%; height: 100%; background: var(--gold);"></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      infoCard.innerHTML = `
+        <div style="font-family: var(--ui); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 6px;">
+          Tên biến tấu độc bản
+        </div>
+        <h3 style="font-family: var(--display); font-size: 22px; color: var(--cream); margin-bottom: 10px; font-weight: 600; text-shadow: 0 0 30px rgba(138, 92, 199, 0.15);">
+          ${riff.name}
+        </h3>
+        <p style="font-size: 13.5px; line-height: 1.6; color: var(--muted-2); margin-bottom: 16px;">
+          ${riff.desc}
+        </p>
+        
+        <div style="margin-bottom: 18px;">
+          ${barsHtml}
+        </div>
+
+        <div style="background: rgba(14, 10, 28, 0.35); border-left: 3px solid var(--gold); padding: 12px 16px; font-size: 13px; color: var(--muted-3); border-radius: 0 4px 4px 0; line-height: 1.6;">
+          <strong>Khoa học vị giác:</strong> ${riff.science}
+        </div>
+      `;
+    }
+
+    // Attach Event Listeners
+    classicBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        classicBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        activeClassic = this.getAttribute('data-classic');
+        renderRiffStudio();
+        if (typeof playTick === 'function') playTick();
+      });
+    });
+
+    styleOpts.forEach(opt => {
+      opt.addEventListener('click', function() {
+        styleOpts.forEach(o => o.classList.remove('active'));
+        this.classList.add('active');
+        activeRiffType = this.getAttribute('data-riff-type');
+        renderRiffStudio();
+        if (typeof playTick === 'function') playTick();
+      });
+    });
+
+    // Save Riff to Tasting Journal
+    saveBtn.addEventListener('click', () => {
+      const classicData = RIFF_DATA[activeClassic];
+      const riff = classicData.riffs[activeRiffType];
+      if (!riff) return;
+
+      const now = new Date();
+      const dateStr = now.getDate().toString().padStart(2, '0') + '/' + (now.getMonth() + 1).toString().padStart(2, '0') + '/' + now.getFullYear();
+
+      const tastingNote = {
+        name: riff.name,
+        category: "Biến tấu",
+        rating: 5,
+        color: riff.color,
+        finish: "Hậu vị sâu sắc, cấu trúc dịch chuyển mượt mà.",
+        strength: riff.flavorProfile[0],
+        sweet: riff.flavorProfile[1],
+        sour: riff.flavorProfile[2],
+        bitter: riff.flavorProfile[3],
+        aroma: riff.flavorProfile[4],
+        notes: `${riff.desc}\n\n[Khoa học vị giác] ${riff.science}\n\nCông thức pha chế:\n${riff.ingredients.join('\n')}`,
+        emoji: "🍹",
+        aromas: riff.aromas || ["Cam chanh"],
+        date: dateStr
+      };
+
+      saveTasting(tastingNote);
+      renderTastings();
+
+      if (typeof playChime === 'function') playChime();
+
+      alert(`Đã lưu công thức biến tấu "${riff.name}" vào sổ tay nếm thử của bạn! Bạn có thể cuộn xuống phần "Nhật ký của tôi" để xem biểu đồ ngũ giác vị giác tương ứng.`);
+
+      const userTastingSection = document.getElementById('userTastingSection');
+      if (userTastingSection) {
+        setTimeout(() => {
+          userTastingSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 300);
+      }
+    });
+
+    // Initialize on load
+    renderRiffStudio();
+  })();
+
   // Initialize and Render Tasting Notes on Startup
   renderTastings();
 });

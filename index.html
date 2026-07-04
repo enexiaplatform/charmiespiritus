@@ -247,7 +247,7 @@
   <div class="nav-in">
     <a class="brand" href="#top"><b>Charmie</b><i>Spiritus</i></a>
     <nav class="nav-links">
-      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#wine-explorer">Khám phá Vang</a><a href="#homebar">Quầy bar</a><a href="#flavor-explorer">Hương vị</a><a href="#glassware-lab">Ly &amp; Đá</a><a href="#pairing-studio">Ghép vị</a><a href="#journal">Nhật ký</a>
+      <a href="#learn">Học</a><a href="#spirits">Rượu mạnh</a><a href="#cocktails">Cocktail</a><a href="#wine-explorer">Khám phá Vang</a><a href="#homebar">Quầy bar</a><a href="#flavor-explorer">Hương vị</a><a href="#glassware-lab">Ly &amp; Đá</a><a href="#pairing-studio">Ghép vị</a><a href="#riff-studio">Biến tấu</a><a href="#journal">Nhật ký</a>
     </nav>
     <a class="nav-cta" href="#learn">Bắt đầu học</a>
     <div class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></div>
@@ -1118,6 +1118,94 @@
 </section>
 
 <div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+
+<!-- ============ 10C · COCKTAIL RIFF STUDIO ============ -->
+<section class="wrap section" id="riff-studio" style="padding-top:0;">
+  <div class="kicker"><span class="num">10C</span><span class="lbl">Xưởng Biến Tấu Cocktail</span></div>
+  <h2 class="h2">Xưởng Biến Tấu <span class="glow">Cocktail (Riff Studio)</span></h2>
+  <p class="lede" style="margin-top:16px;margin-bottom:38px;">Khám phá nghệ thuật riff (biến tấu) các ly cocktail kinh điển. Thay đổi rượu nền, thêm hương thảo mộc, đổi chất tạo ngọt hoặc áp dụng kỹ thuật hiện đại để thấu hiểu sự dịch chuyển của cấu trúc hương vị.</p>
+
+  <div class="riff-card card" style="background: linear-gradient(135deg, var(--card), var(--card-2)); border: 1px solid var(--line); border-radius: 12px; padding: clamp(24px, 4vw, 40px);">
+    <div class="riff-layout">
+      <!-- Cột trái: Điều khiển (Controls) -->
+      <div class="riff-controls-panel" style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- 1. Chọn cocktail kinh điển -->
+        <div>
+          <h4 style="font-family: var(--ui); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px;">1. Chọn Cocktail Kinh Điển</h4>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-ghost riff-classic-btn active" data-classic="negroni" style="padding: 8px 16px; font-size: 13px; border-radius: 6px; margin: 0;">Negroni</button>
+            <button class="btn btn-ghost riff-classic-btn" data-classic="daiquiri" style="padding: 8px 16px; font-size: 13px; border-radius: 6px; margin: 0;">Daiquiri</button>
+            <button class="btn btn-ghost riff-classic-btn" data-classic="old_fashioned" style="padding: 8px 16px; font-size: 13px; border-radius: 6px; margin: 0;">Old Fashioned</button>
+            <button class="btn btn-ghost riff-classic-btn" data-classic="whiskey_sour" style="padding: 8px 16px; font-size: 13px; border-radius: 6px; margin: 0;">Whiskey Sour</button>
+          </div>
+        </div>
+
+        <!-- 2. Chọn kiểu biến tấu (Riff Style) -->
+        <div>
+          <h4 style="font-family: var(--ui); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px;">2. Chọn Hướng Biến Tấu (Riff Direction)</h4>
+          <div class="riff-opt-grid">
+            <div class="riff-style-opt active" data-riff-type="base_swap">
+              <div style="font-weight: 600; font-size: 14px; color: var(--cream); display: flex; align-items: center; gap: 8px;">🔄 Đổi Rượu Nền</div>
+              <div style="font-size: 11.5px; color: var(--muted-2); margin-top: 4px;">Thay thế rượu nền chính bằng dòng rượu mạnh có đặc tính tương đồng hoặc đối lập.</div>
+            </div>
+            <div class="riff-style-opt" data-riff-type="botanical_infusion">
+              <div style="font-weight: 600; font-size: 14px; color: var(--cream); display: flex; align-items: center; gap: 8px;">🌿 Truyền Thảo Mộc / Trà</div>
+              <div style="font-size: 11.5px; color: var(--muted-2); margin-top: 4px;">Ngâm lạnh thảo mộc tươi hoặc trà hảo hạng để bổ sung tầng hương phức tạp.</div>
+            </div>
+            <div class="riff-style-opt" data-riff-type="sweetener_alternative">
+              <div style="font-weight: 600; font-size: 14px; color: var(--cream); display: flex; align-items: center; gap: 8px;">🍯 Thay Thế Chất Ngọt</div>
+              <div style="font-size: 11.5px; color: var(--muted-2); margin-top: 4px;">Sử dụng mật ong, si-rô phong hoặc liqueur để tăng chiều sâu vị ngọt.</div>
+            </div>
+            <div class="riff-style-opt" data-riff-type="special_technique">
+              <div style="font-weight: 600; font-size: 14px; color: var(--cream); display: flex; align-items: center; gap: 8px;">🧪 Kỹ Thuật Hiện Đại</div>
+              <div style="font-size: 11.5px; color: var(--muted-2); margin-top: 4px;">Áp dụng Milk Clarification hoặc Fat-washing để thay đổi cấu trúc vòm họng.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. So sánh công thức -->
+        <div style="background: rgba(14, 10, 28, 0.25); border: 1px solid var(--line-soft); border-radius: 8px; padding: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div>
+            <div style="font-family: var(--ui); font-size: 10.5px; text-transform: uppercase; color: var(--muted-3); margin-bottom: 6px; font-weight: 600; letter-spacing: 0.05em;">Nguyên Bản Cổ Điển</div>
+            <div id="riff-classic-recipe" style="font-size: 12.5px; color: var(--muted-2); line-height: 1.6;">
+              <!-- Classic recipe list -->
+            </div>
+          </div>
+          <div style="border-left: 1px dashed var(--line-soft); padding-left: 16px;">
+            <div style="font-family: var(--ui); font-size: 10.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; font-weight: 600; letter-spacing: 0.05em;">Biến Tấu Độc Bản</div>
+            <div id="riffed-recipe" style="font-size: 12.5px; color: var(--cream); line-height: 1.6; font-weight: 500;">
+              <!-- Riff recipe list -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cột phải: Trực quan hóa & Phân tích -->
+      <div class="riff-display-panel" style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Visual rendering SVG container -->
+        <div class="glass-svg-container" style="background: rgba(14, 10, 28, 0.45); border: 1px solid var(--line-soft); border-radius: 8px; height: 300px; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: inset 0 0 30px rgba(138, 92, 199, 0.05); overflow: hidden;">
+          <svg id="riffVisualizerSvg" width="220" height="260" viewBox="0 0 220 260" style="display: block;">
+            <!-- Rendered dynamically -->
+          </svg>
+          <div style="position: absolute; bottom: 8px; right: 12px; font-family: var(--ui); font-size: 9px; color: var(--muted-3); text-transform: uppercase;">MÔ PHỎNG SẮC VỊ BIẾN TẤU</div>
+        </div>
+
+        <!-- Riff details & science card -->
+        <div class="riff-info-card" id="riffInfoCard" style="background: rgba(138, 92, 199, 0.04); border: 1px solid rgba(138, 92, 199, 0.15); border-radius: 8px; padding: 20px;">
+          <!-- Loaded dynamically -->
+        </div>
+
+        <!-- Lưu vào Sổ tay -->
+        <button id="riff-btn-save" class="btn btn-gold" style="justify-content: center; margin: 0; width: 100%;">
+          📝 Lưu Biến Tấu Này Vào Nhật Ký Nếm Thử
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"><span class="rule"></span><span class="dot"></span><span class="rule"></span></div></div>
+
 
 <!-- ============ 11 · NHẬT KÝ ============ -->
 <section class="wrap section" id="journal" style="padding-top:0;">

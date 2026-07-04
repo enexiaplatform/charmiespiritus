@@ -2594,4 +2594,52 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* ============================================================
+   COCKTAIL RIFF STUDIO STYLES
+   ============================================================ */
+.riff-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(24px, 4vw, 44px);
+  align-items: flex-start;
+}
+.riff-opt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.riff-style-opt {
+  cursor: pointer;
+  background: rgba(14, 10, 28, 0.25);
+  border: 1px solid var(--line-soft) !important;
+  border-radius: 6px;
+  padding: 12px 14px;
+  transition: all 0.25s ease;
+}
+.riff-style-opt:hover {
+  border-color: var(--amethyst) !important;
+  background: rgba(138, 92, 199, 0.04) !important;
+}
+.riff-style-opt.active {
+  border-color: var(--amethyst) !important;
+  background: rgba(138, 92, 199, 0.14) !important;
+  box-shadow: 0 0 15px rgba(138, 92, 199, 0.15);
+}
+.riff-info-card {
+  transition: all 0.3s ease;
+  animation: flavorFadeIn 0.4s ease forwards;
+}
+@media (max-width: 950px) {
+  .riff-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+@media (max-width: 500px) {
+  .riff-opt-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 

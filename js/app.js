@@ -3320,7 +3320,645 @@ document.addEventListener('DOMContentLoaded', () => {
     renderDiyRecipes();
   })();
 
+  // ============ DIY LAB TABS & INGREDIENTS CRAFTING LOGIC ============
+  (() => {
+    // 1. Tab Switching Logic
+    const tabBtns = document.querySelectorAll('.diy-tab-btn');
+    const tabContents = document.querySelectorAll('.diy-tab-content');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        tabContents.forEach(c => c.style.display = 'none');
+
+        this.classList.add('active');
+        const tabId = this.getAttribute('data-diy-tab');
+        const activeContent = document.getElementById('diy-tab-' + tabId);
+        if (activeContent) {
+          activeContent.classList.add('active');
+          activeContent.style.display = 'block';
+        }
+
+        if (typeof playTick === 'function') playTick();
+
+        // Trigger updates if switching to crafting
+        if (tabId === 'crafting') {
+          updateCrafting();
+        }
+      });
+    });
+
+    // 2. DIY Crafting Logic
+    const craftTypeSelect = document.getElementById('craft-type-select');
+    const craftVolumeSlider = document.getElementById('craft-volume-slider');
+    const craftVolumeLbl = document.getElementById('craft-volume-lbl');
+    const craftSubGroup = document.getElementById('craft-sub-group');
+    const craftBillList = document.getElementById('craft-bill-list');
+    const craftVisualizerSvg = document.getElementById('craftVisualizerSvg');
+    const craftInstructionsCard = document.getElementById('craft-instructions-card');
+
+    if (!craftTypeSelect || !craftVolumeSlider) return;
+
+    let currentCraftType = 'simple_syrup';
+    let currentVolume = 200;
+    let currentSugarType = 'white';
+    let currentHoneyRatio = 'honey_standard';
+    let currentCitrusType = 'lemon';
+    let currentInfuseBase = 'gin';
+    let currentInfuseHerb = 'earl_grey';
+
+    // Event listeners
+    craftTypeSelect.addEventListener('change', function() {
+      currentCraftType = this.value;
+      renderSubControls();
+      updateCrafting();
+      if (typeof playTick === 'function') playTick();
+    });
+
+    craftVolumeSlider.addEventListener('input', function() {
+      currentVolume = parseInt(this.value);
+      craftVolumeLbl.textContent = currentVolume + ' ml';
+      updateCrafting();
+    });
+
+    craftVolumeSlider.addEventListener('change', function() {
+      if (typeof playTick === 'function') playTick();
+    });
+
+    function renderSubControls() {
+      let html = '';
+      if (currentCraftType === 'simple_syrup' || currentCraftType === 'rich_syrup') {
+        html = `
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">Loại đường sử dụng</label>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="craft-picker-tag ${currentSugarType === 'white' ? 'active' : ''}" data-sugar="white">⚪ Đường cát trắng</span>
+            <span class="craft-picker-tag ${currentSugarType === 'demerara' ? 'active' : ''}" data-sugar="demerara">🟤 Đường Demerara nâu</span>
+            <span class="craft-picker-tag ${currentSugarType === 'honey' ? 'active' : ''}" data-sugar="honey">🍯 Mật ong</span>
+          </div>
+        `;
+      } else if (currentCraftType === 'honey_syrup') {
+        html = `
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">Tỷ lệ Mật ong : Nước</label>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="craft-picker-tag ${currentHoneyRatio === 'honey_standard' ? 'active' : ''}" data-honey-ratio="honey_standard">🍯 Tỷ lệ 3:1 (Đậm đà, truyền thống)</span>
+            <span class="craft-picker-tag ${currentHoneyRatio === 'honey_light' ? 'active' : ''}" data-honey-ratio="honey_light">💧 Tỷ lệ 2:1 (Thanh nhẹ, dễ tan)</span>
+          </div>
+        `;
+      } else if (currentCraftType === 'oleo_saccharum') {
+        html = `
+          <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">Chọn loại vỏ Citrus</label>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <span class="craft-picker-tag ${currentCitrusType === 'lemon' ? 'active' : ''}" data-citrus="lemon">🍋 Chanh vàng (Lemon)</span>
+            <span class="craft-picker-tag ${currentCitrusType === 'orange' ? 'active' : ''}" data-citrus="orange">🍊 Cam sành (Orange)</span>
+            <span class="craft-picker-tag ${currentCitrusType === 'grapefruit' ? 'active' : ''}" data-citrus="grapefruit">💖 Bưởi hồng (Grapefruit)</span>
+          </div>
+        `;
+      } else if (currentCraftType === 'spirit_infusion') {
+        html = `
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">1. Chọn rượu nền ngâm</label>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+              <span class="craft-picker-tag ${currentInfuseBase === 'gin' ? 'active' : ''}" data-infuse-base="gin">🍸 Rượu Gin</span>
+              <span class="craft-picker-tag ${currentInfuseBase === 'tequila' ? 'active' : ''}" data-infuse-base="tequila">🥃 Tequila</span>
+              <span class="craft-picker-tag ${currentInfuseBase === 'vodka' ? 'active' : ''}" data-infuse-base="vodka">🥛 Vodka</span>
+              <span class="craft-picker-tag ${currentInfuseBase === 'whiskey' ? 'active' : ''}" data-infuse-base="whiskey">🥃 Whiskey</span>
+            </div>
+          </div>
+          <div>
+            <label style="display: block; font-family: var(--ui); font-size: 12px; color: var(--gold); margin-bottom: 8px;">2. Chọn nguyên liệu hương thảo</label>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <span class="craft-picker-tag ${currentInfuseHerb === 'earl_grey' ? 'active' : ''}" data-infuse-herb="earl_grey">🍃 Trà Earl Grey</span>
+              <span class="craft-picker-tag ${currentInfuseHerb === 'butterfly_pea' ? 'active' : ''}" data-infuse-herb="butterfly_pea">🌸 Hoa Đậu Biếc</span>
+              <span class="craft-picker-tag ${currentInfuseHerb === 'jalapeno' ? 'active' : ''}" data-infuse-herb="jalapeno">🌶️ Ớt Jalapeno (Cay)</span>
+              <span class="craft-picker-tag ${currentInfuseHerb === 'lavender' ? 'active' : ''}" data-infuse-herb="lavender">💜 Oải Hương Khô</span>
+            </div>
+          </div>
+        `;
+      }
+
+      craftSubGroup.innerHTML = html;
+
+      // Rebind click events for dynamic tags
+      craftSubGroup.querySelectorAll('[data-sugar]').forEach(tag => {
+        tag.addEventListener('click', function() {
+          currentSugarType = this.getAttribute('data-sugar');
+          craftSubGroup.querySelectorAll('[data-sugar]').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          updateCrafting();
+          if (typeof playTick === 'function') playTick();
+        });
+      });
+
+      craftSubGroup.querySelectorAll('[data-honey-ratio]').forEach(tag => {
+        tag.addEventListener('click', function() {
+          currentHoneyRatio = this.getAttribute('data-honey-ratio');
+          craftSubGroup.querySelectorAll('[data-honey-ratio]').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          updateCrafting();
+          if (typeof playTick === 'function') playTick();
+        });
+      });
+
+      craftSubGroup.querySelectorAll('[data-citrus]').forEach(tag => {
+        tag.addEventListener('click', function() {
+          currentCitrusType = this.getAttribute('data-citrus');
+          craftSubGroup.querySelectorAll('[data-citrus]').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          updateCrafting();
+          if (typeof playTick === 'function') playTick();
+        });
+      });
+
+      craftSubGroup.querySelectorAll('[data-infuse-base]').forEach(tag => {
+        tag.addEventListener('click', function() {
+          currentInfuseBase = this.getAttribute('data-infuse-base');
+          craftSubGroup.querySelectorAll('[data-infuse-base]').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          updateCrafting();
+          if (typeof playTick === 'function') playTick();
+        });
+      });
+
+      craftSubGroup.querySelectorAll('[data-infuse-herb]').forEach(tag => {
+        tag.addEventListener('click', function() {
+          currentInfuseHerb = this.getAttribute('data-infuse-herb');
+          craftSubGroup.querySelectorAll('[data-infuse-herb]').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          updateCrafting();
+          if (typeof playTick === 'function') playTick();
+        });
+      });
+    }
+
+    function updateCrafting() {
+      let billHtml = '';
+      let instructionsHtml = '';
+      let subState = '';
+
+      if (currentCraftType === 'simple_syrup') {
+        const sugarVal = Math.round(currentVolume * 0.8);
+        const waterVal = Math.round(currentVolume * 0.8);
+        let sugarName = 'Đường cát trắng';
+        if (currentSugarType === 'demerara') sugarName = 'Đường Demerara nâu';
+        else if (currentSugarType === 'honey') sugarName = 'Mật ong rừng';
+
+        billHtml = `
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• ${sugarName} (Sugar):</span>
+            <strong style="color:var(--gold);">${sugarVal} gram</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• Nước lọc (Water):</span>
+            <strong style="color:var(--gold);">${waterVal} ml</strong>
+          </div>
+          <div style="font-size:11.5px; color:var(--muted-3); margin-top: 10px; font-style:italic;">
+            * Thể tích hao hụt sau khi hòa tan và lọc còn khoảng ${currentVolume}ml siro.
+          </div>
+        `;
+
+        instructionsHtml = `
+          <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;">Khoa học vị giác & Bảo quản</div>
+          <h3 style="font-family: var(--display); font-size: 18px; color: var(--cream); margin-bottom: 10px;">Simple Syrup (Tỷ lệ đường:nước 1:1)</h3>
+          <p style="font-size: 13px; line-height: 1.55; color: var(--muted-2); margin-bottom: 16px;">
+            Siro 1:1 là chất tạo ngọt thông dụng nhất trong pha chế. Nó dễ dàng hòa tan ngay cả trong đồ uống cực lạnh, giúp làm dịu vị chua và làm hài hòa hương cồn mạnh mẽ mà không làm lấn át đi các tầng hương vị phức tạp của rượu nền.
+            <br><strong style="color:var(--cream);">Hạn sử dụng:</strong> Trữ lạnh và sử dụng trong 1 tháng.
+          </p>
+          <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 12px; margin-top: 12px;">
+            <div style="font-family: var(--ui); font-size: 10.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Quy trình thực hiện (Checklist)</div>
+            <ul style="list-style: none; padding-left:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Chuẩn bị đúng <b>${sugarVal}g ${sugarName}</b> và đong <b>${waterVal}ml nước nóng</b> (khoảng 50-60°C).</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Khuấy đều liên tục cho đến khi hạt đường tan sạch hoàn toàn (tránh đun sôi để hạn chế bay hơi nước và giữ hương vị trong trẻo).</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Để nguội hoàn toàn ở nhiệt độ phòng.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Rót vào bình thủy tinh kín khí tiệt trùng, dán nhãn ngày thực hiện và đưa vào ngăn mát tủ lạnh.</span>
+              </li>
+            </ul>
+          </div>
+        `;
+        subState = currentSugarType;
+
+      } else if (currentCraftType === 'rich_syrup') {
+        const sugarVal = Math.round(currentVolume * 1.0);
+        const waterVal = Math.round(currentVolume * 0.5);
+        let sugarName = 'Đường cát trắng';
+        if (currentSugarType === 'demerara') sugarName = 'Đường Demerara nâu';
+        else if (currentSugarType === 'honey') sugarName = 'Mật ong rừng';
+
+        billHtml = `
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• ${sugarName} (Sugar):</span>
+            <strong style="color:var(--gold);">${sugarVal} gram</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• Nước lọc (Water):</span>
+            <strong style="color:var(--gold);">${waterVal} ml</strong>
+          </div>
+          <div style="font-size:11.5px; color:var(--muted-3); margin-top: 10px; font-style:italic;">
+            * Tỷ lệ 2:1 đặc biệt mang lại độ sánh dày (mouthfeel) sang trọng cho ly cocktail của bạn.
+          </div>
+        `;
+
+        instructionsHtml = `
+          <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;">Khoa học vị giác & Bảo quản</div>
+          <h3 style="font-family: var(--display); font-size: 18px; color: var(--cream); margin-bottom: 10px;">Rich Simple Syrup (Tỷ lệ đường:nước 2:1)</h3>
+          <p style="font-size: 13px; line-height: 1.55; color: var(--muted-2); margin-bottom: 16px;">
+            Nhờ nồng độ đường đậm đặc, áp suất thẩm thấu cao ngăn ngừa vi sinh vật phát triển, giúp siro này giữ được cực lâu mà không cần chất bảo quản. Nó tạo độ trơn mượt kéo dài trên lưỡi, hoàn hảo cho các ly rượu mạnh tinh tế như Old Fashioned hay Boulevardier.
+            <br><strong style="color:var(--cream);">Hạn sử dụng:</strong> 6 tháng trữ tủ lạnh ngăn mát.
+          </p>
+          <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 12px; margin-top: 12px;">
+            <div style="font-family: var(--ui); font-size: 10.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Quy trình thực hiện (Checklist)</div>
+            <ul style="list-style: none; padding-left:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Cân <b>${sugarVal}g ${sugarName}</b> và đong <b>${waterVal}ml nước lọc</b>.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Cho nước vào nồi nhỏ đun ấm ở lửa vừa. Đổ đường từ từ vào nồi, khuấy nhẹ liên tục cho đến khi tan hết (tránh đun quá sôi lửa to gây caramen hóa làm biến đổi màu sắc).</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Tắt bếp ngay khi hỗn hợp trong suốt hoàn toàn. Nhấc nồi ra và để nguội tự nhiên.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Rót siro sánh vào chai tiệt trùng sạch, cất giữ trong tủ lạnh bảo quản mát.</span>
+              </li>
+            </ul>
+          </div>
+        `;
+        subState = currentSugarType;
+
+      } else if (currentCraftType === 'honey_syrup') {
+        let honeyVal, waterVal, ratioStr;
+        if (currentHoneyRatio === 'honey_standard') {
+          honeyVal = Math.round(currentVolume * 0.9);
+          waterVal = Math.round(currentVolume * 0.3);
+          ratioStr = "3:1";
+        } else {
+          honeyVal = Math.round(currentVolume * 0.8);
+          waterVal = Math.round(currentVolume * 0.4);
+          ratioStr = "2:1";
+        }
+
+        billHtml = `
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• Mật ong nguyên chất (Honey):</span>
+            <strong style="color:var(--gold);">${honeyVal} gram (hoặc ml)</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• Nước nóng tinh khiết (Warm Water):</span>
+            <strong style="color:var(--gold);">${waterVal} ml</strong>
+          </div>
+          <div style="font-size:11.5px; color:var(--muted-3); margin-top: 10px; font-style:italic;">
+            * Pha loãng mật ong giúp siro chảy mượt mà, dễ lắc lạnh và hòa trộn đều trong cocktail.
+          </div>
+        `;
+
+        instructionsHtml = `
+          <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;">Khoa học vị giác & Bảo quản</div>
+          <h3 style="font-family: var(--display); font-size: 18px; color: var(--cream); margin-bottom: 10px;">Siro Mật Ong Thảo Mộc (Tỷ lệ ${ratioStr})</h3>
+          <p style="font-size: 13px; line-height: 1.55; color: var(--muted-2); margin-bottom: 16px;">
+            Mật ong mang đến hương hoa cỏ hoang dại ngọt mát và sự ấm áp sâu thẳm. Siro mật ong là nguyên liệu xương sống của ly classic Bee's Knees quyến rũ, Penicillin kinh điển hay Gold Rush mạnh mẽ.
+            <br><strong style="color:var(--cream);">Hạn sử dụng:</strong> Sử dụng tốt nhất trong vòng 3 tuần trong ngăn mát.
+          </p>
+          <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 12px; margin-top: 12px;">
+            <div style="font-family: var(--ui); font-size: 10.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Quy trình thực hiện (Checklist)</div>
+            <ul style="list-style: none; padding-left:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Cân đong <b>${honeyVal}g mật ong tốt</b> và chuẩn bị <b>${waterVal}ml nước nóng</b> (khoảng 60°C).</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Đổ nước nóng ấm vào mật ong và khuấy nhẹ cho loãng ra. Nước ấm giúp mật ong dễ hòa tan mà không làm chết đi các dưỡng chất nhạy cảm với nhiệt độ cao.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>(Tùy chọn) Có thể bỏ thêm 1 nhánh cỏ xạ hương tươi hoặc 1 lát gừng giập để ngâm cùng tăng độ sâu.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Đợi nguội rồi rót vào bình thủy tinh sạch kín nắp và trữ tủ lạnh mát.</span>
+              </li>
+            </ul>
+          </div>
+        `;
+        subState = currentHoneyRatio;
+
+      } else if (currentCraftType === 'oleo_saccharum') {
+        const sugarVal = Math.round(currentVolume * 0.45);
+        let fruitsNeeded = Math.ceil(currentVolume / 80) + 1;
+        let fruitName = 'quả chanh vàng';
+        if (currentCitrusType === 'orange') fruitName = 'quả cam sành';
+        else if (currentCitrusType === 'grapefruit') {
+          fruitName = 'quả bưởi hồng';
+          fruitsNeeded = Math.max(1, Math.ceil(fruitsNeeded / 2.5));
+        }
+
+        billHtml = `
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• Vỏ Citrus bào sạch từ:</span>
+            <strong style="color:var(--gold);">${fruitsNeeded} ${fruitName}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• Đường cát trắng (White Sugar):</span>
+            <strong style="color:var(--gold);">${sugarVal} gram</strong>
+          </div>
+          <div style="font-size:11.5px; color:var(--muted-3); margin-top: 10px; font-style:italic;">
+            * Đường khô hút nước mạnh mẽ sẽ phá vỡ màng tế bào vỏ, hút trọn lượng tinh dầu thơm ngát tích tụ ở vỏ citrus mà không sinh ra tính axit chua.
+          </div>
+        `;
+
+        instructionsHtml = `
+          <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;">Khoa học vị giác & Bảo quản</div>
+          <h3 style="font-family: var(--display); font-size: 18px; color: var(--cream); margin-bottom: 10px;">Citrus Oleo Saccharum (Mật dầu vỏ Citrus)</h3>
+          <p style="font-size: 13px; line-height: 1.55; color: var(--muted-2); margin-bottom: 16px;">
+            Oleo Saccharum trong tiếng La-tinh có nghĩa là "mật dầu đường". Bằng cách tận dụng lực kéo nước tự nhiên của đường cát, ta chiết xuất toàn bộ các hợp chất thơm nồng nàn tinh tế nhất của vỏ Citrus. Siro này mang lại vị ngọt đậm đà kèm hương thơm tươi tắn cực độ, thích hợp để làm các ly Punch tiệc tùng hoặc pha Highballs sủi bọt sảng khoái.
+            <br><strong style="color:var(--cream);">Hạn sử dụng:</strong> Trữ lạnh kín khí trong vòng 2 tháng.
+          </p>
+          <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 12px; margin-top: 12px;">
+            <div style="font-family: var(--ui); font-size: 10.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Quy trình thực hiện (Checklist)</div>
+            <ul style="list-style: none; padding-left:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Rửa cực kỳ sạch bề mặt <b>${fruitsNeeded} ${fruitName}</b> (dùng cọ chà sát bằng nước ấm để loại bỏ sạch lớp sáp bảo quản ngoài vỏ).</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Dùng dao bào sắc hoặc gọt vỏ cẩn thận lấy phần vỏ ngoài rực rỡ, tránh gọt sâu chạm vào lớp cùi trắng (lớp cùi trắng này sẽ làm siro bị đắng gắt khó chịu).</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Cho vỏ và <b>${sugarVal}g đường</b> vào hũ thủy tinh sạch hoặc túi zip dày. Dùng chày dầm (muddler) nghiền nát nhẹ nhàng ép đường ma sát chà sát với vỏ.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Để yên ở nhiệt độ phòng trong <b>4 - 8 tiếng</b> (hoặc qua đêm). Bạn sẽ thấy đường tan hoàn toàn thành siro dầu Citrus hổ phách sánh mịn sền sệt.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Dùng rây lọc bỏ vỏ, ép kiệt bã để lấy hết dầu đường Citrus thơm quý giá cất vào lọ bảo quản lạnh.</span>
+              </li>
+            </ul>
+          </div>
+        `;
+        subState = currentCitrusType;
+
+      } else if (currentCraftType === 'spirit_infusion') {
+        let baseStr = 'Rượu Gin';
+        if (currentInfuseBase === 'tequila') baseStr = 'Rượu Tequila';
+        else if (currentInfuseBase === 'vodka') baseStr = 'Rượu Vodka';
+        else if (currentInfuseBase === 'whiskey') baseStr = 'Rượu Whiskey';
+
+        let herbStr = 'Trà Earl Grey';
+        let qtyStr = (currentVolume * 0.02).toFixed(1) + "g trà (khoảng 1 túi trà)";
+        let durationStr = "2 - 3 giờ";
+        let colorDesc = "chuyển sang màu trà cam hổ phách nồng ấm.";
+
+        if (currentInfuseHerb === 'butterfly_pea') {
+          herbStr = 'Hoa Đậu Biếc khô';
+          qtyStr = Math.ceil(currentVolume / 45) + " bông hoa khô";
+          durationStr = "15 - 30 phút";
+          colorDesc = "biến chuyển thành màu xanh dương thẳm huyền ảo và đổi sang sắc hồng tím mơ mộng khi gặp axit chanh.";
+        } else if (currentInfuseHerb === 'jalapeno') {
+          herbStr = 'Ớt Jalapeno tươi thái lát';
+          qtyStr = Math.max(1, Math.ceil(currentVolume / 150)) + " lát mỏng (bỏ bớt hạt)";
+          durationStr = "1 - 2 giờ (nếm thử sau mỗi 15 phút)";
+          colorDesc = "mang hương ớt tươi mát mẻ cùng hậu vị cay nồng kích thích vòm họng.";
+        } else if (currentInfuseHerb === 'lavender') {
+          herbStr = 'Hoa Oải Hương khô';
+          qtyStr = (currentVolume * 0.005).toFixed(1) + "g hoa khô (1/2 muỗng cà phê)";
+          durationStr = "30 - 45 phút (tránh ngâm lâu gây vị nồng xà phòng)";
+          colorDesc = "thấm đượm hương hoa thảo mộc thư thái lãng mạn.";
+        }
+
+        billHtml = `
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• Rượu nền (${baseStr}):</span>
+            <strong style="color:var(--gold);">${currentVolume} ml</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <span>• Thảo mộc ngâm (${herbStr}):</span>
+            <strong style="color:var(--gold);">${qtyStr}</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-top: 10px; font-size:12px; border-top:1px dashed var(--line-soft); padding-top:8px;">
+            <span>Thời gian ngâm tối ưu:</span>
+            <strong style="color:var(--gold);">${durationStr}</strong>
+          </div>
+        `;
+
+        instructionsHtml = `
+          <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px;">Nghệ thuật Mixology hiện đại</div>
+          <h3 style="font-family: var(--display); font-size: 18px; color: var(--cream); margin-bottom: 10px;">Rượu Truyền Hương Thảo Mộc (Spirit Infusion)</h3>
+          <p style="font-size: 13px; line-height: 1.55; color: var(--muted-2); margin-bottom: 16px;">
+            Cồn mạnh là dung môi chiết xuất tự nhiên hoàn hảo. Ngâm lạnh thảo mộc khô/tươi giúp rượu cốt hút trọn màu sắc sống động và tinh dầu tinh khiết mà không bị oxy hóa hay bị biến đổi nhiệt. Cách chế tác này mở ra những riff độc bản sáng tạo như Earl Grey Gin, Blue Margaritas hay Spicy Tequila.
+            <br><strong style="color:var(--cream);">Hạn sử dụng:</strong> Bằng hạn sử dụng rượu cốt nguyên bản (vài năm) nhờ độ cồn cao bảo vệ hoàn hảo.
+          </p>
+          <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 12px; margin-top: 12px;">
+            <div style="font-family: var(--ui); font-size: 10.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px;">Quy trình thực hiện (Checklist)</div>
+            <ul style="list-style: none; padding-left:0; margin:0; display:flex; flex-direction:column; gap:8px;">
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Rót <b>${currentVolume}ml ${baseStr}</b> vào lọ thủy tinh tiệt trùng sạch, khô ráo.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Cho <b>${qtyStr} ${herbStr}</b> ngập chìm hẳn vào lọ rượu. Đậy kín nắp lọ ngay để tránh thất thoát hơi.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Để yên lọ ngâm ở góc tối mát ở nhiệt độ phòng. Lắc nhẹ lọ đều đặn cứ 30 phút một lần. Canh chuẩn thời gian ngâm từ <b>${durationStr}</b>.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Nếm thử rượu định kỳ. Khi vị và mùi đạt được cấu trúc mong muốn, đổ rượu qua rây lọc mịn hoặc phễu lót giấy lọc cà phê để lọc hết bã thực vật, tránh ngâm quá lâu gây đắng sẫm hoặc mất mùi.</span>
+              </li>
+              <li style="font-size:12.5px; color:var(--muted-2); display:flex; gap:8px; cursor:pointer;" onclick="this.querySelector('input').click();">
+                <input type="checkbox" style="margin-top:3px; cursor:pointer;" onclick="event.stopPropagation(); if(typeof playChime === 'function') playChime();">
+                <span>Đổ rượu cốt trong trẻo trở lại chai thủy tinh nguyên bản hoặc bình đựng riêng biệt. Rượu của bạn đã ${colorDesc}</span>
+              </li>
+            </ul>
+          </div>
+        `;
+        subState = currentInfuseBase + '_' + currentInfuseHerb;
+      }
+
+      craftBillList.innerHTML = billHtml;
+      craftInstructionsCard.innerHTML = instructionsHtml;
+
+      // Draw SVG Visualizer
+      const volPct = currentVolume / 500;
+      craftVisualizerSvg.innerHTML = drawCraftVisualizer(currentCraftType, volPct, subState);
+    }
+
+    function drawCraftVisualizer(type, volPct, subState) {
+      let liquidColor = 'rgba(235, 235, 255, 0.2)';
+      let extraHtml = '';
+      
+      if (type === 'simple_syrup' || type === 'rich_syrup') {
+        if (subState === 'demerara') {
+          liquidColor = 'rgba(182, 100, 50, 0.75)'; // Rich brown
+        } else if (subState === 'honey') {
+          liquidColor = 'rgba(245, 190, 60, 0.8)';  // Golden honey
+        } else {
+          liquidColor = 'rgba(235, 235, 245, 0.35)'; // Clear syrup
+        }
+        
+        // Dissolving sugar crystals at the bottom
+        if (subState !== 'honey') {
+          extraHtml += `
+            <path d="M 75,225 L 85,215 L 95,225" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" />
+            <path d="M 125,226 L 135,218 L 145,226" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" />
+            <circle cx="105" cy="225" r="2.5" fill="#fff" opacity="0.8" />
+            <circle cx="85" cy="222" r="1.5" fill="#fff" opacity="0.6" />
+            <circle cx="132" cy="221" r="2" fill="#fff" opacity="0.7" />
+          `;
+        } else {
+          // honey swirl
+          extraHtml += `
+            <path d="M 110,140 C 95,155 125,175 110,190 C 95,205 125,220 110,225" fill="none" stroke="rgba(214,162,74,0.4)" stroke-width="3" stroke-linecap="round" />
+          `;
+        }
+      } else if (type === 'honey_syrup') {
+        liquidColor = 'rgba(245, 185, 45, 0.85)'; // Rich gold
+        extraHtml += `
+          <path d="M 110,130 C 100,150 120,170 110,190 C 100,210 120,223 110,227" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="4.5" stroke-linecap="round" />
+          <!-- Small herb sprig floating -->
+          <g transform="translate(100, 150) rotate(25)">
+            <line x1="0" y1="0" x2="30" y2="0" stroke="rgba(110, 150, 80, 0.8)" stroke-width="1.5" />
+            <path d="M 5,-4 Q 8,-8 5,-4 M 15,-4 Q 18,-8 15,-4" stroke="rgba(110, 150, 80, 0.8)" stroke-dasharray="2" />
+          </g>
+        `;
+      } else if (type === 'oleo_saccharum') {
+        liquidColor = 'rgba(255, 222, 70, 0.9)'; // Bright yellow oily
+        
+        // Peel curls
+        const peels = [
+          "M 80,180 C 85,160 95,160 100,180 C 105,200 115,200 120,180",
+          "M 95,140 C 100,125 110,125 115,140 C 120,155 130,155 135,140",
+          "M 110,210 C 113,195 120,195 123,210 C 126,225 133,225 136,210"
+        ];
+        let colorSt = 'rgba(240, 210, 40, 0.95)';
+        if (subState === 'orange') colorSt = 'rgba(245, 140, 30, 0.9)';
+        else if (subState === 'grapefruit') colorSt = 'rgba(235, 100, 110, 0.85)';
+        
+        peels.forEach(p => {
+          extraHtml += `<path d="${p}" fill="none" stroke="${colorSt}" stroke-width="8.5" stroke-linecap="round" opacity="0.85" />`;
+        });
+      } else if (type === 'spirit_infusion') {
+        // base spirit color (mostly clear) + herb color
+        const herb = subState.split('_')[1] || 'earl_grey';
+        if (herb === 'butterfly_pea') {
+          liquidColor = 'rgba(60, 80, 200, 0.75)'; // Electric Blue
+          // floating pea flowers
+          extraHtml += `
+            <circle cx="90" cy="160" r="6" fill="rgba(30, 50, 160, 0.9)" />
+            <circle cx="130" cy="180" r="5" fill="rgba(30, 50, 160, 0.9)" />
+            <circle cx="105" cy="140" r="6" fill="rgba(30, 50, 160, 0.9)" />
+            <path d="M 87,157 L 93,163 M 127,177 L 133,183" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" />
+          `;
+        } else if (herb === 'jalapeno') {
+          liquidColor = 'rgba(210, 230, 180, 0.45)'; // Pale green
+          // jalapeno slices
+          extraHtml += `
+            <g transform="translate(90, 150) rotate(15)">
+              <circle cx="0" cy="0" r="10" fill="none" stroke="rgba(80, 150, 60, 0.8)" stroke-width="3" />
+              <circle cx="0" cy="0" r="6" fill="rgba(230, 245, 210, 0.6)" />
+              <circle cx="-2" cy="-2" r="1.5" fill="#fff" /><circle cx="2" cy="2" r="1.5" fill="#fff" />
+            </g>
+            <g transform="translate(130, 180) rotate(-35)">
+              <circle cx="0" cy="0" r="10" fill="none" stroke="rgba(80, 150, 60, 0.8)" stroke-width="3" />
+              <circle cx="0" cy="0" r="6" fill="rgba(230, 245, 210, 0.6)" />
+              <circle cx="-2" cy="-2" r="1.5" fill="#fff" /><circle cx="2" cy="2" r="1.5" fill="#fff" />
+            </g>
+          `;
+        } else if (herb === 'lavender') {
+          liquidColor = 'rgba(160, 130, 190, 0.48)'; // Lavender violet
+          // floating flower bits
+          extraHtml += `
+            <circle cx="95" cy="170" r="2.5" fill="#ab8fd4" /><circle cx="98" cy="167" r="2" fill="#ab8fd4" />
+            <circle cx="125" cy="150" r="2.5" fill="#ab8fd4" /><circle cx="122" cy="153" r="2" fill="#ab8fd4" />
+            <circle cx="108" cy="185" r="2.5" fill="#ab8fd4" />
+          `;
+        } else {
+          // earl_grey
+          liquidColor = 'rgba(145, 75, 30, 0.78)'; // Red-brown tea
+          // suspended tea bag
+          extraHtml += `
+            <!-- String -->
+            <line x1="110" y1="70" x2="110" y2="130" stroke="rgba(255,255,255,0.4)" stroke-width="1" />
+            <!-- Tag -->
+            <rect x="105" y="65" width="10" height="12" fill="#ba3a5c" rx="1" ry="1" />
+            <!-- Bag -->
+            <rect x="95" y="130" width="30" height="40" fill="rgba(240, 230, 210, 0.6)" stroke="rgba(255,255,255,0.7)" stroke-width="1" rx="2" ry="2" />
+            <path d="M 98,135 L 122,135 M 98,140 L 122,140" stroke="rgba(145, 75, 30, 0.4)" stroke-width="1.5" />
+          `;
+        }
+      }
+
+      // Height of liquid in beaker jar
+      // Jar inside is x:61, width:98, y_bottom:228, y_top:82 (max height 146)
+      const heightVal = Math.round(146 * volPct);
+      const yVal = 228 - heightVal;
+
+      let html = `
+        <defs>
+          <linearGradient id="diy-glass-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(201, 182, 232, 0.4)" />
+            <stop offset="30%" stop-color="rgba(255, 255, 255, 0.15)" />
+            <stop offset="70%" stop-color="rgba(255, 255, 255, 0.15)" />
+            <stop offset="100%" stop-color="rgba(201, 182, 232, 0.4)" />
+          </linearGradient>
+        </defs>
+        
+        <!-- Background jar glow shadow -->
+        <rect x="63" y="82" width="94" height="146" fill="rgba(138, 92, 199, 0.02)" />
+        
+        <!-- Render Liquid -->
+        \${volPct > 0 ? `<rect x="62" y="\${yVal}" width="96" height="\${heightVal}" fill="\${liquidColor}" rx="2" ry="2" />` : ''}
+        
+        <!-- Render Floatings/Crystals/Details -->
+        \${volPct > 0 ? extraHtml : ''}
+
+        <!-- Jar Outline (Lab Canning Jar) -->
+        <!-- Jar Body -->
+        <rect x="60" y="80" width="100" height="150" rx="8" ry="8" fill="none" stroke="url(#diy-glass-glow)" stroke-width="3" />
+        <!-- Jar Neck/Rim -->
+        <rect x="72" y="72" width="76" height="8" rx="2" ry="2" fill="none" stroke="url(#diy-glass-glow)" stroke-width="2.5" />
+        <!-- Measurement markings on jar -->
+        <line x1="140" y1="110" x2="150" y2="110" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+        <text x="135" y="112" font-size="8" fill="rgba(255,255,255,0.2)" font-family="var(--ui)" text-anchor="end">400ml</text>
+        <line x1="140" y1="150" x2="150" y2="150" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+        <text x="135" y="152" font-size="8" fill="rgba(255,255,255,0.2)" font-family="var(--ui)" text-anchor="end">250ml</text>
+        <line x1="140" y1="190" x2="150" y2="190" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+        <text x="135" y="192" font-size="8" fill="rgba(255,255,255,0.2)" font-family="var(--ui)" text-anchor="end">100ml</text>
+
+        <!-- Base surface shadow reflection -->
+        <ellipse cx="110" cy="235" rx="55" ry="6" fill="none" stroke="rgba(201, 182, 232, 0.15)" stroke-width="2" />
+      `;
+
+      return html;
+    }
+
+    // Initialize Crafting Lab
+    renderSubControls();
+    updateCrafting();
+  })();
+
   // ============ 14B · WINE EXPLORER & LABEL DECODER LOGIC ============
+
   (() => {
     const WINE_DATA = {
       cabernet: {

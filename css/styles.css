@@ -2641,5 +2641,63 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* ============================================================
+   DIY CRAFTING TABS STYLES
+   ============================================================ */
+.diy-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 12px;
+}
+.diy-tab-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted-2);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: var(--ui);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.diy-tab-btn.active {
+  color: var(--gold) !important;
+  border-color: var(--gold) !important;
+  background: rgba(214, 162, 74, 0.05) !important;
+}
+.diy-tab-content {
+  display: none;
+}
+.diy-tab-content.active {
+  display: block;
+}
+.craft-picker-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line-soft);
+  color: var(--muted-2);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.craft-picker-tag:hover {
+  background: rgba(214, 162, 74, 0.05);
+  border-color: var(--gold-soft);
+  color: var(--cream);
+}
+.craft-picker-tag.active {
+  background: rgba(214, 162, 74, 0.15) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+  font-weight: 500;
+}
+
+
 
 

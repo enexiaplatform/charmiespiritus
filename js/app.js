@@ -122,7 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
     "lemon": { alt: ["lime"], label: "Chanh xanh" },
     "syrup": { alt: ["honey_syrup", "maple_syrup"], label: "Mật ong / Syrup phong" },
     "soda": { alt: ["tonic", "sparkling_water"], label: "Nước khoáng có ga / Tonic" },
-    "ginger_beer": { alt: ["ginger_ale"], label: "Ginger Ale" }
+    "ginger_beer": { alt: ["ginger_ale"], label: "Ginger Ale" },
+    "aperol": { alt: ["campari"], label: "Campari (ít ngọt, đắng sắc hơn)" },
+    "campari": { alt: ["aperol"], label: "Aperol (ngọt dịu hơn, ít cồn hơn)" },
+    "grapefruit_soda": { alt: ["soda"], label: "Club Soda + nước ép bưởi" },
+    "orgeat_syrup": { alt: ["syrup"], label: "Syrup đường thông thường + vài giọt hạnh nhân" }
   };
 
   function getIngredientName(val) {
@@ -154,7 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
       "cognac": "Cognac / Brandy",
       "champagne": "Champagne / Vang sủi",
       "egg_white": "Lòng trắng trứng",
-      "raspberry_syrup": "Syrup mâm xôi"
+      "raspberry_syrup": "Syrup mâm xôi",
+      "aperol": "Aperol",
+      "orgeat_syrup": "Siro hạnh nhân (Orgeat)",
+      "grapefruit_soda": "Soda bưởi"
     };
     return names[val] || val;
   }
@@ -2217,7 +2224,13 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   // ============ 14 · GLASSWARE & ICE LABORATORY INTERACTIVE LOGIC ============
+  // ============ 14 · GLASSWARE & ICE LABORATORY INTERACTIVE LOGIC ============
   (() => {
+    let currentGlass = 'coupe';
+    let currentIce = 'none';
+    let currentDrink = 'water';
+    let currentSimTime = 0;
+
     const GLASSWARE_DATA = {
       coupe: {
         name: "Ly Coupe (Champagne Saucer)",
@@ -2306,8 +2319,20 @@ document.addEventListener('DOMContentLoaded', () => {
       </defs>
     `;
 
-    function drawGlassVisualizer(glass, ice, drink) {
+    function drawGlassVisualizer(glass, ice, drink, simTime = 0) {
       let html = liquidGradients;
+      
+      let dilutionPct = 0;
+      if (ice === 'cube') {
+        dilutionPct = Math.round(simTime * 1.6);
+      } else if (ice === 'sphere') {
+        dilutionPct = Math.round(simTime * 0.9);
+      } else if (ice === 'crushed') {
+        dilutionPct = Math.round(Math.min(50, simTime * 3.5 - (simTime * simTime) * 0.07));
+      }
+
+      const scale = Math.max(0, 1 - (dilutionPct / 100) * 1.5);
+      const dy = (dilutionPct / 100) * 12; // liquid level rises by up to 12px
       
       // 1. LIQUID PATHS
       let liquidPath = '';
@@ -2317,11 +2342,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (drink !== 'none') {
         const fillVal = `url(#liq-${drink})`;
         if (glass === 'coupe') {
-          liquidPath = `<path d="M 50,115 C 55,152 165,152 170,115 Z" fill="${fillVal}" />`;
+          liquidPath = `<path d="M ${50 - dy * 0.3},${115 - dy} C 55,${152 + dy * 0.2} 165,${152 + dy * 0.2} ${170 + dy * 0.3},${115 - dy} Z" fill="${fillVal}" />`;
         } else if (glass === 'rocks') {
-          liquidPath = `<path d="M 71,135 L 74,220 C 74,220 146,220 146,220 L 149,135 Z" fill="${fillVal}" />`;
+          liquidPath = `<path d="M ${71 - dy * 0.05},${135 - dy} L 74,220 C 74,220 146,220 146,220 L ${149 + dy * 0.05},${135 - dy} Z" fill="${fillVal}" />`;
         } else if (glass === 'highball') {
-          liquidPath = `<path d="M 79,90 L 81.5,228 C 81.5,228 138.5,228 138.5,228 L 141,90 Z" fill="${fillVal}" />`;
+          liquidPath = `<path d="M ${79 - dy * 0.02},${90 - dy} L 81.5,228 C 81.5,228 138.5,228 138.5,228 L ${141 + dy * 0.02},${90 - dy} Z" fill="${fillVal}" />`;
           if (drink === 'highball' || drink === 'water') {
             // Add carbonation bubbles
             const bubblePositions = [
@@ -2329,10 +2354,10 @@ document.addEventListener('DOMContentLoaded', () => {
               {x: 110, y: 150, r: 1.2}, {x: 95, y: 120, r: 1.8}, {x: 130, y: 110, r: 1.5},
               {x: 115, y: 100, r: 2}, {x: 105, y: 220, r: 1.5}, {x: 85, y: 160, r: 1.2}
             ];
-            bubblesHtml = bubblePositions.map(pos => `<circle cx="${pos.x}" cy="${pos.y}" r="${pos.r}" fill="#fff" opacity="0.6" />`).join('');
+            bubblesHtml = bubblePositions.map(pos => `<circle cx="${pos.x}" cy="${pos.y}" r="${pos.r}" fill="#fff" opacity="${0.6 * scale}" />`).join('');
           }
         } else if (glass === 'martini') {
-          liquidPath = `<path d="M 52,96 L 110,165 L 168,96 Z" fill="${fillVal}" />`;
+          liquidPath = `<path d="M ${52 - dy * 0.65},${96 - dy} L 110,165 L ${168 + dy * 0.65},${96 - dy} Z" fill="${fillVal}" />`;
           if (drink === 'martini') {
             // Add martini olive on toothpick
             oliveHtml = `
@@ -2345,7 +2370,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
           }
         } else if (glass === 'snifter') {
-          liquidPath = `<path d="M 82,145 C 72,175 74,210 88,223 C 88,223 132,223 132,223 C 146,210 148,175 138,145 Z" fill="${fillVal}" />`;
+          liquidPath = `<path d="M ${82 - dy * 0.25},${145 - dy} C ${72 - dy * 0.1},175 74,210 88,223 C 88,223 132,223 132,223 C 146,210 ${148 + dy * 0.1},175 ${138 + dy * 0.25},${145 - dy} Z" fill="${fillVal}" />`;
         }
       }
       
@@ -2355,7 +2380,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ice === 'cube') {
           if (glass === 'rocks') {
             iceHtml = `
-              <g transform="translate(10, 10)">
+              <g transform="translate(10, 10) scale(${scale})" transform-origin="115 174" opacity="${scale > 0.1 ? 1 : scale * 10}">
                 <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
                 <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
                 <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
@@ -2363,22 +2388,24 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
           } else if (glass === 'highball') {
             iceHtml = `
-              <!-- Bottom Cube -->
-              <g transform="translate(5, 45)">
-                <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
-                <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
-                <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
-              </g>
-              <!-- Top Cube -->
-              <g transform="translate(12, 0)">
-                <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
-                <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
-                <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+              <g transform="scale(${scale})" transform-origin="110 150" opacity="${scale > 0.1 ? 1 : scale * 10}">
+                <!-- Bottom Cube -->
+                <g transform="translate(5, 45)">
+                  <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                  <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                  <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                </g>
+                <!-- Top Cube -->
+                <g transform="translate(12, 0)">
+                  <polygon points="90,160 120,170 120,200 90,190" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                  <polygon points="90,160 115,148 145,158 120,170" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                  <polygon points="120,170 145,158 145,188 120,200" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
+                </g>
               </g>
             `;
           } else {
             iceHtml = `
-              <g transform="translate(5, 5)">
+              <g transform="translate(5, 5) scale(${scale})" transform-origin="110 135" opacity="${scale > 0.1 ? 1 : scale * 10}">
                 <polygon points="90,120 115,130 115,155 90,145" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
                 <polygon points="90,120 110,110 135,120 115,130" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
                 <polygon points="115,130 135,120 135,145 115,155" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.5" />
@@ -2388,18 +2415,18 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (ice === 'sphere') {
           if (glass === 'rocks') {
             iceHtml = `
-              <circle cx="110" cy="180" r="30" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" />
-              <path d="M 92,165 A 25 25 0 0 1 128,165" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.6" />
+              <circle cx="110" cy="180" r="${30 * scale}" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" opacity="${scale > 0.1 ? 0.75 : scale * 7.5}" />
+              <path d="M ${110 - 18 * scale},${180 - 15 * scale} A ${25 * scale} ${25 * scale} 0 0 1 ${110 + 18 * scale},${180 - 15 * scale}" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="${0.6 * scale}" />
             `;
           } else if (glass === 'highball') {
             iceHtml = `
-              <circle cx="110" cy="185" r="28" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" />
-              <path d="M 93,171 A 23 23 0 0 1 127,171" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="0.6" />
+              <circle cx="110" cy="185" r="${28 * scale}" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" opacity="${scale > 0.1 ? 0.75 : scale * 7.5}" />
+              <path d="M ${110 - 17 * scale},${185 - 14 * scale} A ${23 * scale} ${23 * scale} 0 0 1 ${110 + 17 * scale},${185 - 14 * scale}" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" opacity="${0.6 * scale}" />
             `;
           } else {
             iceHtml = `
-              <circle cx="110" cy="140" r="25" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" />
-              <path d="M 95,127 A 20 20 0 0 1 125,127" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.6" />
+              <circle cx="110" cy="140" r="${25 * scale}" fill="url(#ice-sphere-grad)" stroke="#fff" stroke-width="0.5" opacity="${scale > 0.1 ? 0.75 : scale * 7.5}" />
+              <path d="M ${110 - 15 * scale},${140 - 13 * scale} A ${20 * scale} ${20 * scale} 0 0 1 ${110 + 15 * scale},${140 - 13 * scale}" fill="none" stroke="#fff" stroke-width="0.8" opacity="${0.6 * scale}" />
             `;
           }
         } else if (ice === 'crushed') {
@@ -2411,7 +2438,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "M 120,175 L 134,168 L 130,181 Z", "M 96,162 L 110,155 L 105,168 Z",
             "M 112,158 L 126,152 L 122,165 Z"
           ];
-          iceHtml = particles.map(p => `<path d="${p}" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.4" />`).join('');
+          const particleHtml = particles.map(p => `<path d="${p}" fill="url(#ice-block-grad)" stroke="#fff" stroke-width="0.4" />`).join('');
+          iceHtml = `<g transform="scale(${scale})" transform-origin="110 185" opacity="${scale > 0.1 ? 1 : scale * 10}">${particleHtml}</g>`;
         }
       }
       
@@ -2472,9 +2500,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const svgVisualizer = document.getElementById('glassVisualizerSvg');
     const infoCard = document.getElementById('glassInfoCard');
+    
     if (svgVisualizer && infoCard) {
       const renderGlasswareLab = () => {
-        svgVisualizer.innerHTML = drawGlassVisualizer(currentGlass, currentIce, currentDrink);
+        svgVisualizer.innerHTML = drawGlassVisualizer(currentGlass, currentIce, currentDrink, currentSimTime);
         const data = GLASSWARE_DATA[currentGlass];
         if (data) {
           // Calculate thermodynamic and dilution values
@@ -2488,50 +2517,100 @@ document.addEventListener('DOMContentLoaded', () => {
           let finalTemp = 0;
           let dilutionPct = 0;
           let scienceInsight = '';
+          let qualityText = '🌟 Vừa rót - Cấu trúc hoàn hảo';
 
+          // 1. Dilution percentage calculations
+          if (currentIce === 'none') {
+            dilutionPct = 0;
+          } else if (currentIce === 'cube') {
+            dilutionPct = Math.round(currentSimTime * 1.6);
+          } else if (currentIce === 'sphere') {
+            dilutionPct = Math.round(currentSimTime * 0.9);
+          } else if (currentIce === 'crushed') {
+            dilutionPct = Math.round(Math.min(50, currentSimTime * 3.5 - (currentSimTime * currentSimTime) * 0.07));
+          }
+
+          // 2. Temperature calculations
           if (currentIce === 'none') {
             if (currentGlass === 'snifter') {
               startTemp = 20.0;
-              finalTemp = 23.0;
-              dilutionPct = 0;
-              scienceInsight = 'Thưởng thức nguyên bản (Neat) trong ly Snifter giúp hơi ấm của lòng bàn tay làm ấm nhẹ rượu mạnh lên khoảng 23°C, giải phóng tối đa các este hương thơm gỗ sồi phức tạp mà không làm loãng rượu.';
+              finalTemp = 20.0 + (currentSimTime * 0.3) - (currentSimTime * currentSimTime) * 0.003;
+              scienceInsight = 'Thưởng thức nguyên bản (Neat) trong ly Snifter giúp hơi ấm của lòng bàn tay làm ấm nhẹ rượu mạnh lên khoảng ' + finalTemp.toFixed(1) + '°C, giải phóng tối đa các este hương thơm gỗ sồi phức tạp.';
             } else if (currentGlass === 'coupe' || currentGlass === 'martini') {
               startTemp = -4.0;
-              finalTemp = 7.5;
-              dilutionPct = 0;
-              scienceInsight = 'Không dùng đá giúp giữ 100% nồng độ cồn nguyên bản và kết cấu sánh mịn. Phần chân cao (stem) ngăn không cho nhiệt từ tay truyền lên bầu rượu, làm chậm tốc độ ấm lên.';
+              finalTemp = -4.0 + currentSimTime * 1.0 - (currentSimTime * currentSimTime) * 0.01;
+              scienceInsight = 'Không dùng đá giúp giữ 100% nồng độ cồn nguyên bản. Phần chân cao (stem) ngăn không cho nhiệt từ tay truyền lên bầu rượu, làm chậm tốc độ ấm lên.';
             } else {
               startTemp = -2.0;
-              finalTemp = 11.5;
-              dilutionPct = 0;
-              scienceInsight = 'Không dùng đá giúp bảo toàn nguyên vẹn hương vị cồn nguyên bản. Tuy nhiên, việc thiếu chân ly khiến nhiệt từ bàn tay truyền trực tiếp qua thành ly và làm ấm rượu khá nhanh.';
+              finalTemp = -2.0 + currentSimTime * 1.4 - (currentSimTime * currentSimTime) * 0.02;
+              scienceInsight = 'Không dùng đá giúp bảo toàn cồn nguyên bản. Việc thiếu chân ly khiến nhiệt từ bàn tay truyền trực tiếp qua thành ly làm rượu ấm lên khá nhanh.';
+            }
+            
+            if (currentSimTime <= 5) {
+              qualityText = "🌟 Lạnh sâu - Tuyệt đối tinh khiết";
+            } else if (currentSimTime <= 12) {
+              qualityText = "✨ Mát dịu - Hương thơm bung tỏa";
+            } else {
+              qualityText = "⚠️ Ấm dần - Vị cồn nồng, mất độ lạnh";
             }
           } else if (currentIce === 'cube') {
-            startTemp = 0.0;
-            finalTemp = 1.0;
-            dilutionPct = 18;
+            startTemp = 15.0; // room temp
+            finalTemp = Math.max(0.2, 0.0 + currentSimTime * 0.12 + (currentSimTime * currentSimTime) * 0.003);
             if (currentGlass === 'highball') {
-              scienceInsight = 'Đá khối vuông xếp đầy ly Highball giúp duy trì nhiệt độ gần 1°C và tạo độ loãng vừa phải (18%), làm dịu bọt ga sủi từ soda/tonic để tạo cảm giác uống sảng khoái và êm dịu.';
+              scienceInsight = 'Đá khối vuông xếp đầy ly Highball duy trì nhiệt độ gần 1°C và tạo độ loãng vừa phải, làm dịu bọt ga sủi từ soda/tonic cho cảm giác uống sảng khoái và êm dịu.';
             } else {
-              scienceInsight = 'Đá khối tiêu chuẩn làm lạnh nhanh nhờ diện tích bề mặt tiếp xúc vừa phải. Sau 10 phút, đá tan thêm khoảng 18% nước, làm dịu bớt độ nồng của cồn và mở ra các nốt hương ẩn.';
+              scienceInsight = 'Đá khối tiêu chuẩn làm lạnh nhanh nhờ diện tích tiếp xúc vừa phải. Sau ' + currentSimTime + ' phút đá tan thêm khoảng ' + dilutionPct + '% nước, làm dịu cồn gắt.';
+            }
+            
+            if (currentSimTime <= 2) {
+              qualityText = "🌟 Vừa rót - Cấu trúc hoàn hảo";
+            } else if (currentSimTime <= 7) {
+              qualityText = "✨ Tuyệt vời - Rượu mở hương (Opening up)";
+            } else if (currentSimTime <= 12) {
+              qualityText = "⚖️ Cân bằng - Điểm rơi vị giác (Peak balance)";
+            } else if (currentSimTime <= 16) {
+              qualityText = "⚠️ Nhạt dần - Nên thưởng thức nhanh";
+            } else {
+              qualityText = "🥀 Quá loãng - Mất đi cấu trúc rượu";
             }
           } else if (currentIce === 'sphere') {
-            startTemp = 0.0;
-            finalTemp = -2.2;
-            dilutionPct = 10;
-            scienceInsight = 'Đá cầu có diện tích tiếp xúc nhỏ nhất trên mỗi đơn vị thể tích, giúp làm giảm tốc độ tan chảy xuống tối thiểu (chỉ 10% sau 10 phút) trong khi vẫn duy trì nhiệt độ lạnh sâu cực kỳ ổn định dưới 0°C.';
+            startTemp = 15.0; // room temp
+            finalTemp = Math.max(-2.5, -0.3 * currentSimTime + (currentSimTime * currentSimTime) * 0.012);
+            scienceInsight = 'Đá cầu có diện tích tiếp xúc nhỏ nhất, giảm tốc độ tan chảy xuống tối thiểu (chỉ ' + dilutionPct + '% sau ' + currentSimTime + ' phút) trong khi duy trì nhiệt độ lạnh sâu cực kỳ ổn định dưới 0°C.';
+            
+            if (currentSimTime <= 4) {
+              qualityText = "🌟 Lạnh sâu - Vẹn nguyên cấu trúc";
+            } else if (currentSimTime <= 12) {
+              qualityText = "✨ Tuyệt hảo - Làm lạnh sâu & tan rất chậm";
+            } else if (currentSimTime <= 18) {
+              qualityText = "⚖️ Cân bằng - Đạt đỉnh vị giác ngọt ngào";
+            } else {
+              qualityText = "⚠️ Nhạt nhẹ - Bắt đầu tan chảy nhiều hơn";
+            }
           } else if (currentIce === 'crushed') {
-            startTemp = -1.0;
-            finalTemp = 4.0;
-            dilutionPct = 32;
-            scienceInsight = 'Đá đập nát có tổng diện tích tiếp xúc cực kỳ lớn, làm lạnh đồ uống xuống nhiệt độ âm gần như ngay lập tức. Tuy nhiên, tốc độ tan chảy cực nhanh (32%) sẽ làm loãng rượu rất nhanh.';
+            startTemp = 15.0; // room temp
+            finalTemp = Math.max(-2.2, -1.0 - 0.4 * currentSimTime + (currentSimTime * currentSimTime) * 0.055);
+            scienceInsight = 'Đá đập nát có tổng diện tích tiếp xúc cực lớn, làm lạnh đồ uống xuống nhiệt độ âm gần như ngay lập tức. Tuy nhiên, tốc độ tan nhanh sẽ làm loãng rượu cực nhanh.';
+            
+            if (currentSimTime <= 2) {
+              qualityText = "🌟 Lạnh buốt - Cực kỳ sảng khoái";
+            } else if (currentSimTime <= 5) {
+              qualityText = "⚖️ Đạt đỉnh - Mát lạnh & loãng nhẹ";
+            } else if (currentSimTime <= 10) {
+              qualityText = "⚠️ Nhạt nhanh - Đá bào tan chảy ồ ạt";
+            } else {
+              qualityText = "🥀 Quá loãng - Rượu bị phân rã hoàn toàn";
+            }
           }
+
+          if (finalTemp > 25) finalTemp = 25;
 
           const finalAbv = startAbv > 0 ? (startAbv / (1 + dilutionPct / 100)).toFixed(1) : 0;
 
           infoCard.innerHTML = `
-            <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 6px;">
-              Dung tích tiêu chuẩn: ${data.volume}
+            <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 6px; display: flex; justify-content: space-between;">
+              <span>Dung tích tiêu chuẩn: ${data.volume}</span>
+              <span style="color: var(--lilac); font-weight: 600;">${qualityText}</span>
             </div>
             <h3 style="font-family: var(--display); font-size: 19px; color: var(--cream); margin-bottom: 12px; font-weight: 600;">
               ${data.name}
@@ -2554,15 +2633,15 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="border-top: 1px dashed rgba(138, 92, 199, 0.25); padding-top: 16px; margin-top: 16px;">
               <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--gold);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                Khoa Học Nhiệt Động &amp; Pha Loãng
+                Khoa Học Nhiệt Động &amp; Pha Loãng (${currentSimTime} Phút)
               </div>
               
               <!-- 1. Temperature Bar -->
               <div style="margin-bottom: 12px;">
                 <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; color: var(--muted-2);">
-                  <span>Nhiệt độ (10 phút)</span>
+                  <span>Nhiệt độ hiện tại</span>
                   <span style="color: var(--lilac); font-weight: 600;">
-                    ${startTemp}°C ➔ <b style="color: ${finalTemp < 5 ? 'var(--gold)' : 'var(--cream)'};">${finalTemp.toFixed(1)}°C</b>
+                    ${startTemp > 10 ? startTemp.toFixed(0) : startTemp.toFixed(1)}°C ➔ <b style="color: ${finalTemp < 5 ? 'var(--gold)' : 'var(--cream)'};">${finalTemp.toFixed(1)}°C</b>
                   </span>
                 </div>
                 <!-- Progress bar track -->
@@ -2578,7 +2657,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   <span style="color: var(--lilac); font-weight: 600;">+${dilutionPct}%</span>
                 </div>
                 <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
-                  <div style="width: ${dilutionPct * 2.5}%; height: 100%; background: var(--amethyst); border-radius: 3px;"></div>
+                  <div style="width: ${dilutionPct * 2.0}%; height: 100%; background: var(--amethyst); border-radius: 3px;"></div>
                 </div>
               </div>
 
@@ -2599,6 +2678,23 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           `;
         }
+      };
+
+      const timeSlider = document.getElementById('simTimeSlider');
+      const timeLabel = document.getElementById('simTimeLabel');
+      
+      if (timeSlider && timeLabel) {
+        timeSlider.addEventListener('input', function() {
+          currentSimTime = parseInt(this.value);
+          timeLabel.textContent = currentSimTime === 0 ? "0 phút (Vừa rót)" : `${currentSimTime} phút`;
+          renderGlasswareLab();
+        });
+      }
+
+      const resetSimTime = () => {
+        currentSimTime = 0;
+        if (timeSlider) timeSlider.value = 0;
+        if (timeLabel) timeLabel.textContent = "0 phút (Vừa rót)";
       };
 
       document.querySelectorAll('.glass-opt').forEach(opt => {
@@ -2631,6 +2727,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.toggle('active', btn.getAttribute('data-drink') === currentDrink);
           });
 
+          resetSimTime();
           playTick();
           renderGlasswareLab();
         });
@@ -2641,6 +2738,7 @@ document.addEventListener('DOMContentLoaded', () => {
           document.querySelectorAll('[data-ice]').forEach(el => el.classList.remove('active'));
           this.classList.add('active');
           currentIce = this.getAttribute('data-ice');
+          resetSimTime();
           playTick();
           renderGlasswareLab();
         });
@@ -2651,6 +2749,7 @@ document.addEventListener('DOMContentLoaded', () => {
           document.querySelectorAll('[data-drink]').forEach(el => el.classList.remove('active'));
           this.classList.add('active');
           currentDrink = this.getAttribute('data-drink');
+          resetSimTime();
           playTick();
           renderGlasswareLab();
         });

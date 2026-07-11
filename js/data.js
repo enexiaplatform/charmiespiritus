@@ -1180,6 +1180,112 @@ const RECIPES = [
       { text: "Bỏ đá làm lạnh ở ly đi, lọc mịn cocktail rót vào ly Coupe." },
       { text: "Trang trí bằng một trái anh đào ngâm đường chìm dưới đáy ly." }
     ]
+  },
+  {
+    id: "paloma",
+    name: "Paloma",
+    desc: "Cân bằng hoàn hảo giữa tequila nồng ấm, vị chua bưởi hồng tươi sáng và chút muối mặn mòi nơi vành ly.",
+    ingredients: ["tequila", "lime", "grapefruit_soda", "syrup"],
+    strength: "balanced",
+    flavor: "citrus",
+    mood: "refreshing",
+    flavorProfile: [3, 4, 3, 1, 3.5],
+    details: {
+      category: "Cocktail Kinh Điển",
+      time: "3 phút pha chế",
+      title: "Paloma: Bản Tình Ca Rực Rỡ Từ Đất Nước Mexico",
+      content: `
+        <p>Paloma (nghĩa là "chim bồ câu" trong tiếng Tây Ban Nha) là một trong những món cocktail được yêu thích nhất tại Mexico, thậm chí vượt qua cả Margarita về độ phổ biến hằng ngày. Sự hấp dẫn của Paloma đến từ sự sảng khoái tột độ khi vị cay ấm nồng nàn của Tequila được làm dịu bằng ga sủi của soda bưởi hồng thơm nức.</p>
+        <h3>Công Thức & Tỷ Lệ</h3>
+        <ul>
+          <li>50ml Rượu Tequila Reposado hoặc Blanco</li>
+          <li>15ml Nước cốt chanh xanh tươi</li>
+          <li>100ml Nước soda bưởi hồng (Grapefruit Soda)</li>
+          <li>1 thìa nhỏ syrup đường (nếu thích ngọt)</li>
+          <li>Muối biển (để viền vành ly)</li>
+        </ul>
+        <h3>Kỹ Thuật Pha Chế</h3>
+        <p><strong>Build (Xây dựng trực tiếp):</strong> Chuẩn bị ly Highball viền muối quanh miệng ly, xếp đầy đá viên. Rót Tequila và chanh xanh vào ly, khuấy nhẹ. Tiếp tục rót đầy soda bưởi hồng lên trên, khuấy nhẹ một lần nữa để hòa quyện và thưởng thức ngay.</p>
+      `
+    },
+    steps: [
+      { text: "Dùng miếng chanh xát quanh vành ly Highball rồi úp ngược xuống đĩa muối biển để tạo viền muối mỏng." },
+      { text: "Đổ đầy đá viên vào ly Highball." },
+      { text: "Đong 50ml Tequila và 15ml nước cốt chanh xanh tươi rót trực tiếp vào ly." },
+      { text: "Rót từ từ 100ml nước soda bưởi hồng lên trên cùng để tránh mất ga." },
+      { text: "Khuấy nhẹ nhàng từ dưới lên trong 5 giây để hòa hợp hương vị và trang trí bằng một lát bưởi hồng hoặc lát chanh.", timer: 5 }
+    ]
+  },
+  {
+    id: "mai_tai",
+    name: "Mai Tai",
+    desc: "Biểu tượng rực rỡ của văn hóa Tiki, kết hợp Rum đậm đà cùng siro hạnh nhân ngọt bùi thơm phức.",
+    ingredients: ["rum", "lime", "triple_sec", "orgeat_syrup", "syrup"],
+    strength: "strong",
+    flavor: "sweet",
+    mood: "refreshing",
+    flavorProfile: [4, 3, 4, 0.5, 4.5],
+    details: {
+      category: "Cocktail Kinh Điển",
+      time: "4 phút pha chế",
+      title: "Mai Tai: Hương Vị Thiên Đường Nhiệt Đới Đậm Chất Tiki",
+      content: `
+        <p>Được sáng tạo bởi Victor J. Bergeron (Trader Vic) vào năm 1944, Mai Tai mang ý nghĩa là "Tuyệt vời nhất" trong tiếng Tahiti. Đây là ly cocktail định hình cho phong cách Tiki: nhiều loại rum phối trộn, vị chua thanh chanh xanh kết hợp cùng hương hạnh nhân bùi ngậy độc đáo từ Orgeat Syrup.</p>
+        <h3>Công Thức & Tỷ Lệ</h3>
+        <ul>
+          <li>30ml Amber Rum (Rum vàng)</li>
+          <li>30ml Dark Rum (Rum đen lâu năm)</li>
+          <li>15ml Orange Curaçao hoặc Triple Sec</li>
+          <li>15ml Siro hạnh nhân (Orgeat Syrup)</li>
+          <li>20ml Nước cốt chanh xanh tươi</li>
+          <li>7.5ml Syrup đường</li>
+        </ul>
+        <h3>Kỹ Thuật Pha Chế</h3>
+        <p><strong>Shake (Lắc):</strong> Cho tất cả nguyên liệu (trừ Dark Rum nếu muốn thả nổi ở trên) vào shaker chứa đá đập nhỏ (crushed ice). Lắc mạnh trong 10 giây rồi đổ cả rượu và đá ra ly Rocks. Rót Dark Rum lên bề mặt để tạo hiệu ứng phân tầng. Trang trí bằng một nhánh bạc hà tươi và một lát chanh.</p>
+      `
+    },
+    steps: [
+      { text: "Đong 30ml Amber Rum, 15ml Orange Curaçao (hoặc Triple Sec), 15ml Orgeat Syrup, 20ml nước cốt chanh xanh và 7.5ml syrup đường vào bình shaker." },
+      { text: "Thêm đá bào hoặc đá đập nhỏ vào bình và lắc mạnh tay trong khoảng 10 giây để làm lạnh nhanh.", timer: 10 },
+      { text: "Rót toàn bộ hỗn hợp cả đá bào ra ly Rocks." },
+      { text: "Rót nhẹ nhàng 30ml Dark Rum lên bề mặt ly để tạo tầng rượu sẫm màu lơ lửng." },
+      { text: "Trang trí bằng ngọn bạc hà tươi vỗ nhẹ (để giải phóng tinh dầu thơm) cùng một lát chanh và thưởng thức bằng ống hút." }
+    ]
+  },
+  {
+    id: "aperol_spritz",
+    name: "Aperol Spritz",
+    desc: "Sắc cam hoàng hôn rực rỡ của nước Ý, sủi tăm ga Prosecco mát lạnh pha chút đắng dịu sảng khoái.",
+    ingredients: ["aperol", "champagne", "soda"],
+    strength: "low",
+    flavor: "bitter",
+    mood: "social",
+    flavorProfile: [3.5, 2, 2, 3, 4],
+    details: {
+      category: "Cocktail Kinh Điển",
+      time: "2 phút pha chế",
+      title: "Aperol Spritz: Khởi Đầu Cho Buổi Chiều Ý Đích Thực",
+      content: `
+        <p>Aperol Spritz là biểu tượng của văn hóa Aperitivo (khai vị) miền Bắc nước Ý. Với công thức 3-2-1 huyền thoại, ly cocktail này là sự cân bằng tuyệt mỹ giữa vị ngọt đắng cam thảo của Aperol, men say lấp lánh của vang sủi Prosecco và độ thanh mát của Club Soda.</p>
+        <h3>Công Thức & Tỷ Lệ (Tỷ lệ 3-2-1)</h3>
+        <ul>
+          <li>90ml Vang sủi Prosecco (hoặc Champagne khô)</li>
+          <li>60ml Aperol</li>
+          <li>30ml Club Soda</li>
+          <li>Một lát cam tươi</li>
+        </ul>
+        <h3>Kỹ Thuật Pha Chế</h3>
+        <p><strong>Build (Trực tiếp trong ly):</strong> Dùng ly vang lớn (Copa), đổ đầy đá viên lớn. Rót Prosecco vào trước (để tránh Aperol đọng đáy ly), tiếp theo rót Aperol theo vòng tròn và cuối cùng là Club Soda. Khuấy nhẹ một vòng để giữ ga sủi. Trang trí bằng một lát cam lớn.</p>
+      `
+    },
+    steps: [
+      { text: "Chọn ly vang lớn (ly Wine glass hoặc Copa) và đổ đầy đá viên lớn." },
+      { text: "Rót 90ml Prosecco (vang sủi) vào ly trước tiên." },
+      { text: "Rót tiếp 60ml Aperol theo chuyển động vòng tròn quanh ly." },
+      { text: "Thêm 30ml Club Soda mát lạnh lên trên." },
+      { text: "Khuấy cực kỳ nhẹ nhàng một vòng để các thành phần tự hòa quyện mà không làm mất ga sủi bọt." },
+      { text: "Thả một lát cam tươi vào ly và thưởng thức cùng bạn bè." }
+    ]
   }
 ];
 

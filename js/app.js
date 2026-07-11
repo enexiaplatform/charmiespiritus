@@ -2477,6 +2477,58 @@ document.addEventListener('DOMContentLoaded', () => {
         svgVisualizer.innerHTML = drawGlassVisualizer(currentGlass, currentIce, currentDrink);
         const data = GLASSWARE_DATA[currentGlass];
         if (data) {
+          // Calculate thermodynamic and dilution values
+          const startAbvMap = { water: 0, negroni: 24, margarita: 20, highball: 9, martini: 31 };
+          const drinkNameMap = { water: 'Nước tinh khiết', negroni: 'Negroni', margarita: 'Margarita', highball: 'Whisky Highball', martini: 'Dry Martini' };
+          
+          const startAbv = startAbvMap[currentDrink];
+          const drinkName = drinkNameMap[currentDrink];
+          
+          let startTemp = 0;
+          let finalTemp = 0;
+          let dilutionPct = 0;
+          let scienceInsight = '';
+
+          if (currentIce === 'none') {
+            if (currentGlass === 'snifter') {
+              startTemp = 20.0;
+              finalTemp = 23.0;
+              dilutionPct = 0;
+              scienceInsight = 'Thưởng thức nguyên bản (Neat) trong ly Snifter giúp hơi ấm của lòng bàn tay làm ấm nhẹ rượu mạnh lên khoảng 23°C, giải phóng tối đa các este hương thơm gỗ sồi phức tạp mà không làm loãng rượu.';
+            } else if (currentGlass === 'coupe' || currentGlass === 'martini') {
+              startTemp = -4.0;
+              finalTemp = 7.5;
+              dilutionPct = 0;
+              scienceInsight = 'Không dùng đá giúp giữ 100% nồng độ cồn nguyên bản và kết cấu sánh mịn. Phần chân cao (stem) ngăn không cho nhiệt từ tay truyền lên bầu rượu, làm chậm tốc độ ấm lên.';
+            } else {
+              startTemp = -2.0;
+              finalTemp = 11.5;
+              dilutionPct = 0;
+              scienceInsight = 'Không dùng đá giúp bảo toàn nguyên vẹn hương vị cồn nguyên bản. Tuy nhiên, việc thiếu chân ly khiến nhiệt từ bàn tay truyền trực tiếp qua thành ly và làm ấm rượu khá nhanh.';
+            }
+          } else if (currentIce === 'cube') {
+            startTemp = 0.0;
+            finalTemp = 1.0;
+            dilutionPct = 18;
+            if (currentGlass === 'highball') {
+              scienceInsight = 'Đá khối vuông xếp đầy ly Highball giúp duy trì nhiệt độ gần 1°C và tạo độ loãng vừa phải (18%), làm dịu bọt ga sủi từ soda/tonic để tạo cảm giác uống sảng khoái và êm dịu.';
+            } else {
+              scienceInsight = 'Đá khối tiêu chuẩn làm lạnh nhanh nhờ diện tích bề mặt tiếp xúc vừa phải. Sau 10 phút, đá tan thêm khoảng 18% nước, làm dịu bớt độ nồng của cồn và mở ra các nốt hương ẩn.';
+            }
+          } else if (currentIce === 'sphere') {
+            startTemp = 0.0;
+            finalTemp = -2.2;
+            dilutionPct = 10;
+            scienceInsight = 'Đá cầu có diện tích tiếp xúc nhỏ nhất trên mỗi đơn vị thể tích, giúp làm giảm tốc độ tan chảy xuống tối thiểu (chỉ 10% sau 10 phút) trong khi vẫn duy trì nhiệt độ lạnh sâu cực kỳ ổn định dưới 0°C.';
+          } else if (currentIce === 'crushed') {
+            startTemp = -1.0;
+            finalTemp = 4.0;
+            dilutionPct = 32;
+            scienceInsight = 'Đá đập nát có tổng diện tích tiếp xúc cực kỳ lớn, làm lạnh đồ uống xuống nhiệt độ âm gần như ngay lập tức. Tuy nhiên, tốc độ tan chảy cực nhanh (32%) sẽ làm loãng rượu rất nhanh.';
+          }
+
+          const finalAbv = startAbv > 0 ? (startAbv / (1 + dilutionPct / 100)).toFixed(1) : 0;
+
           infoCard.innerHTML = `
             <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 6px;">
               Dung tích tiêu chuẩn: ${data.volume}
@@ -2487,7 +2539,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p style="font-size: 13.5px; line-height: 1.6; color: var(--muted-2); margin-bottom: 16px;">
               ${data.science}
             </p>
-            <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 12px; margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="border-top: 1px dashed rgba(138, 92, 199, 0.2); padding-top: 12px; margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div>
                 <div style="font-family: var(--ui); font-size: 9.5px; text-transform: uppercase; color: var(--muted-3); margin-bottom: 4px;">Cocktail Tiêu Biểu</div>
                 <div style="font-size: 12.5px; color: var(--lilac); font-weight: 500;">${data.drinks}</div>
@@ -2495,6 +2547,54 @@ document.addEventListener('DOMContentLoaded', () => {
               <div>
                 <div style="font-family: var(--ui); font-size: 9.5px; text-transform: uppercase; color: var(--muted-3); margin-bottom: 4px;">Khuyên Dùng Đá</div>
                 <div style="font-size: 12.5px; color: var(--gold); font-weight: 500;">${data.recommendedIce}</div>
+              </div>
+            </div>
+
+            <!-- BỘ MÔ PHỎNG NHIỆT ĐỘ & PHA LOÃNG THỜI GIAN THỰC -->
+            <div style="border-top: 1px dashed rgba(138, 92, 199, 0.25); padding-top: 16px; margin-top: 16px;">
+              <div style="font-family: var(--ui); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--gold);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Khoa Học Nhiệt Động &amp; Pha Loãng
+              </div>
+              
+              <!-- 1. Temperature Bar -->
+              <div style="margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; color: var(--muted-2);">
+                  <span>Nhiệt độ (10 phút)</span>
+                  <span style="color: var(--lilac); font-weight: 600;">
+                    ${startTemp}°C ➔ <b style="color: ${finalTemp < 5 ? 'var(--gold)' : 'var(--cream)'};">${finalTemp.toFixed(1)}°C</b>
+                  </span>
+                </div>
+                <!-- Progress bar track -->
+                <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; position: relative;">
+                  <div style="position: absolute; left: ${Math.max(0, ((Math.min(startTemp, finalTemp) + 5) / 30) * 100)}%; width: ${Math.max(4, Math.abs(finalTemp - startTemp) / 30 * 100)}%; height: 100%; background: linear-gradient(90deg, #3a86f0, #ff007f); border-radius: 3px;"></div>
+                </div>
+              </div>
+
+              <!-- 2. Dilution Bar -->
+              <div style="margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; color: var(--muted-2);">
+                  <span>Độ loãng (Nước đá tan)</span>
+                  <span style="color: var(--lilac); font-weight: 600;">+${dilutionPct}%</span>
+                </div>
+                <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
+                  <div style="width: ${dilutionPct * 2.5}%; height: 100%; background: var(--amethyst); border-radius: 3px;"></div>
+                </div>
+              </div>
+
+              <!-- 3. ABV Shift -->
+              <div style="margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; color: var(--muted-2);">
+                  <span>Nồng độ cồn (${drinkName})</span>
+                  <span style="color: var(--lilac); font-weight: 600;">
+                    ${startAbv}% ABV ➔ <b style="color: var(--gold);">${finalAbv}% ABV</b>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Science Insight Box -->
+              <div style="background: rgba(14, 10, 28, 0.35); border-left: 2px solid var(--gold); padding: 10px 14px; font-size: 12px; color: var(--muted-3); border-radius: 0 4px 4px 0; line-height: 1.5;">
+                <strong>Giải mã cảm quan:</strong> ${scienceInsight}
               </div>
             </div>
           `;
@@ -4025,6 +4125,32 @@ document.addEventListener('DOMContentLoaded', () => {
         color: "champagne",
         glassType: "flute",
         bottleColor: "#1B2E1E"
+      },
+      syrah: {
+        name: "Syrah / Shiraz",
+        type: "Vang Đỏ Cay Nồng (Medium to Full-Bodied Red)",
+        desc: "Đậm đà, nồng nàn và tràn đầy gia vị. Nho Syrah (phong cách cựu lục địa Pháp) hay Shiraz (tân thế giới Úc) mang cấu trúc đậm đặc, tannin dày mịn cùng hương tiêu đen cay nồng đặc trưng khó nhầm lẫn.",
+        tasteProfile: { body: 85, tannin: 80, acidity: 65, alcohol: 85, sweetness: 15 },
+        aromas: ["🫐 Quả mận đen", "🫑 Tiêu đen cay", "🪵 Khói củi nướng", "🌿 Thảo mộc khô", "🍫 Cacao đắng"],
+        temperature: "16 - 18°C (Phòng mát)",
+        glass: "Ly Syrah/Shiraz (Bầu vừa, thu hẹp nhẹ ở miệng)",
+        pairing: "Kết hợp tuyệt vời với các món thịt thú rừng, sườn bò sốt tiêu đen, thịt heo quay giòn, hoặc các món nướng cay kiểu BBQ Úc. Vị cay nồng của rượu tôn vinh gia vị trong đồ ăn.",
+        color: "ruby-deep",
+        glassType: "bordeaux",
+        bottleColor: "#18070b"
+      },
+      riesling: {
+        name: "Riesling",
+        type: "Vang Trắng Thơm Ngát (Aromatic White)",
+        desc: "Được coi là giống nho trắng cao quý nhất thế giới, Riesling sở hữu độ chua sắc bén như dao cạo và khả năng truyền tải khoáng chất thổ nhưỡng tuyệt vời, biến đổi từ không ngọt (dry) đến ngọt đậm đà.",
+        tasteProfile: { body: 45, tannin: 10, acidity: 95, alcohol: 55, sweetness: 35 },
+        aromas: ["🍑 Quả đào chín", "⛽ Dầu hỏa (Petroleum)", "🍯 Mật ong hoa rừng", "🍋 Hoa chanh bưởi", "🪨 Khoáng chất đá slate"],
+        temperature: "7 - 9°C (Lạnh sâu)",
+        glass: "Ly Riesling (Bầu nhỏ thuôn)",
+        pairing: "Rất hợp với các món ăn châu Á có vị cay ngọt và nhiều gia vị (ẩm thực Thái, Việt, Tứ Xuyên), hải sản hấp sả, vịt quay Bắc Kinh, hoặc phô mai xanh (Blue Cheese). Vị chua ngọt cân bằng dập tắt độ cay của ớt cực tốt.",
+        color: "gold-pale",
+        glassType: "white-narrow",
+        bottleColor: "#2F3B20"
       }
     };
 
@@ -4131,6 +4257,8 @@ document.addEventListener('DOMContentLoaded', () => {
         liqGrad = `<linearGradient id="wine-liq-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EBF2DA" stop-opacity="0.75" /><stop offset="100%" stop-color="#B8CCA2" stop-opacity="0.75" /></linearGradient>`;
       } else if (data.color === 'champagne') {
         liqGrad = `<linearGradient id="wine-liq-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FBE4B8" stop-opacity="0.8" /><stop offset="100%" stop-color="#D6A24A" stop-opacity="0.85" /></linearGradient>`;
+      } else if (data.color === 'gold-pale') {
+        liqGrad = `<linearGradient id="wine-liq-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FCF3CF" stop-opacity="0.75" /><stop offset="100%" stop-color="#F9E79F" stop-opacity="0.8" /></linearGradient>`;
       }
 
       const botGrad = `<linearGradient id="wine-bot-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="${data.bottleColor}" /><stop offset="50%" stop-color="#705058" stop-opacity="0.2" /><stop offset="100%" stop-color="${data.bottleColor}" /></linearGradient>`;
